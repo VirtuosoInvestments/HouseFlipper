@@ -10,8 +10,25 @@ namespace HouseFlipper
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            if(args==null || args.Length==0)
+            {
+                Help();
+            }
+            else
+            {
+                CmdHandler(args);
+            }
             Console.Read();
+        }
+
+        private static void CmdHandler(string[] args)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Help()
+        {
+            Console.WriteLine("Help - coming soon!");
         }
     }
 }
