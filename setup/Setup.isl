@@ -228,6 +228,7 @@
 		<row><td>DOTNETVERSION45FULL</td><td>DotNet45Full</td></row>
 		<row><td>IISROOTFOLDER</td><td>_IISROOTFOLDER</td></row>
 		<row><td>IIS_VERSION</td><td>_IIS_VERSION</td></row>
+		<row><td>MSSQL_SQLEXPRESS</td><td>NewSignature1</td></row>
 	</table>
 
 	<table name="BBControl">
@@ -357,6 +358,7 @@
 		<row><td>Hack.HouseFlipper.DataAccess.dll3</td><td>{B7463C53-F415-412C-B14F-2992E4B48958}</td><td>DEBUG3</td><td>2</td><td/><td>hack.houseflipper.dataaccess12</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Hack.HouseFlipper.Utility.exe</td><td>{27CDAA06-A8D8-4E8C-B0B1-08A061A0AD80}</td><td>DEBUG3</td><td>2</td><td/><td>hack.houseflipper.utility.ex</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Hack.HouseFlipper.Utility.vshost.exe</td><td>{3A5AF57F-D763-4EEE-8BD8-8DA40CCF079F}</td><td>DEBUG3</td><td>2</td><td/><td>hack.houseflipper.utility.vs</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td>{5E0FAD62-B1DD-4BF9-8E0D-02838B6D31B7}</td><td>DATABASEDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT11</td><td>{57A001E3-2A7C-4F0F-9AEB-BB8D74EAD8CB}</td><td>WEBSITE</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT12</td><td>{767E7EC6-CE14-48FE-BF0D-ECE905BA53C8}</td><td>APP_DATA</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT13</td><td>{044ABDAF-3F4E-4C1F-AD21-ADA380096B75}</td><td>APP_START</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -376,8 +378,6 @@
 		<row><td>ISX_DEFAULTCOMPONENT31</td><td>{26FBF50F-17EC-4B69-986C-AA1D701956D4}</td><td>UTILITY</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT32</td><td>{CB3F8BC6-1F9E-43CF-9CEC-37109A69B329}</td><td>BIN2</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT33</td><td>{43FBE356-A9F2-4CFC-BABD-B358B4BCDFC2}</td><td>DEBUG3</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT38</td><td>{47DECE16-77BC-40DC-9E90-793271C8F7C2}</td><td>DATABASE_DIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT39</td><td>{EFD21CBE-1BA8-460A-AC0E-D86FF4D4C45F}</td><td>DATABASE_DIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT40</td><td>{9772F7AA-96A4-4C38-8E98-9A8B5DFBEF45}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td>{87D4C7E7-3962-4AD4-8D80-BC0A761A371E}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Microsoft.Web.Helpers.dll</td><td>{92304C26-54C9-4BFA-B01D-CCB1E1318A23}</td><td>BIN1</td><td>2</td><td/><td>microsoft.web.helpers.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1152,8 +1152,7 @@
 		<row><td>BIN2</td><td>ISX_DEFAULTCOMPONENT32</td></row>
 		<row><td>CONTENT</td><td>ISX_DEFAULTCOMPONENT15</td></row>
 		<row><td>CONTROLLERS</td><td>ISX_DEFAULTCOMPONENT16</td></row>
-		<row><td>DATABASE_DIR</td><td>ISX_DEFAULTCOMPONENT38</td></row>
-		<row><td>DATABASE_DIR</td><td>ISX_DEFAULTCOMPONENT39</td></row>
+		<row><td>DATABASEDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>DEBUG3</td><td>EntityFramework.SqlServer.dll2</td></row>
 		<row><td>DEBUG3</td><td>EntityFramework.dll2</td></row>
 		<row><td>DEBUG3</td><td>Hack.HouseFlipper.DataAccess.dll3</td></row>
@@ -1178,6 +1177,7 @@
 		<row><td>INSTALLDIR</td><td>Hack.HouseFlipper.DataAccess.dll3</td></row>
 		<row><td>INSTALLDIR</td><td>Hack.HouseFlipper.Utility.exe</td></row>
 		<row><td>INSTALLDIR</td><td>Hack.HouseFlipper.Utility.vshost.exe</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT11</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT12</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT13</td></row>
@@ -1197,8 +1197,6 @@
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT31</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT32</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT33</td></row>
-		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT38</td></row>
-		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT39</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT40</td></row>
 		<row><td>INSTALLDIR</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>INSTALLDIR</td><td>Microsoft.Web.Helpers.dll</td></row>
@@ -1331,7 +1329,6 @@
 		<row><td>CommonFiles64Folder</td><td>TARGETDIR</td><td>.:Common64</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesFolder</td><td>TARGETDIR</td><td>.:Common</td><td/><td>0</td><td/></row>
 		<row><td>DATABASEDIR</td><td>ISYourDataBaseDir</td><td>.</td><td/><td>0</td><td/></row>
-		<row><td>DATABASE_DIR</td><td>DATABASEDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>DEBUG3</td><td>BIN2</td><td>Debug</td><td/><td>0</td><td/></row>
 		<row><td>DOCUSIGN__INC.</td><td>ProgramFilesFolder</td><td>DOCUSI~1|DocuSign, Inc.</td><td/><td>0</td><td/></row>
 		<row><td>DesktopFolder</td><td>TARGETDIR</td><td>.:Desktop</td><td/><td>3</td><td/></row>
@@ -2087,6 +2084,7 @@
 		<row><td>AlwaysInstall</td><td>Hack.HouseFlipper.DataAccess.dll3</td></row>
 		<row><td>AlwaysInstall</td><td>Hack.HouseFlipper.Utility.exe</td></row>
 		<row><td>AlwaysInstall</td><td>Hack.HouseFlipper.Utility.vshost.exe</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT11</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT12</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT13</td></row>
@@ -2106,8 +2104,6 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT31</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT32</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT33</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT38</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT39</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT40</td></row>
 		<row><td>AlwaysInstall</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>AlwaysInstall</td><td>Microsoft.Web.Helpers.dll</td></row>
@@ -2304,7 +2300,8 @@
 		<row><td>microsoft.web.helpers.dll</td><td>Microsoft.Web.Helpers.dll</td><td>MICROS~1.DLL|Microsoft.Web.Helpers.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\bin\Microsoft.Web.Helpers.dll</td><td>1</td><td/></row>
 		<row><td>microsoft.web.infrastructure</td><td>Microsoft.Web.Infrastructure.dll</td><td>MICROS~1.DLL|Microsoft.Web.Infrastructure.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\bin\Microsoft.Web.Infrastructure.dll</td><td>1</td><td/></row>
 		<row><td>microsoft.web.infrastructure1</td><td>ISX_DEFAULTCOMPONENT14</td><td>MICROS~1.XML|Microsoft.Web.Infrastructure.xml</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\bin\Microsoft.Web.Infrastructure.xml</td><td>1</td><td/></row>
-		<row><td>mls.mdf</td><td>ISX_DEFAULTCOMPONENT39</td><td>MLS.mdf</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ralph.joachim\MLS.mdf</td><td>1</td><td/></row>
+		<row><td>mls.mdf2</td><td>ISX_DEFAULTCOMPONENT</td><td>MLS.mdf</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ralph.joachim\MLS.mdf</td><td>1</td><td/></row>
+		<row><td>mls_log.ldf</td><td>ISX_DEFAULTCOMPONENT</td><td>MLS_log.ldf</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ralph.joachim\MLS_log.ldf</td><td>1</td><td/></row>
 		<row><td>mlsrowcomparer.cs</td><td>ISX_DEFAULTCOMPONENT16</td><td>MLSROW~1.CS|MlsRowComparer.cs</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Controllers\MlsRowComparer.cs</td><td>1</td><td/></row>
 		<row><td>modernizr_2.6.2.js</td><td>ISX_DEFAULTCOMPONENT23</td><td>MODERN~1.JS|modernizr-2.6.2.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Scripts\modernizr-2.6.2.js</td><td>1</td><td/></row>
 		<row><td>newtonsoft.json.dll1</td><td>Newtonsoft.Json.dll1</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\bin\Newtonsoft.Json.dll</td><td>1</td><td/></row>
@@ -2526,6 +2523,7 @@
 		<row><td>Hack.HouseFlipper.DataAccess.dll3</td><td/><td/><td>_CD363167_052B_4B10_A129_A21FB7C7235F_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Hack.HouseFlipper.Utility.exe</td><td/><td/><td>_CA891E93_8AD7_41DB_94B4_E5740E816836_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Hack.HouseFlipper.Utility.vshost.exe</td><td/><td/><td>_5518E70F_8AED_4FF6_81BA_3996BDE2521D_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_CB94AB7C_01A2_4C99_8DC0_6E7590EA03FB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT11</td><td/><td/><td>_2A3ACA41_48D4_4F7A_956F_CCD921B07F4B_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT12</td><td/><td/><td>_CFA197CD_CB82_4503_BCB4_FA3DA6D68A4D_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT13</td><td/><td/><td>_D9CAD7FE_99C3_4B7B_A492_B5B1320F456D_FILTER</td><td/><td/><td/><td/></row>
@@ -2545,8 +2543,6 @@
 		<row><td>ISX_DEFAULTCOMPONENT31</td><td/><td/><td>_9C8C3EBF_85E2_4AB5_B5FF_8D333F422EBE_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT32</td><td/><td/><td>_945ACFC1_3DEC_4C44_96A1_C29E364CA5D9_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT33</td><td/><td/><td>_E52C938D_46A4_487C_8B7F_3AF50DD57449_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT38</td><td/><td/><td>_09650646_D47D_4D8D_9E04_AF12C3130725_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT39</td><td/><td/><td>_D1349896_3687_442E_8638_20AA9D8D0F7A_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT40</td><td/><td/><td>_EE85804A_905E_4A04_ABC1_5F4C3768A9BB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td/><td/><td>_B2335BD9_E61B_4C31_9325_D2E99C9C2599_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Microsoft.Web.Helpers.dll</td><td/><td/><td>_EFAE09EA_887C_448D_959A_585AC6381E3E_FILTER</td><td/><td/><td/><td/></row>
@@ -3179,6 +3175,7 @@
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1629836352</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1629848768</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IIS_VERSION</td><td>1033</td><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IIS_VERSION</td><td>0</td><td/><td>1629821153</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MSSQL_SQLEXPRESS</td><td>1033</td><td>SQL Express must be installed prior to running installation.</td><td>0</td><td/><td>1629826478</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>1629836352</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1629836352</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1629836352</td></row>
@@ -4920,7 +4917,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;IIS_VERSION;IISROOTFOLDER</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;IIS_VERSION;IISROOTFOLDER;MSSQL_SQLEXPRESS</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{EE65F541-64A8-4F12-8859-57EA4E6448A6}</td><td/></row>
@@ -4966,6 +4963,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">Name</col>
 		<col def="I2">Type</col>
 		<row><td>DotNet45Full</td><td>2</td><td>SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</td><td>Version</td><td>2</td></row>
+		<row><td>NewSignature1</td><td>2</td><td>OBJECTNAME</td><td>NT Service\MSSQL$SQLEXPRESS</td><td>16</td></row>
 		<row><td>_IISROOTFOLDER</td><td>2</td><td>Software\Microsoft\InetStp</td><td>PathWWWRoot</td><td>0</td></row>
 		<row><td>_IIS_VERSION</td><td>2</td><td>SYSTEM\CurrentControlSet\Services\W3SVC\Parameters</td><td>MajorVersion</td><td>2</td></row>
 	</table>
