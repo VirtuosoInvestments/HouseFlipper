@@ -1,0 +1,130 @@
+﻿@model Hack.HouseFlipper.DataAccess.Models.Homes
+@{
+    ViewBag.Title = "Flipped Homes";
+}
+
+<h3>Flipped Homes - @Html.DisplayFor(m => m.Zipcode) </h3>
+
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Address","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "Address"})
+            </th>
+            <th>
+                @Html.ActionLink("City","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "City"})
+            </th>
+            <th>
+                @Html.ActionLink("Subdivision","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "Subdivision"})
+            </th>
+            <th align="center">
+                @Html.ActionLink("Beds","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "Beds"})
+            </th>
+            <th align="center">
+                @Html.ActionLink("Full","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "FullBaths"})
+            </th>
+            <th align="center">
+                @Html.ActionLink("Half","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "HalfBaths"})
+            </th>
+            <th>
+                @Html.ActionLink("Year","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "YearBuilt"})
+            </th>
+            <th>
+                @Html.ActionLink("Pool","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "Pool"})
+            </th>
+            <th>
+                @Html.ActionLink("Purchase","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "PurchasePrice"})
+            </th>
+            <th>
+                @Html.ActionLink("Sold","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "SoldPrice"})
+            </th>
+            <th>
+                @Html.ActionLink("SqFt","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "SqFtHeated"})
+            </th>
+            <th>
+                @Html.ActionLink("PP/SqFt","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "PPSqFtValue"})
+            </th>
+            <th>
+                @Html.ActionLink("SP/SqFt","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "SPSqFtNumValue"})
+            </th>
+            <th>
+                @Html.ActionLink("Profit","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "ProfitValue"})
+            </th>
+            <th>
+                @Html.ActionLink("ROI", "FlippedHomes", new { id = @Model.Zipcode, sortOrder = "RoiPurchase" })
+            </th>
+            <th>
+                @Html.ActionLink("Dates","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "Date"})
+            </th>
+            <th align="center">
+                @Html.ActionLink("ADOM","FlippedHomes", new { id = @Model.Zipcode, sortOrder = "ADOMNumValue"})
+            </th>
+        </tr>
+
+        @foreach (Hack.HouseFlipper.DataAccess.Models.FlippedHouse item in Model)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.PostalCode)
+                </td>*@
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subdivision)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.Beds)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.FullBaths)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.HalfBaths)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearBuilt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pool)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchasePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoldPrice)
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.SqFtHeated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PPSqFt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SPSqFt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Profit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ROI)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.SPoverPP)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.ADOM)
+                </td>
+            </tr>
+        }
+
+    </table>
+}

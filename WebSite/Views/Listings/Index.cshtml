@@ -1,0 +1,232 @@
+﻿@model PagedList.IPagedList<Hack.HouseFlipper.DataAccess.Models.MlsRow>
+
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Listings";
+}
+
+<h2>Listings</h2>
+
+@using (Html.BeginForm())
+{
+
+    @*<div class="search-box">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
+                </div>
+                <button type="submit" class="btn btn-info">Search</button>
+            </form>
+        </div>*@
+    <table>
+        @*<tr><td><input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." /></td>
+                <td><button type="submit" class="btn btn-info">Search</button></td>
+                <td>
+                    @Html.ActionLink("Create New", "Create")
+                </td>
+            </tr>*@
+
+
+
+        <tr>
+            <td>
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            </td>
+            <td>
+                <input type="submit" value="Search" />
+            </td>
+            <td>
+                @Html.ActionLink("Create New", "Create")
+            </td>
+        </tr>
+
+
+    </table>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("ML #", "Index",
+                new { sortOrder = "MLNumber", CurrentSort = ViewBag.CurrentSort, currentFilter=ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Status", "Index",
+         new { sortOrder = "Status", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Address", "Index",
+         new { sortOrder = "Address", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("City", "Index",
+         new { sortOrder = "City", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Zip", "Index",
+         new { sortOrder = "PostalCode", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("SubDiv", "Index",
+         new { sortOrder = "LegalSubdivisionName", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Price", "Index",
+         new { sortOrder = "CurrentPrice", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("SqFt", "Index",
+         new { sortOrder = "SqFtHeated", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th> 
+            <th>
+                @Html.ActionLink("LPSqFt", "Index",
+  new { sortOrder = "LP/SqFt", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("SPSqFt", "Index",
+  new { sortOrder = "SP/SqFt", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Beds", "Index",
+         new { sortOrder = "Beds", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Full", "Index",
+         new { sortOrder = "FullBaths", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Half", "Index",
+         new { sortOrder = "HalfBaths", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Year", "Index",
+         new { sortOrder = "YearBuilt", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Pool", "Index",
+         new { sortOrder = "Pool", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("Taxes", "Index",
+         new { sortOrder = "Taxes", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("ADOM", "Index",
+         new { sortOrder = "ADOM", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("CDOM", "Index",
+  new { sortOrder = "CDOM", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("DTC", "Index",
+         new { sortOrder = "DaystoContract", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th>
+                @Html.ActionLink("CloseDate", "Index",
+         new { sortOrder = "CloseDate", CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, sortDirection = ViewBag.SortDirection })
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MLNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LegalSubdivisionName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SqFtHeated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LPSqFt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SPSqFt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Beds)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullBaths)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HalfBaths)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearBuilt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pool)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Taxes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADOM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CDOM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DaystoContract)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CloseDate)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <br />
+    <div id='Paging' style="text-align:center">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { sortOrder = ViewBag.CurrentSort, sortDirection = ViewBag.SortDirection, CurrentSort = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, page = page }))
+    </div>
+}
+
+
+@*
+        <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+*@
+
+@*<div class="col-sm-10">
+        <div class="center">
+            @Html.PagedListPager(
+                Model,
+                page => Url.Action("AllListings", new { page, pageSize = Model.PageSize }))
+
+            Showing @Model.FirstItemOnPage to @Model.LastItemOnPage
+                of @Model.TotalItemCount Listings
+        </div>
+    </div>*@
+
+@*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }))*@
