@@ -1,0 +1,266 @@
+﻿@model Hack.HouseFlipper.DataAccess.Models.MlsRow
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Listing</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MLNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MLNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LegalSubdivisionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LegalSubdivisionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SqFtHeated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SqFtHeated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Beds)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Beds)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullBaths)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullBaths)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HalfBaths)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HalfBaths)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearBuilt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearBuilt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pool)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pool)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PropertyStyle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PropertyStyle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Taxes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Taxes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CDOM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CDOM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ADOM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ADOM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DaystoContract)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DaystoContract)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoldTerms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoldTerms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CloseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CloseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LPSqFt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LPSqFt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SPSqFt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SPSqFt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SPLP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SPLP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListOfficeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListOfficeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListAgentFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListAgentFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListAgentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListAgentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SellingAgentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellingAgentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SellingOfficeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellingOfficeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SellingAgentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellingAgentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LSCListSide)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LSCListSide)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficePrimaryBoardID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficePrimaryBoardID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

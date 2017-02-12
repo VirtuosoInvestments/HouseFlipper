@@ -1,0 +1,121 @@
+﻿@model Hack.HouseFlipper.DataAccess.Models.Subdivisions
+
+@{
+    ViewBag.Title = "Subdivisions";
+}
+
+<h3>Subdivisions - @Html.DisplayFor(m => m.Zipcode) </h3>
+
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th align="center">
+                <p style="text-align: left">@Html.ActionLink("Subdivision", "Subdivision", new { sortOrder = "Zipcode" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Flips", "Subdivision", new { sortOrder = "Count" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Active", "Subdivision", new { sortOrder = "ActiveCount" })</p>
+            </th>
+            
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Beds", "Subdivision", new { sortOrder = "AverageBedsValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Full", "Subdivision", new { sortOrder = "AverageFullBathsValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Half", "Subdivision", new { sortOrder = "AverageHalfBathsValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Year", "Subdivision", new { sortOrder = "AverageYearBuilt" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">Pool</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Purchase", "Subdivision", new { sortOrder = "AveragePurchaseValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Sold", "Subdivision", new { sortOrder = "AverageSoldPriceValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Profit", "Subdivision", new { sortOrder = "AverageProfitValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("SqFt", "Subdivision", new { sortOrder = "AverageSqFtHeatedValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Purchase/SqFt", "Subdivision", new { sortOrder = "AveragePPSqFtValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("Sold/SqFt", "Subdivision", new { sortOrder = "AverageSPSqFTValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("ROI", "Subdivision", new { sortOrder = "AverageROIValue" })</p>
+            </th>
+            <th align="center">
+                <p style="text-align: center">@Html.ActionLink("ADOM", "Subdivision", new { sortOrder = "AverageADOMValue" })</p>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td align="left">
+                    @Html.DisplayFor(modelItem => item.Subdivision)
+                </td>
+                <td align="center">
+                    <p>@Html.ActionLink(@Html.DisplayFor(modelItem => item.Count).ToString(), "FlippedHomes", new { id = item.Zipcode, filter = "subdiv:" + item.Subdivision })</p>
+                </td>
+                <td align="center">
+                    <p>@Html.ActionLink(@Html.DisplayFor(modelItem => item.ActiveCount).ToString(), "Homes", new { id = item.Zipcode, subdiv=item.Subdivision, filter="active" })</p>
+                </td>
+                
+                <td align="center">
+                    @*@Html.DisplayFor(modelItem => item.AverageBought.Beds)/@Html.DisplayFor(modelItem => item.AverageSold.Beds)*@
+                    @Html.DisplayFor(modelItem => item.AverageBeds)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AverageFullBaths)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AverageHalfBaths)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AverageYearBuilt)
+                </td>
+                <td align="center">
+                    @*@Html.DisplayFor(modelItem => item.Pool)*@
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AveragePurchase)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AverageSoldPrice)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AverageProfit)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AverageSqFtHeated)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AveragePPSqFt)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AverageSPSqFT)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AverageROI)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AverageADOM)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
