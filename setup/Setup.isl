@@ -228,6 +228,7 @@
 		<row><td>DOTNETVERSION45FULL</td><td>DotNet45Full</td></row>
 		<row><td>IISROOTFOLDER</td><td>_IISROOTFOLDER</td></row>
 		<row><td>IIS_VERSION</td><td>_IIS_VERSION</td></row>
+		<row><td>MSSQL_SQLEXPRESS</td><td>NewSignature1</td></row>
 	</table>
 
 	<table name="BBControl">
@@ -3179,6 +3180,7 @@
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1629836352</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1629848768</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IIS_VERSION</td><td>1033</td><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IIS_VERSION</td><td>0</td><td/><td>1629821153</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MSSQL_SQLEXPRESS</td><td>1033</td><td>SQL Express must be installed prior to running installation.</td><td>0</td><td/><td>1629850028</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>1629836352</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1629836352</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1629836352</td></row>
@@ -4592,6 +4594,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col key="yes" def="s255">Condition</col>
 		<col def="l255">Description</col>
 		<row><td>DOTNETVERSION45FULL&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL##</td></row>
+		<row><td>MSSQL_SQLEXPRESS</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_MSSQL_SQLEXPRESS##</td></row>
 	</table>
 
 	<table name="ListBox">
@@ -4920,7 +4923,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;IIS_VERSION;IISROOTFOLDER</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;IIS_VERSION;IISROOTFOLDER;MSSQL_SQLEXPRESS</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{EE65F541-64A8-4F12-8859-57EA4E6448A6}</td><td/></row>
@@ -4966,6 +4969,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">Name</col>
 		<col def="I2">Type</col>
 		<row><td>DotNet45Full</td><td>2</td><td>SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</td><td>Version</td><td>2</td></row>
+		<row><td>NewSignature1</td><td>2</td><td>MSSQL$SQLEXPRESS</td><td/><td>0</td></row>
 		<row><td>_IISROOTFOLDER</td><td>2</td><td>Software\Microsoft\InetStp</td><td>PathWWWRoot</td><td>0</td></row>
 		<row><td>_IIS_VERSION</td><td>2</td><td>SYSTEM\CurrentControlSet\Services\W3SVC\Parameters</td><td>MajorVersion</td><td>2</td></row>
 	</table>
