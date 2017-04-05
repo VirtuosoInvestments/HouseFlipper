@@ -21,7 +21,14 @@ namespace Hack.HouseFlipper.Utility
             //string dataFolder = 
             //@"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\data";
 
-            //ImportToDbCommand(dataFolder);
+            if(args!=null && args.Length>0)
+            {
+                var dataFolder = args[0];
+
+                ImportToDbCommand(dataFolder);
+            }
+
+            
 
             // property => sold record
             var soldHash = new Dictionary<string, MlsRow>();
