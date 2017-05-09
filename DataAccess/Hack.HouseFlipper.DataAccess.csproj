@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Csv\MlsTokenizer.cs" />
     <Compile Include="DB\MlsContext.cs" />
     <Compile Include="Csv\MlsDataReader.cs" />
     <Compile Include="Models\FlippedCharacteristics.cs" />
