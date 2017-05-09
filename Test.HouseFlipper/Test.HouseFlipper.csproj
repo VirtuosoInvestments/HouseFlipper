@@ -67,6 +67,7 @@
     <None Include="data\listing.csv" />
     <None Include="data\listing2.csv" />
     <None Include="data\listing3.csv" />
+    <None Include="data\token-test.csv" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
