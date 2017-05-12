@@ -9,16 +9,15 @@ namespace Test.HouseFlipper
     public class MlsTokenizerTest
     {
         [TestMethod]
-        public void GetValues()
+        public void Split()
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\listing.csv";
             List<string> lines = FileHelper.GetLines(path);
-            var instance = new MlsTokenizer();
             foreach (var line in lines)
             {
                 var tokens = Tokenize(line);
-                var actual = instance.GetValues(line);
-                Assert.AreEqual(tokens.Count, actual.Count);
+                var actual = MlsTokenizer.Split(line);
+                Assert.AreEqual(tokens.Count, actual.Length);
                 for (int j = 0; j < tokens.Count; j++)
                 {
                     Assert.AreEqual(tokens[j], actual[j]);
@@ -30,12 +29,10 @@ namespace Test.HouseFlipper
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\token-test.csv";
             List<string> allLines = FileHelper.GetLines(path);
-            var instance = new MlsTokenizer();
             int currentIndex = 0;
             var line = allLines[currentIndex];
 
-            /*var tokens =*/var actual = Tokenize(line, allLines, currentIndex);
-            //var actual = instance.GetValues(line);
+            var actual = Tokenize(line, allLines, currentIndex);
 
             var expected = new List<string>()
             {
@@ -59,14 +56,6 @@ namespace Test.HouseFlipper
         private static List<string> Tokenize(string line, List<string> allLines=null, int? currentIndex=null)
         {
             var tmp = line;
-            /*var tokens = tmp.Split(',');
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                tokens[i] = tokens[i].Replace("\"", string.Empty);
-            }
-
-            return tokens;*/
-
             var tokens = new List<string>();
             int quoteCount = 0;
             string word = null;

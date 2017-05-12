@@ -28,7 +28,7 @@ namespace Hack.HouseFlipper.Utility
             {
                 ++rowNum;
                 Console.WriteLine("{0}: {1}", rowNum, line.Text);
-                string[] values = StripExtraQuotes(GetFields(line.Text));
+                var values = MlsTokenizer.Split(line.Text);
                 if (line.NewFile)
                 {
                     fieldNames = values;
@@ -54,23 +54,6 @@ namespace Hack.HouseFlipper.Utility
             var record = new MlsRow(data);
             context.Listings.Add(record);
             return record;
-        }
-
-        private static string[] GetFields(string line)
-        {
-            var separator = "\",\"";
-            return line.Split(new string[] { separator }, StringSplitOptions.None);
-        }
-
-        private static string[] StripExtraQuotes(string[] fields)
-        {
-            var colNames = new string[fields.Length];
-            for (var j = 0; j < fields.Length; j++)
-            {
-                var field = fields[j].Replace("\"", string.Empty);
-                colNames[j] = field;
-            }
-            return colNames;
-        }
+        }        
     }
 }

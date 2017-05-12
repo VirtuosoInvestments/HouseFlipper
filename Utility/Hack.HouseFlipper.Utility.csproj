@@ -54,6 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregators\Aggregator.cs" />
+    <Compile Include="Aggregators\FlipAggregator.cs" />
+    <Compile Include="Aggregators\MlsSet.cs" />
+    <Compile Include="Aggregators\SoldAggregator.cs" />
+    <Compile Include="Commands\ClearCommand.cs" />
+    <Compile Include="Commands\ImportCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\ProcessCommand.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

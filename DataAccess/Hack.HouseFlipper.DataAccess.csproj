@@ -65,6 +65,7 @@
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\MlsRow.cs" />
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\MlsRowExtensions.cs" />
     <Compile Include="Models\Subdivisions.cs" />
     <Compile Include="Models\Zips.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
