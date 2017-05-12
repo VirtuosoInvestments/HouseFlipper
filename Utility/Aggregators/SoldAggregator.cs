@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hack.HouseFlipper.Utility.Aggregators
+namespace Hack.HouseFlipper.Utility
 {
     public class Aggregator2
     {
@@ -17,11 +17,14 @@ namespace Hack.HouseFlipper.Utility.Aggregators
             this.ShouldAdd = rule;
         }
 
+        public event Action<MlsRow> AddEvent;
+
         public virtual bool Add(MlsRow record)
         {
             if (ShouldAdd(set, record))
             {
                 set.Add(record);
+                AddEvent?.BeginInvoke(record,null,null);
                 return true;
             }
             return false;

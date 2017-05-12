@@ -35,6 +35,9 @@ namespace Hack.HouseFlipper.Utility.Commands
 
             // zip => subdiv => property => active records matching flipped house characteristics
             activeMultiKeyHash = new Dictionary<string, Dictionary<string, Dictionary<string, List<MlsRow>>>>(StringComparer.OrdinalIgnoreCase);
+
+            var flipAgg = new FlipAggregator();
+            var activeAgg = new ActiveAggregator();
             using (var db = new MlsContext())
             {
                 foreach (var record in db.Listings)
@@ -42,54 +45,17 @@ namespace Hack.HouseFlipper.Utility.Commands
                     //AggregateBySold(soldHash, flippedMultiKeyHash, record);
                     //AggregateByActive(activeMultiKeyHash, record);
 
-                    if (record.IsSold())
-                    {
-                        if (soldSet.Add(record))
-                        {
-                            AggregateFlips(soldHash, flippedMultiKeyHash, record, houseID);
-                        }
-                    }
+                    flipAgg.Add(record);
+                    activeAgg.Add(record);/*
                     else if (record.IsActive())
                     {
                         var zip = record.PostalCode;
                         var subDiv = record.LegalSubdivisionName;
                         string houseID = record.PropertyId();
-                        AddActive(activeMultiKeyHash, /*currentActiveHash,*/ zip, subDiv, houseID, record);
-                    }
+                        AddActive(activeMultiKeyHash, zip, subDiv, houseID, record);
+                    }*/
 
                 }
-            }
-        }
-
-        public void Add(MlsRow record)
-        {
-            
-        }
-
-        private void AggregateBySold(Dictionary<string, MlsRow> soldHash, Dictionary<string, Dictionary<string, Dictionary<string, List<MlsRow>>>> flippedMultiKeyHash, MlsRow record)
-        {
-            if (record.IsSold())
-            {
-                string houseID = PropertyAddress(record);
-                if (Contains(soldHash, houseID))
-                {
-                    AggregateFlips(soldHash, flippedMultiKeyHash, record, houseID);
-                }
-                else
-                {
-                    AddFirstSold(soldHash, record, houseID);
-                }
-            }
-        }
-
-        private static void AggregateByActive(Dictionary<string, Dictionary<string, Dictionary<string, List<MlsRow>>>> activeMultiKeyHash, /*Dictionary<string, MlsRow> currentActiveHash,*/ MlsRow record)
-        {
-            if (record.IsActive())
-            {
-                var zip = record.PostalCode;
-                var subDiv = record.LegalSubdivisionName;
-                string houseID = record.PropertyId();
-                AddActive(activeMultiKeyHash, /*currentActiveHash,*/ zip, subDiv, houseID, record);
             }
         }
     }

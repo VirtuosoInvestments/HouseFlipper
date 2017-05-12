@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hack.HouseFlipper.Utility.Aggregators
+namespace Hack.HouseFlipper.Utility
 {
     public class FlipAggregator : Aggregator2
     {
@@ -13,13 +13,17 @@ namespace Hack.HouseFlipper.Utility.Aggregators
         {
             var initialSet = new MlsSet();
             sold = new SoldAggregator(initialSet);
+            var zipTable = new ZipTable();
+            var subDivTable = new SubdivisionTable();
+            this.AddEvent += zipTable.HandleAdd;
+            this.AddEvent += subDivTable.HandleAdd;
         }
 
         private SoldAggregator sold;
         public override bool Add(MlsRow record)
         {
-            var isFlip = false;
-            if (isFlip = !base.Add(record))
+            var isFlip = base.Add(record);
+            if (!isFlip)
             {
                 sold.Add(record);
             }
