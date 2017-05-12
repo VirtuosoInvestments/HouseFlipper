@@ -1937,62 +1937,13 @@ namespace Hack.HouseFlipper.Utility
         private static void ImportToDbCommand(string dataFolder)
         {
             //bool isFirstLine = true;
-            string[] colNames = null;
-            var rowNum = 0;
+            
             //List<MlsRow> mlsRows = new List<MlsRow>();
             var reader = new MlsDataReader(dataFolder, "*.csv", SearchOption.AllDirectories);
             using (var context = new MlsContext())
             {
-                foreach (var line in reader.ReadLine())
-                {
-                    ++rowNum;
-                    Console.WriteLine("{0}: {1}", rowNum, line.Text);
-                    string[] fields = GetFields(line.Text);
-                    if (line.NewFile)
-                    {
-                        //isFirstLine = false;
-                        colNames = GetHeaderColumns(fields);
-                    }
-                    else
-                    {
-                        MlsRow record = AddRecord(context, /*mlsRows,*/ colNames, fields);
-                    }
-                }
-                context.SaveChanges();
+                new Importer(reader, context).Run();
             }
-        }
-
-        private static string[] GetFields(string line)
-        {
-            return line.Split(new string[] { "\",\"" }, StringSplitOptions.None);
-        }
-
-        private static string[] GetHeaderColumns(string[] fields)
-        {
-            var colNames = new string[fields.Length];
-            for (var j = 0; j < fields.Length; j++)
-            {
-                var field = fields[j].Replace("\"", string.Empty);
-                colNames[j] = field;
-            }
-            return colNames;
-        }
-
-        private static MlsRow AddRecord(
-            MlsContext context,
-            //List<MlsRow> mlsRows, 
-            string[] colNames,
-            string[] fields)
-        {
-            var data = new StringDictionary();
-            for (var j = 0; j < fields.Length; j++)
-            {
-                var field = fields[j].Replace("\"", string.Empty);
-                data.Add(colNames[j], field);
-            }
-            var record = new MlsRow(data);
-            context.Listings.Add(record);
-            return record;
-        }
-    }
+        }                       
+    }    
 }

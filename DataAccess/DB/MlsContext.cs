@@ -17,7 +17,7 @@ namespace Hack.HouseFlipper.DataAccess.DB
         {
         }
 
-        public DbSet<MlsRow> Listings { get; set; }
+        public virtual DbSet<MlsRow> Listings { get; set; }
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{

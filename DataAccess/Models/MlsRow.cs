@@ -382,6 +382,7 @@ namespace Hack.HouseFlipper.DataAccess.Models
         [JsonIgnore]
         [NotMapped]
         public string PreFlipAvgLPSqFt { get; set; }
+        public string County { get; set; }
 
         public int PoolValue()
         {

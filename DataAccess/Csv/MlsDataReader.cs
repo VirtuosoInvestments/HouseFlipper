@@ -48,7 +48,7 @@ namespace Hack.HouseFlipper.DataAccess.Csv
             files = new string[] { filePath };
         }
 
-        public IEnumerable<MlsDataLine> ReadLine()
+        public virtual IEnumerable<MlsDataLine> ReadLine()
         {
             foreach (var file in files)
             {
