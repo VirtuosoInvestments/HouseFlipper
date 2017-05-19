@@ -77,6 +77,8 @@
     <Compile Include="MlsRowTest.cs" />
     <Compile Include="ImporterTest.cs" />
     <Compile Include="FlipAggregatorTest.cs" />
+    <Compile Include="PropertySearchTest.cs" />
+    <Compile Include="MapDisplayTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\Hack.HouseFlipper.DataAccess.csproj">
@@ -90,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="data\search.csv" />
     <None Include="data\listing.csv" />
     <None Include="data\listing2.csv" />
     <None Include="data\listing3.csv" />

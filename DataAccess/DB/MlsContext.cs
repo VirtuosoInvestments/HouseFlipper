@@ -18,6 +18,7 @@ namespace Hack.HouseFlipper.DataAccess.DB
         }
 
         public virtual DbSet<Listing> Listings { get; set; }
+        public virtual DbSet<PropertyResult> SearchResults { get; set; }
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{

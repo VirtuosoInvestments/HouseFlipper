@@ -68,6 +68,9 @@
     <Compile Include="Models\Listing.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ListingExtensions.cs" />
+    <Compile Include="Models\Property.cs" />
+    <Compile Include="Models\PropertyReference.cs" />
+    <Compile Include="Models\PropertyResult.cs" />
     <Compile Include="Models\Subdivisions.cs" />
     <Compile Include="Models\Zips.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

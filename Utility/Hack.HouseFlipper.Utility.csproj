@@ -67,12 +67,15 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ProcessCommand.cs" />
     <Compile Include="Importer.cs" />
+    <Compile Include="Map\MapDisplay.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\FlipRule.cs" />
     <Compile Include="Rules\IRule.cs" />
     <Compile Include="Rules\RuleCondition.cs" />
     <Compile Include="Rules\RuleSet.cs" />
+    <Compile Include="Search\PropertySearch.cs" />
+    <Compile Include="Search\PropertySearchOptions.cs" />
     <Compile Include="Tree\SuffixTree.cs" />
   </ItemGroup>
   <ItemGroup>

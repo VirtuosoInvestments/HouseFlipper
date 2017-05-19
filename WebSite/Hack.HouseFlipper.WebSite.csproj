@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -188,12 +189,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\ActiveController.cs" />
     <Compile Include="Controllers\FlipsController.cs" />
     <Compile Include="Controllers\GeoLocationController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Controllers\SampleApiController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ZipComparer.cs" />
     <Compile Include="Controllers\HomeComparer.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -228,6 +233,9 @@
     <Content Include="Views\Maps\GoogleMap4.cshtml" />
     <Content Include="Views\Maps\GoogleMap5.cshtml" />
     <Content Include="Views\Maps\GoogleMap6.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Results\Index.cshtml" />
+    <Content Include="Views\Map\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -291,6 +299,10 @@
     <ProjectReference Include="..\DataAccess\Hack.HouseFlipper.DataAccess.csproj">
       <Project>{718b99f4-02a9-4359-a150-eab48af7edd5}</Project>
       <Name>Hack.HouseFlipper.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Hack.HouseFlipper.Utility.csproj">
+      <Project>{181680bc-3c57-498c-b24d-6962f2ce4501}</Project>
+      <Name>Hack.HouseFlipper.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
