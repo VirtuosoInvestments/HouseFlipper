@@ -25,12 +25,14 @@ namespace Test.HouseFlipper
             foreach (var row in reader.ReadLine())
             {
                 var listing = converter.Convert(row);
-                var mlsNumber = listing.MLNumber;
-                var id = listing.PropertyId();
-                listingToPropId.Add(mlsNumber, id);
+                
                 if (listing != null)
                 {
                     instance.Add(listing);
+
+                    var mlsNumber = listing.MLNumber;
+                    var id = listing.PropertyId();
+                    listingToPropId.Add(mlsNumber, id);
                 }
             }
 
