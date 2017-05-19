@@ -36,7 +36,7 @@ namespace Hack.HouseFlipper.Utility.Commands
             // zip => subdiv => property => active records matching flipped house characteristics
             activeMultiKeyHash = new Dictionary<string, Dictionary<string, Dictionary<string, List<Listing>>>>(StringComparer.OrdinalIgnoreCase);
 
-            //<TESTING>
+            //<TESTING> FlipAggregator
             //var flipAgg = new FlipAggregator();
             //var activeAgg = new ActiveAggregator();
             using (var db = new MlsContext())

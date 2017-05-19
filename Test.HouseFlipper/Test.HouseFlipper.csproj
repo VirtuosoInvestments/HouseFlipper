@@ -92,7 +92,7 @@
     <None Include="App.config" />
     <None Include="data\listing.csv" />
     <None Include="data\listing2.csv" />
-    <None Include="data\listings3.csv" />
+    <None Include="data\listing3.csv" />
     <None Include="data\flips.csv" />
     <None Include="data\token-test.csv" />
     <None Include="packages.config" />
