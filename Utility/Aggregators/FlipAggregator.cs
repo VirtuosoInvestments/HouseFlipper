@@ -10,8 +10,7 @@ namespace Hack.HouseFlipper.Utility
     public class FlipAggregator : Aggregator
     {
         public FlipAggregator() : base((set, row) => row.IsSold() && set.ContainsKey(row))
-        {
-            this.DataSet = new Dictionary<string, List<Flip>>();
+        {            
             var initialSet = new MlsSet();
             sold = new SoldAggregator(initialSet);
             var zipTable = new ZipTable();
@@ -20,9 +19,7 @@ namespace Hack.HouseFlipper.Utility
             this.AddEvent += subDivTable.HandleAdd;
         }
 
-        private SoldAggregator sold;
-
-        public Dictionary<string, List<Flip>> DataSet { get; set; }
+        private SoldAggregator sold;        
 
         public override bool Add(Listing record)
         {
