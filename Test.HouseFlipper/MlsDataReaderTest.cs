@@ -14,7 +14,7 @@ namespace Test.HouseFlipper
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\listing.csv";
             List<string> lines = FileHelper.GetLines(path);
-            var instance = new MlsDataReader(path);
+            var instance = new MlsReader(path);
             var collection = instance.ReadLine();
             int count = 0;
             foreach (var line in collection)
@@ -22,11 +22,11 @@ namespace Test.HouseFlipper
                 ++count;
                 if (count == 1)
                 {
-                    Assert.IsTrue(line.NewFile);                    
+                    Assert.IsTrue(line.IsHeader);                    
                 }
                 else
                 {
-                    Assert.IsFalse(line.NewFile);
+                    Assert.IsFalse(line.IsHeader);
                 }
                 Assert.AreEqual(lines[count-1], line.Text);
             }
@@ -38,7 +38,7 @@ namespace Test.HouseFlipper
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data";
             List<List<string>> all = FileHelper.GetFiles(path);
-            var instance = new MlsDataReader(path, "*.csv", SearchOption.AllDirectories);
+            var instance = new MlsReader(path, "*.csv", SearchOption.AllDirectories);
             var collection = instance.ReadLine();
             int fNum = 0;
             int lineNumberInFile = 0;
@@ -49,7 +49,7 @@ namespace Test.HouseFlipper
             {                                               
                 if (totalLinesRead==0 || lineNumberInFile == lines.Count)
                 {
-                    Assert.IsTrue(line.NewFile);
+                    Assert.IsTrue(line.IsHeader);
                     if (totalLinesRead > 0)
                     {
                         Assert.AreEqual(lines.Count, lineNumberInFile);
@@ -60,7 +60,7 @@ namespace Test.HouseFlipper
                 }
                 else
                 {
-                    Assert.IsFalse(line.NewFile);
+                    Assert.IsFalse(line.IsHeader);
                 }
                 Assert.AreEqual(lines[lineNumberInFile], line.Text);
                 ++lineNumberInFile;

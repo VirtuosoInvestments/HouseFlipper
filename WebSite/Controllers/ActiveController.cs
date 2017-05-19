@@ -17,48 +17,48 @@ namespace WebSite.Controllers
         private static string byZipNoPool = "activezip.json";
         private static string byDivFile = "activediv.json";
         private static string byCommDivFile = "activecommdiv.json";
-        private static Lazy<List<MlsRow>> activeHouses =
-           new Lazy<List<MlsRow>>(
+        private static Lazy<List<Listing>> activeHouses =
+           new Lazy<List<Listing>>(
                () =>
                {
                    return InitActiveHouses();                   
                });
-        private static Lazy<List<MlsRow>> activeHousesNoPool =
-           new Lazy<List<MlsRow>>(
+        private static Lazy<List<Listing>> activeHousesNoPool =
+           new Lazy<List<Listing>>(
                () =>
                {
                    return InitActiveHousesNoPool();
                });
-        private static Lazy<List<MlsRow>> activeByDiv =
-           new Lazy<List<MlsRow>>(
+        private static Lazy<List<Listing>> activeByDiv =
+           new Lazy<List<Listing>>(
                () =>
                {
                    return InitActiveByDiv();
                });
 
-        private static Lazy<List<MlsRow>> activeByCommDiv =
-           new Lazy<List<MlsRow>>(
+        private static Lazy<List<Listing>> activeByCommDiv =
+           new Lazy<List<Listing>>(
                () =>
                {
                    return InitActiveByCommonDiv();
                });
 
-        private static Lazy<Dictionary<string, List<MlsRow>>> zipActive =
-            new Lazy<Dictionary<string,List<MlsRow>>>(
+        private static Lazy<Dictionary<string, List<Listing>>> zipActive =
+            new Lazy<Dictionary<string,List<Listing>>>(
                 ()=>{
-                    var lookup = new Dictionary<string, List<MlsRow>>(StringComparer.OrdinalIgnoreCase);
+                    var lookup = new Dictionary<string, List<Listing>>(StringComparer.OrdinalIgnoreCase);
                     InitActiveHouses(lookup);   
                     return lookup;
                 });
 
-        public static List<MlsRow> ActiveHomes(string zip, double maxPrice)
+        public static List<Listing> ActiveHomes(string zip, double maxPrice)
         {
             //var all =
             //(from el in activeHouses.Value
             //where el.PostalCode==zipcode
             //select el).ToList();
 
-            var list = new List<MlsRow>();
+            var list = new List<Listing>();
             if (zipActive.Value.ContainsKey(zip))
             {
                 var all = zipActive.Value[zip];
@@ -73,9 +73,9 @@ namespace WebSite.Controllers
             return list;
         }
 
-        public static List<MlsRow> ActiveHomes(string zip, double maxPrice, double avgBed, double avgFullBath, double avgHalfBath, double avgSqft)
+        public static List<Listing> ActiveHomes(string zip, double maxPrice, double avgBed, double avgFullBath, double avgHalfBath, double avgSqft)
         {
-            var list = new List<MlsRow>();
+            var list = new List<Listing>();
             if (zipActive.Value.ContainsKey(zip))
             {
                 var all = zipActive.Value[zip];
@@ -94,7 +94,7 @@ namespace WebSite.Controllers
             return list;
         }
 
-        public static List<MlsRow> ActiveHomes(
+        public static List<Listing> ActiveHomes(
             string zip, 
             double maxPrice, 
             double avgBed, 
@@ -105,7 +105,7 @@ namespace WebSite.Controllers
             int minYear, 
             int maxYear)
         {
-            var list = new List<MlsRow>();
+            var list = new List<Listing>();
             if (zipActive.Value.ContainsKey(zip))
             {
                 var all = zipActive.Value[zip];
@@ -132,14 +132,14 @@ namespace WebSite.Controllers
             return list;
         }
 
-        private static Lazy<List<MlsRow>> allActive =
-            new Lazy<List<MlsRow>>(
+        private static Lazy<List<Listing>> allActive =
+            new Lazy<List<Listing>>(
                 () => {
                     var target = new ListingsController();
                     var list = target.GetActive();
                     if (list == null)
                     {
-                        list = new List<MlsRow>();
+                        list = new List<Listing>();
                     }
                     return list;
                 });
@@ -170,7 +170,7 @@ namespace WebSite.Controllers
             }
             else
             {
-                var customList = new List<MlsRow>();
+                var customList = new List<Listing>();
                 var data = FlipsController.FlipByZip;
                 foreach(var flipChar in data)
                 {
@@ -213,7 +213,7 @@ namespace WebSite.Controllers
             }
             else
             {
-                var customList = new List<MlsRow>();
+                var customList = new List<Listing>();
                 var data = FlipsController.FlipByZipNoPool;
                 foreach (var flipChar in data)
                 {
@@ -256,7 +256,7 @@ namespace WebSite.Controllers
             return View(activeByDiv.Value.OrderBy(x => x.LegalSubdivisionName));
         }
         
-        private static List<MlsRow> InitActiveHouses(Dictionary<string,List<MlsRow>> lookup=null)
+        private static List<Listing> InitActiveHouses(Dictionary<string,List<Listing>> lookup=null)
         {
             //string path = HostingEnvironment.MapPath(
             //    string.Format("{0}/{1}", dataFolder, byZipFile));
@@ -283,7 +283,7 @@ namespace WebSite.Controllers
                         }
                         else
                         {
-                            lookup.Add(zip, new List<MlsRow>() { h });
+                            lookup.Add(zip, new List<Listing>() { h });
                         }
                     }
                 }
@@ -291,7 +291,7 @@ namespace WebSite.Controllers
             return a;
         }
 
-        private static List<MlsRow> InitActiveHousesNoPool()
+        private static List<Listing> InitActiveHousesNoPool()
         {
             string path = HostingEnvironment.MapPath(
                 string.Format("{0}/{1}", dataFolder, byZipNoPool));
@@ -301,8 +301,8 @@ namespace WebSite.Controllers
             {
                 json = sr.ReadToEnd();
             }
-            var array = JsonConvert.DeserializeObject<List<MlsRow>[]>(json);
-            var list = new List<MlsRow>();
+            var array = JsonConvert.DeserializeObject<List<Listing>[]>(json);
+            var list = new List<Listing>();
             foreach (var a in array)
             {
                 list.AddRange(a);
@@ -310,7 +310,7 @@ namespace WebSite.Controllers
             return list;
         }
 
-        private static List<MlsRow> InitActiveByDiv()
+        private static List<Listing> InitActiveByDiv()
         {
             string path = HostingEnvironment.MapPath(
                 string.Format("{0}/{1}", dataFolder, byDivFile));
@@ -320,8 +320,8 @@ namespace WebSite.Controllers
             {
                 json = sr.ReadToEnd();
             }
-            var array = JsonConvert.DeserializeObject<List<MlsRow>[]>(json);            
-            var list = new List<MlsRow>();
+            var array = JsonConvert.DeserializeObject<List<Listing>[]>(json);            
+            var list = new List<Listing>();
             foreach (var a in array)
             {
                 list.AddRange(a);
@@ -329,7 +329,7 @@ namespace WebSite.Controllers
             return list;
         }
 
-        private static List<MlsRow> InitActiveByCommonDiv()
+        private static List<Listing> InitActiveByCommonDiv()
         {
             string path = HostingEnvironment.MapPath(
                 string.Format("{0}/{1}", dataFolder, byCommDivFile));
@@ -339,8 +339,8 @@ namespace WebSite.Controllers
             {
                 json = sr.ReadToEnd();
             }
-            var array = JsonConvert.DeserializeObject<List<MlsRow>[]>(json);            
-            var list = new List<MlsRow>();
+            var array = JsonConvert.DeserializeObject<List<Listing>[]>(json);            
+            var list = new List<Listing>();
             foreach (var a in array)
             {
                 list.AddRange(a);
@@ -349,7 +349,7 @@ namespace WebSite.Controllers
         }
 
         private static void CalculateNeededValues(
-            MlsRow item, 
+            Listing item, 
             List<FlippedCharacteristics> data,
             string by)
         {

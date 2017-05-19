@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Hack.HouseFlipper.DataAccess.Models
 {
-    public class Homes : List<MlsRow>//List<FlippedHouse>
+    public class Homes : List<Listing>//List<FlippedHouse>
     {
         public Homes() 
         {
             //this.Subdivisions = new Dictionary<string, Homes>(StringComparer.OrdinalIgnoreCase);
             this.Subdivisions = new Subdivisions();
         }
-        public Homes(IEnumerable</*FlippedHouse*/MlsRow> list, string zip) : this()
+        public Homes(IEnumerable</*FlippedHouse*/Listing> list, string zip) : this()
         {
             this.AddRange(list);
             this.Zipcode = zip;

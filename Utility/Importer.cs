@@ -13,9 +13,9 @@ namespace Hack.HouseFlipper.Utility
     public class Importer
     {
         private MlsContext context;
-        private MlsDataReader reader;
+        private MlsReader reader;
 
-        public Importer(MlsDataReader reader, MlsContext context)
+        public Importer(MlsReader reader, MlsContext context)
         {
             this.reader = reader;
             this.context = context;
@@ -29,7 +29,7 @@ namespace Hack.HouseFlipper.Utility
                 ++rowNum;
                 Console.WriteLine("{0}: {1}", rowNum, line.Text);
                 var values = MlsTokenizer.Split(line.Text);
-                if (line.NewFile)
+                if (line.IsHeader)
                 {
                     fieldNames = values;
                 }
@@ -41,19 +41,26 @@ namespace Hack.HouseFlipper.Utility
             context.SaveChanges();
         }
 
-        public virtual MlsRow AddRecord(
+        public virtual Listing AddRecord(
             string[] colNames,
             string[] fields)
+        {
+            StringDictionary data = ToDictionary(colNames, fields);
+            var record = new Listing(data);
+            context.Listings.Add(record);
+            return record;
+        }
+
+        private static StringDictionary ToDictionary(string[] colNames, string[] fields)
         {
             var data = new StringDictionary();
             for (var j = 0; j < fields.Length; j++)
             {
-                var field = fields[j].Replace("\"", string.Empty);
+                var field = fields[j];
                 data.Add(colNames[j], field);
             }
-            var record = new MlsRow(data);
-            context.Listings.Add(record);
-            return record;
-        }        
+
+            return data;
+        }
     }
 }

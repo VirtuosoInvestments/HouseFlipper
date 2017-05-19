@@ -14,7 +14,7 @@ namespace Hack.HouseFlipper.Utility
         public void Execute(string[] args)
         {
             var dataFolder = args[0];
-            var reader = new MlsDataReader(dataFolder, "*.csv", SearchOption.AllDirectories);
+            var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);
             using (var context = new MlsContext())
             {
                 new Importer(reader, context).Run();

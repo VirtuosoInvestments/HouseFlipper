@@ -9,7 +9,7 @@ namespace Hack.HouseFlipper.DataAccess.Models
 {
 
     [NotMapped]
-    public class FlippedHouse : MlsRow
+    public class FlippedHouse : Listing
     {
         //public string Address { get; set; }
 

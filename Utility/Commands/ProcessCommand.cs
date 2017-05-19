@@ -10,19 +10,19 @@ namespace Hack.HouseFlipper.Utility.Commands
 {
     public class ProcessCommand
     {
-        public Dictionary<string, Dictionary<string, Dictionary<string, List<MlsRow>>>> flippedMultiKeyHash;
+        public Dictionary<string, Dictionary<string, Dictionary<string, List<Listing>>>> flippedMultiKeyHash;
         public Dictionary<string, FlippedCharacteristics> indivSubDivAllResults;
         public Dictionary<string, FlippedCharacteristics> indivSubDivNoPoolResults;
         public Dictionary<string, FlippedCharacteristics> indivSubDivWithPoolResults;
-        public Dictionary<string, Dictionary<string, Dictionary<string, List<MlsRow>>>> activeMultiKeyHash;
+        public Dictionary<string, Dictionary<string, Dictionary<string, List<Listing>>>> activeMultiKeyHash;
 
         public void Execute()
         {
             // property => sold record
-            var soldHash = new Dictionary<string, MlsRow>();
+            var soldHash = new Dictionary<string, Listing>();
 
             // zip => subdiv => property => sold records
-            flippedMultiKeyHash = new Dictionary<string, Dictionary<string, Dictionary<string, List<MlsRow>>>>();
+            flippedMultiKeyHash = new Dictionary<string, Dictionary<string, Dictionary<string, List<Listing>>>>();
 
             // subdiv => flipped house characteristics
             indivSubDivAllResults = new Dictionary<string, FlippedCharacteristics>(StringComparer.OrdinalIgnoreCase);
@@ -34,27 +34,17 @@ namespace Hack.HouseFlipper.Utility.Commands
             indivSubDivWithPoolResults = new Dictionary<string, FlippedCharacteristics>(StringComparer.OrdinalIgnoreCase);
 
             // zip => subdiv => property => active records matching flipped house characteristics
-            activeMultiKeyHash = new Dictionary<string, Dictionary<string, Dictionary<string, List<MlsRow>>>>(StringComparer.OrdinalIgnoreCase);
+            activeMultiKeyHash = new Dictionary<string, Dictionary<string, Dictionary<string, List<Listing>>>>(StringComparer.OrdinalIgnoreCase);
 
-            var flipAgg = new FlipAggregator();
-            var activeAgg = new ActiveAggregator();
+            //<TESTING>
+            //var flipAgg = new FlipAggregator();
+            //var activeAgg = new ActiveAggregator();
             using (var db = new MlsContext())
             {
                 foreach (var record in db.Listings)
                 {
-                    //AggregateBySold(soldHash, flippedMultiKeyHash, record);
-                    //AggregateByActive(activeMultiKeyHash, record);
-
-                    flipAgg.Add(record);
-                    activeAgg.Add(record);/*
-                    else if (record.IsActive())
-                    {
-                        var zip = record.PostalCode;
-                        var subDiv = record.LegalSubdivisionName;
-                        string houseID = record.PropertyId();
-                        AddActive(activeMultiKeyHash, zip, subDiv, houseID, record);
-                    }*/
-
+                    //flipAgg.Add(record);
+                    //activeAgg.Add(record);
                 }
             }
         }

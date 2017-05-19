@@ -1,0 +1,28 @@
+"#","ML Number","Status","Address","City","Postal Code","Legal Subdivision Name","Sq Ft Heated","Current Price","Beds","Full Baths","Half Baths","Year Built","Pool","Property Style",    "Taxes","CDOM","ADOM","Days to Contract",   "Sold Terms","Close Date","LP/SqFt","SP/SqFt","SP/LP",   "List Office Name","List Agent Full Name","List Agent ID","Selling Agent Name","Selling Office ID","Selling Agent ID","LSC List Side","Office Primary Board ID"
+"1","O5366758","SLD","740 SAVANNAH AVE","LAKELAND","33815","SKYLINE ACRES","832","$33,739","2","1","0","1959","None","Single Family Home","$882","11","11","11","All Cash","06/09/2015","$43.39","$40.55","0.93","Owners.com","Stephen Sibiga","261201966","DJ Delgado","265522493","265501610","O","Orlando Regional"
+
+"1","L4711733","SLD","1944 SAWFISH DR","KISSIMMEE","34759","POINCIANA NBRHD 04 VILLAGE 07","1,414","$117,000","3","2","0","1998","None","Single Family Home","$1,350","6","6","6","All Cash","03/10/2016","$84.09","$82.74","0.98","THE SCHLOBOHM GROUP, LLC","Sarah Schlobohm","265522666","Raul Marrero","278009645","272505274","L","Lakeland"
+"1","L4711734","SLD","1944 SAWFISH DR","KISSIMMEE","34759","POINCIANA NBRHD 04 VILLAGE 07","1,414","$127,000","3","2","0","1998","None","Single Family Home",   "$1,350","6","6","6",   "All Cash","05/10/2016","$84.09","$82.74","0.98",       "THE SCHLOBOHM GROUP, LLC","Sarah Schlobohm","265522666","Raul Marrero","278009645","272505274","L","Lakeland"
+
+"1","L4706089","SLD","5505 SAWYER RD","LAKELAND","33810","ACREAGE & UNREC","2,819","$295,000","3","2","1","1994","None","Single Family Home","$2,281","87","33","33","All Cash","07/31/2015","$113.16","$104.65","0.92","KELLER WILLIAMS REALTY","Casandra Vann","265501136","Casandra Vann","265500286","265501136","L","Lakeland"
+"1","L4706090","SLD","5505 SAWYER RD","LAKELAND","33810","ACREAGE & UNREC","2,819","$295,000","3","2","1","1994","None","Single Family Home",   "$2,281","87","33","33",   "All Cash","07/31/2016","$113.16","$104.65","0.92",   "KELLER WILLIAMS REALTY","Casandra Vann","265501136","Casandra Vann","265500286","265501136","L","Lakeland"
+
+"1","L4707116","SLD","5741 SAWYER RD","LAKELAND","33810","ACREAGE & UNREC","2,390","$278,000","3","2","0","1997","Private","Single Family Home","$2,196","43","43","43","New VA","09/11/2015","$117.11","$116.32","0.99","RE/MAX PARAMOUNT PROPERTIES","Jay Hickman, Jr","265500176","Brian Allen","621903","261548047","L","Lakeland"
+"1","L4707117","SLD","5741 SAWYER RD","LAKELAND","33810","ACREAGE & UNREC","2,390","$278,000","3","2","0","1997","Private","Single Family Home",   "$2,196","43","43","43",   "New VA","09/10/2016","$117.11","$116.32","0.99",     "RE/MAX PARAMOUNT PROPERTIES","Jay Hickman, Jr","265500176","Brian Allen","621903","261548047","L","Lakeland"
+
+
+
+
+"1","L4705767","ACT","8918 SCALES RD","LAKELAND","33810","ACREAGE & UNREC","1,727","$98,000","3","1","0","1969","None","Single Family Home","$2,049","108","108","112","New FHA","09/24/2015","$57.61","$56.75","0.98","COLDWELL BANKER RESIDENTIAL RE","Teresa Knowles","265500110","NON MFR REALTOR","55055","123456789","L","Lakeland"
+"1","L4705768","ACT","8918 SCALES RD","LAKELAND","33810","ACREAGE & UNREC","1,727","$98,000","3","1","0","1969","None","Single Family Home","$2,049","108","108","112","New FHA","11/24/2015","$57.61","$56.75","0.98","COLDWELL BANKER RESIDENTIAL RE","Teresa Knowles","265500110","NON MFR REALTOR","55055","123456789","L","Lakeland"
+
+
+"1","L4703920","SLD","8703 SCANDINAVIA BLVD","LAKELAND","33809","TRAILS 03 REV","3,195","$249,900","3","3","0","1998","Private","Single Family Home","$3,432","107","107","188","New VA","09/04/2015","$78.22","$78.22","1.00","BHHS Florida Properties Grp","Candy Skuczas","265501279","Russ Yerton","265502292","265578118","L","Lakeland"
+"1","L4703921","SLD","8703 SCANDINAVIA BLVD","LAKELAND","33809","TRAILS 03 REV","3,195","$249,900","3","3","0","1998","Private","Single Family Home","$3,432","107","107","188","New VA","11/04/2015","$78.22","$78.22","1.00","BHHS Florida Properties Grp","Candy Skuczas","265501279","Russ Yerton","265502292","265578118","L","Lakeland"
+"1","L4703922","SLD","8703 SCANDINAVIA BLVD","LAKELAND","33809","TRAILS 03 REV","3,195","$249,900","3","3","0","1998","Private","Single Family Home","$3,432","107","107","188","New VA","11/03/2016","$78.22","$78.22","1.00","BHHS Florida Properties Grp","Candy Skuczas","265501279","Russ Yerton","265502292","265578118","L","Lakeland"
+
+
+
+"1","P4705621","SLD","1009 S SCENIC HWY","FROSTPROOF","33843","THOMPSONS BONITA HEIGHTS","2,358","$167,500","4","3","0","1926","Private","Single Family Home","$1,286","48","48","48","New VA","10/15/2015","$69.97","$71.03","1.02","ESTELLE SULLIVAN REALTY, LLC","Estelle Sullivan","265000034","Deanna Balcerak","53786A","261202352","P","East Polk"
+"1","P4704119","SLD","124 SCENIC HWY","HAINES CITY","33844","DAUGHERTYS SUB","2,450","$145,000","6","2","1","1953","None","Single Family Home","$2,531","57","57","66","All Cash","07/27/2015","$61.22","$59.18","0.97","KELLER WILLIAMS REALTY OF WH","Don Jerue","255001108","Julius Melendez","50344","261209726","P","East Polk"
+"1","K4700271","SLD","319 N SCENIC HWY","FROSTPROOF","33843","CAMPER & FLOOD SUB","1,732","$72,000","3","2","0","1928","None","Single Family Home","$639","144","144","121","New Conventional","05/29/2015","$41.77","$41.57","1.00","KEYSTONE REALTY","Cindy Wise","255001134","NON MFR REALTOR","55055","123456789","K","Lake Wales"

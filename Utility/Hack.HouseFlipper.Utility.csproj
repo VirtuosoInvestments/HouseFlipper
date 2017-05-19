@@ -62,6 +62,7 @@
     <Compile Include="Aggregators\SubdivisionTable.cs" />
     <Compile Include="Aggregators\ZipTable.cs" />
     <Compile Include="Commands\ClearCommand.cs" />
+    <Compile Include="Commands\CountCommand.cs" />
     <Compile Include="Commands\ImportCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ProcessCommand.cs" />

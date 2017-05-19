@@ -39,7 +39,7 @@ namespace WebSite.Controllers
         //    return View(db.Listings.Take(5).ToList());
         //}
 
-        public List<MlsRow> GetActive()
+        public List<Listing> GetActive()
         {
             var listings = from l in db.Listings
                            //where l.StatusValue() == MlsStatus.Active
@@ -117,7 +117,7 @@ namespace WebSite.Controllers
             sortOrder = String.IsNullOrEmpty(sortOrder) ? "MLNumber" : sortOrder;
             ViewBag.CurrentSort = sortOrder;    
 
-            IPagedList<MlsRow> pageList = null;
+            IPagedList<Listing> pageList = null;
 
             switch (sortOrder)
             {
@@ -262,7 +262,7 @@ namespace WebSite.Controllers
             }
         }
 
-        private string GetPropertyValue(MlsRow m, string sortOrder)
+        private string GetPropertyValue(Listing m, string sortOrder)
         {
             var special = new List<string>() {"CurrentPrice","SqFtHeated"};
             object val=null;
@@ -307,7 +307,7 @@ namespace WebSite.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MlsRow mlsRow = db.Listings.Find(id);
+            Listing mlsRow = db.Listings.Find(id);
             if (mlsRow == null)
             {
                 return HttpNotFound();
@@ -326,7 +326,7 @@ namespace WebSite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,MLNumber,Status,Address,City,PostalCode,LegalSubdivisionName,SqFtHeated,CurrentPrice,Beds,FullBaths,HalfBaths,YearBuilt,Pool,PropertyStyle,Taxes,CDOM,ADOM,DaystoContract,SoldTerms,CloseDate,LPSqFt,SPSqFt,SPLP,ListOfficeName,ListAgentFullName,ListAgentID,SellingAgentName,SellingOfficeID,SellingAgentID,LSCListSide,OfficePrimaryBoardID")] MlsRow mlsRow)
+        public ActionResult Create([Bind(Include = "ID,MLNumber,Status,Address,City,PostalCode,LegalSubdivisionName,SqFtHeated,CurrentPrice,Beds,FullBaths,HalfBaths,YearBuilt,Pool,PropertyStyle,Taxes,CDOM,ADOM,DaystoContract,SoldTerms,CloseDate,LPSqFt,SPSqFt,SPLP,ListOfficeName,ListAgentFullName,ListAgentID,SellingAgentName,SellingOfficeID,SellingAgentID,LSCListSide,OfficePrimaryBoardID")] Listing mlsRow)
         {
             if (ModelState.IsValid)
             {
@@ -345,7 +345,7 @@ namespace WebSite.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MlsRow mlsRow = db.Listings.Find(id);
+            Listing mlsRow = db.Listings.Find(id);
             if (mlsRow == null)
             {
                 return HttpNotFound();
@@ -358,7 +358,7 @@ namespace WebSite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,MLNumber,Status,Address,City,PostalCode,LegalSubdivisionName,SqFtHeated,CurrentPrice,Beds,FullBaths,HalfBaths,YearBuilt,Pool,PropertyStyle,Taxes,CDOM,ADOM,DaystoContract,SoldTerms,CloseDate,LPSqFt,SPSqFt,SPLP,ListOfficeName,ListAgentFullName,ListAgentID,SellingAgentName,SellingOfficeID,SellingAgentID,LSCListSide,OfficePrimaryBoardID")] MlsRow mlsRow)
+        public ActionResult Edit([Bind(Include = "ID,MLNumber,Status,Address,City,PostalCode,LegalSubdivisionName,SqFtHeated,CurrentPrice,Beds,FullBaths,HalfBaths,YearBuilt,Pool,PropertyStyle,Taxes,CDOM,ADOM,DaystoContract,SoldTerms,CloseDate,LPSqFt,SPSqFt,SPLP,ListOfficeName,ListAgentFullName,ListAgentID,SellingAgentName,SellingOfficeID,SellingAgentID,LSCListSide,OfficePrimaryBoardID")] Listing mlsRow)
         {
             if (ModelState.IsValid)
             {
@@ -376,7 +376,7 @@ namespace WebSite.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MlsRow mlsRow = db.Listings.Find(id);
+            Listing mlsRow = db.Listings.Find(id);
             if (mlsRow == null)
             {
                 return HttpNotFound();
@@ -389,7 +389,7 @@ namespace WebSite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MlsRow mlsRow = db.Listings.Find(id);
+            Listing mlsRow = db.Listings.Find(id);
             db.Listings.Remove(mlsRow);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -404,7 +404,7 @@ namespace WebSite.Controllers
             base.Dispose(disposing);
         }
 
-        internal List<MlsRow> Search(FlippedHouse flippedHouse)
+        internal List<Listing> Search(FlippedHouse flippedHouse)
         {
             var list =  
             (from el in db.Listings

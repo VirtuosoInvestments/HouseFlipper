@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Hack.HouseFlipper.Utility
 {
-    public class FlipAggregator : Aggregator2
+    public class FlipAggregator : Aggregator
     {
         public FlipAggregator() : base((set, row) => row.IsSold() && set.ContainsKey(row))
         {
+            this.DataSet = new Dictionary<string, List<Flip>>();
             var initialSet = new MlsSet();
             sold = new SoldAggregator(initialSet);
             var zipTable = new ZipTable();
@@ -20,7 +21,10 @@ namespace Hack.HouseFlipper.Utility
         }
 
         private SoldAggregator sold;
-        public override bool Add(MlsRow record)
+
+        public Dictionary<string, List<Flip>> DataSet { get; set; }
+
+        public override bool Add(Listing record)
         {
             var isFlip = base.Add(record);
             if (!isFlip)
@@ -32,38 +36,38 @@ namespace Hack.HouseFlipper.Utility
 
         private static void AggregateFlips(
             //          zip,              subdiv,           houseId,  soldList
-            Dictionary<string, MlsRow> soldHash, Dictionary<string, Dictionary<string, Dictionary<string, List<MlsRow>>>> flippedMultiKeyHash, MlsRow record, string houseID)
+            Dictionary<string, Listing> soldHash, Dictionary<string, Dictionary<string, Dictionary<string, List<Listing>>>> flippedMultiKeyHash, Listing record, string houseID)
         {
             //         subDiv,            house,   soldList
-            Dictionary<string, Dictionary<string, List<MlsRow>>> subDivHash = AddSubDivsion(flippedMultiKeyHash, record.PostalCode);
+            Dictionary<string, Dictionary<string, List<Listing>>> subDivHash = AddSubDivsion(flippedMultiKeyHash, record.PostalCode);
             //         house,      
-            Dictionary<string, List<MlsRow>> houseFlippedHash = AddHouseHash(record, subDivHash);
+            Dictionary<string, List<Listing>> houseFlippedHash = AddHouseHash(record, subDivHash);
             AddFlippedHouse(soldHash, record, houseID, houseFlippedHash);
         }
 
-        private static Dictionary<string, Dictionary<string, List<MlsRow>>> AddSubDivsion(
-            Dictionary<string, Dictionary<string, Dictionary<string, List<MlsRow>>>> flippedMultiKeyHash, string zip)
+        private static Dictionary<string, Dictionary<string, List<Listing>>> AddSubDivsion(
+            Dictionary<string, Dictionary<string, Dictionary<string, List<Listing>>>> flippedMultiKeyHash, string zip)
         {
-            Dictionary<string, Dictionary<string, List<MlsRow>>> subDivHash;
+            Dictionary<string, Dictionary<string, List<Listing>>> subDivHash;
             if (flippedMultiKeyHash.ContainsKey(zip))
             {
                 subDivHash = flippedMultiKeyHash[zip];
             }
             else
             {
-                subDivHash = new Dictionary<string, Dictionary<string, List<MlsRow>>>();
+                subDivHash = new Dictionary<string, Dictionary<string, List<Listing>>>();
                 flippedMultiKeyHash.Add(zip, subDivHash);
             }
 
             return subDivHash;
         }
 
-        private static Dictionary<string, List<MlsRow>> AddHouseHash(MlsRow record, Dictionary<string, Dictionary<string, List<MlsRow>>> subDivHash)
+        private static Dictionary<string, List<Listing>> AddHouseHash(Listing record, Dictionary<string, Dictionary<string, List<Listing>>> subDivHash)
         {
-            return GetHouseHash(subDivHash, SubDivision(record));
+            throw new NotImplementedException(); //return GetHouseHash(subDivHash, SubDivision(record));
         }
 
-        private static void AddFlippedHouse(Dictionary<string, MlsRow> soldHash, MlsRow record, string houseID, Dictionary<string, List<MlsRow>> houseFlippedHash)
+        private static void AddFlippedHouse(Dictionary<string, Listing> soldHash, Listing record, string houseID, Dictionary<string, List<Listing>> houseFlippedHash)
         {
             if (houseFlippedHash.ContainsKey(houseID))
             {
@@ -72,7 +76,7 @@ namespace Hack.HouseFlipper.Utility
             }
             else
             {
-                houseFlippedHash.Add(houseID, new List<MlsRow>() { soldHash[houseID], record });
+                houseFlippedHash.Add(houseID, new List<Listing>() { soldHash[houseID], record });
             }
         }
     }

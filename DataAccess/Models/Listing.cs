@@ -14,13 +14,13 @@ namespace Hack.HouseFlipper.DataAccess.Models
     public enum MlsStatus { Active, Sold }
 
     [Table("Listings")]
-    public class MlsRow : IComparable
+    public class Listing : IComparable
     {
-        public MlsRow(StringDictionary data)
+        public Listing(StringDictionary data)
         {
             this.Lookup = data;
             var hash = new Dictionary<string, PropertyInfo>();
-            foreach (var p in typeof(MlsRow).GetProperties())
+            foreach (var p in typeof(Listing).GetProperties())
             {
                 var thisName = p.Name.ToLower();
                 hash.Add(thisName, p);
@@ -59,7 +59,7 @@ namespace Hack.HouseFlipper.DataAccess.Models
             }*/
         }
 
-        public MlsRow() { }
+        public Listing() { }
 
         [JsonIgnore]
         [NotMapped]
@@ -236,7 +236,7 @@ namespace Hack.HouseFlipper.DataAccess.Models
 
         public int CompareTo(object obj)
         {
-            var other = obj as MlsRow;
+            var other = obj as Listing;
             if (other == null)
             {
                 throw new ArgumentException(

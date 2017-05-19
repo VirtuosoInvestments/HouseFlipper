@@ -7,14 +7,14 @@ using System.Web;
 
 namespace WebSite.Controllers
 {
-    public class HomeComparer : IComparer<MlsRow>
+    public class HomeComparer : IComparer<Listing>
     {
         private string sortOrder;
         public HomeComparer(string sortOrder)
         {
             this.sortOrder = sortOrder;
         }
-        public int Compare(MlsRow x, MlsRow y)
+        public int Compare(Listing x, Listing y)
         {
             var prop = FindProperty(x);
             if (prop.PropertyType == typeof(Int32))
@@ -58,13 +58,13 @@ namespace WebSite.Controllers
             }
         }
 
-        private object GetPropValue(MlsRow m, PropertyInfo prop)
+        private object GetPropValue(Listing m, PropertyInfo prop)
         {
             var val = prop.GetValue(m);
             return val;
         }
 
-        private PropertyInfo FindProperty(MlsRow m)
+        private PropertyInfo FindProperty(Listing m)
         {
             var prop = m.GetType().GetProperty(sortOrder, BindingFlags.Instance | BindingFlags.Public);
             return prop;

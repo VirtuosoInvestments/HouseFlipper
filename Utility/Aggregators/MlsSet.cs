@@ -6,25 +6,44 @@ namespace Hack.HouseFlipper.Utility
 {
     public class MlsSet
     {
-        private Dictionary<string, List<MlsRow>> set;
+        private Dictionary<string, List<Listing>> set;
 
-        public void Add(MlsRow record)
+        public void Add(Listing record)
         {
             //var exists = false;
             string houseID = record.PropertyId();
-            List<MlsRow> list;
+            List<Listing> list;
             if (set.ContainsKey(houseID))
             {
-                set.Add(houseID, list=new List<MlsRow>());
+                set.Add(houseID, list=new List<Listing>());
             }
             else
             {
                 list = set[houseID];
             }
-            list.Add(record);
+            //list.Add(record);
+            // sort chronologically by sold date
+            var insertAt = -1;
+            for(int i = 0; i<list.Count; i++)
+            {
+                var item = list[i];
+                if(item.CloseDateValue() > record.CloseDateValue())
+                {
+                    insertAt = i;
+                    break;
+                }
+            }
+            if(insertAt<0)
+            {
+                list.Add(record);
+            }
+            else
+            {
+                list.Add(record);
+            }
         }
 
-        public bool ContainsKey(MlsRow record)
+        public bool ContainsKey(Listing record)
         {
             string houseID = record.PropertyId();
             return set.ContainsKey(houseID);

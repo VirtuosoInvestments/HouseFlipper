@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hack.HouseFlipper.Utility
 {
-    public class ActiveAggregator : Aggregator2
+    public class ActiveAggregator : Aggregator
     {
         public ActiveAggregator() : base((set, row) => row.IsActive())
         {

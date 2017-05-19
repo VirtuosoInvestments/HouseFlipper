@@ -6,31 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Hack.HouseFlipper.Utility
-{
-    public class Aggregator2
-    {
-        private Func<MlsSet, MlsRow, bool> ShouldAdd;
-        protected MlsSet set = new MlsSet();
-        public Aggregator2(Func<MlsSet, MlsRow, bool> rule, MlsSet initialSet = null)
-        {
-            this.set = initialSet;
-            this.ShouldAdd = rule;
-        }
-
-        public event Action<MlsRow> AddEvent;
-
-        public virtual bool Add(MlsRow record)
-        {
-            if (ShouldAdd(set, record))
-            {
-                set.Add(record);
-                AddEvent?.BeginInvoke(record,null,null);
-                return true;
-            }
-            return false;
-        }
-    }
-    public class SoldAggregator : Aggregator2
+{    
+    public class SoldAggregator : Aggregator
     {
         public SoldAggregator(MlsSet initialSet=null) : base((set, row) => row.IsSold(), initialSet)
         { }

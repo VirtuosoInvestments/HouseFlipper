@@ -9,8 +9,9 @@ namespace Hack.HouseFlipper.Utility
 {
     public class SubdivisionTable
     {
-        private SuffixTree names = new SuffixTree();
-        public void HandleAdd(MlsRow row)
+        //<NEEDS TESTING>
+        //private SuffixTree names = new SuffixTree();
+        public void HandleAdd(Listing row)
         {
             throw new NotImplementedException();
         }

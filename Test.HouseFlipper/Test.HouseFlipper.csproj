@@ -70,12 +70,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="FileHelper.cs" />
+    <Compile Include="Common\FileHelper.cs" />
     <Compile Include="MlsDataReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MlsTokenizerTest.cs" />
     <Compile Include="MlsRowTest.cs" />
     <Compile Include="ImporterTest.cs" />
+    <Compile Include="FlipAggregatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\Hack.HouseFlipper.DataAccess.csproj">
@@ -91,7 +92,8 @@
     <None Include="App.config" />
     <None Include="data\listing.csv" />
     <None Include="data\listing2.csv" />
-    <None Include="data\listing3.csv" />
+    <None Include="data\listings3.csv" />
+    <None Include="data\flips.csv" />
     <None Include="data\token-test.csv" />
     <None Include="packages.config" />
   </ItemGroup>

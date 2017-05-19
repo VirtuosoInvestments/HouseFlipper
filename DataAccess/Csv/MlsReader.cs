@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Hack.HouseFlipper.DataAccess.Csv
 {
-    public class MlsDataReader
+    public class MlsReader
     {
         private string[] files;
 
-        public MlsDataReader(string dataFolder, string filesSearchPattern, SearchOption searchOption)
+        public MlsReader(string dataFolder, string filesSearchPattern, SearchOption searchOption)
         {  
             if(string.IsNullOrWhiteSpace(dataFolder))
             {
@@ -33,7 +33,7 @@ namespace Hack.HouseFlipper.DataAccess.Csv
             files = Directory.GetFiles(dataFolder, filesSearchPattern, searchOption);
         }
 
-        public MlsDataReader(string filePath)
+        public MlsReader(string filePath)
         {            
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -48,7 +48,7 @@ namespace Hack.HouseFlipper.DataAccess.Csv
             files = new string[] { filePath };
         }
 
-        public virtual IEnumerable<MlsDataLine> ReadLine()
+        public virtual IEnumerable<MlsRow> ReadLine()
         {
             foreach (var file in files)
             {
@@ -58,22 +58,11 @@ namespace Hack.HouseFlipper.DataAccess.Csv
                     string line;                    
                     while ((line = sr.ReadLine()) != null)
                     {
-                        yield return new MlsDataLine(line, newFile);
+                        yield return new MlsRow(line, newFile);
                         newFile = false;
                     }
                 }
             }
         }
-    }
-
-    public class MlsDataLine
-    {
-        public MlsDataLine(string text, bool newFile)
-        {
-            this.Text = text;
-            this.NewFile = newFile;
-        }
-        public string Text { get; set; }
-        public bool NewFile { get; set; }
-    }
+    }    
 }

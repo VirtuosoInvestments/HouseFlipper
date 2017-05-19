@@ -28,7 +28,7 @@ namespace Hack.HouseFlipper.DataAccess.Models
     
     public class Subdivision : Homes
     {
-        public Subdivision(IEnumerable<MlsRow> list, string zip)
+        public Subdivision(IEnumerable<Listing> list, string zip)
             : base(list, zip)
         {
         }

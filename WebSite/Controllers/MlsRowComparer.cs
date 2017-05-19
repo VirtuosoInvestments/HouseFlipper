@@ -7,7 +7,7 @@ using System.Web;
 
 namespace WebSite.Controllers
 {
-    public class MlsRowComparer : IComparer<MlsRow>
+    public class MlsRowComparer : IComparer<Listing>
     {
         private string sortOrder;
         public MlsRowComparer(string sortOrder)
@@ -15,7 +15,7 @@ namespace WebSite.Controllers
             this.sortOrder = sortOrder;
         }
 
-        public int Compare(MlsRow x, MlsRow y)
+        public int Compare(Listing x, Listing y)
         {
             var numericProps = new List<string>() { "CurrentPrice", "SqFtHeated" };
 
@@ -56,14 +56,14 @@ namespace WebSite.Controllers
             }            
         }
 
-        private object GetPropValue(MlsRow m)
+        private object GetPropValue(Listing m)
         {
             var prop = m.GetType().GetProperty(sortOrder, BindingFlags.Instance | BindingFlags.Public);
             var val = prop.GetValue(m);
             return val;
         }
 
-        private object GetMethodValue(MlsRow m)
+        private object GetMethodValue(Listing m)
         {
             var mth = m.GetType().GetMethod(sortOrder + "Value", BindingFlags.Instance | BindingFlags.Public);
             var val = mth.Invoke(m, null);

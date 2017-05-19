@@ -158,18 +158,18 @@ namespace WebSite.Controllers
                 GetAverageVars(summaryZipBought, summaryZipSold, zip, out avgZipBought, out avgZipSold);
 
                 var target = new ListingsController();
-                List<MlsRow> list = target.Search(f);
+                List<Listing> list = target.Search(f);
                 if (list == null || list.Count == 0)
                 {
                     if (list == null)
                     {
-                        list = new List<MlsRow>();
+                        list = new List<Listing>();
                     }
                 }
                 else
                 {
-                    MlsRow bought;
-                    MlsRow sold;
+                    Listing bought;
+                    Listing sold;
                     GetBoughtSold(list, out bought, out sold);
                     SetValues(f, bought);
 
@@ -273,18 +273,18 @@ namespace WebSite.Controllers
                 GetAverageVars(summaryZipBought, summaryZipSold, zip, out avgZipBought, out avgZipSold);
 
                 var target = new ListingsController();
-                List<MlsRow> list = target.Search(f);
+                List<Listing> list = target.Search(f);
                 if (list == null || list.Count == 0)
                 {
                     if (list == null)
                     {
-                        list = new List<MlsRow>();
+                        list = new List<Listing>();
                     }
                 }
                 else
                 {
-                    MlsRow bought;
-                    MlsRow sold;
+                    Listing bought;
+                    Listing sold;
                     GetBoughtSold(list, out bought, out sold);
                     SetValues(f, bought);
 
@@ -487,7 +487,7 @@ namespace WebSite.Controllers
                 }
                 else
                 {
-                    divs.Lookup.Add(subdiv, s = new Subdivision(new List<MlsRow>() { }, zip) { Zipcode = zip, Subdivision = subdiv });
+                    divs.Lookup.Add(subdiv, s = new Subdivision(new List<Listing>() { }, zip) { Zipcode = zip, Subdivision = subdiv });
                     s.Active = new Homes() { };
                     s.Active.Add(item);
                     divs.Add(s);
@@ -592,8 +592,8 @@ namespace WebSite.Controllers
             FlippedHouse f,
             HouseCharacteristics avgBought,
             HouseCharacteristics avgSold,
-            MlsRow bought,
-            MlsRow sold,
+            Listing bought,
+            Listing sold,
             double proftNum,
             double boughtROI,
             double soldROI)
@@ -628,7 +628,7 @@ namespace WebSite.Controllers
             }
         }
 
-        private static void SetAdditionalValues(FlippedHouse f, MlsRow bought, MlsRow sold, out double proftNum, out double boughtROI, out double soldROI)
+        private static void SetAdditionalValues(FlippedHouse f, Listing bought, Listing sold, out double proftNum, out double boughtROI, out double soldROI)
         {
             f.SoldPrice = sold.CurrentPrice;
             if (sold.SqFtHeated.Trim().ToLower() != f.SqFtHeated.Trim().ToLower())
@@ -672,7 +672,7 @@ namespace WebSite.Controllers
             f.ADOM = sold.ADOM;
         }
 
-        private static void SetValues(FlippedHouse f, MlsRow bought)
+        private static void SetValues(FlippedHouse f, Listing bought)
         {
             f.Subdivision = bought.LegalSubdivisionName;
             f.Beds = bought.Beds;
@@ -686,7 +686,7 @@ namespace WebSite.Controllers
             f.Date = f.PurchaseDate + " " + f.SoldDate;
         }
 
-        private static void GetBoughtSold(List<MlsRow> list, out MlsRow bought, out MlsRow sold)
+        private static void GetBoughtSold(List<Listing> list, out Listing bought, out Listing sold)
         {
             list.OrderBy(x => x.CloseDateValue()).ToList();
             bought = null;
@@ -1030,7 +1030,7 @@ namespace WebSite.Controllers
             // Now use sort direction
             homes.SortBy = newSort;
             homes.SortDirection = newDirection;
-            IEnumerable<MlsRow> list;
+            IEnumerable<Listing> list;
             if (newDirection == SortDirection.Ascending)
             {
                 list = homes.OrderBy(m => m, new HomeComparer(newSort));
@@ -1066,7 +1066,7 @@ namespace WebSite.Controllers
             //return homes;
         }
 
-        private IEnumerable<MlsRow> Sort(
+        private IEnumerable<Listing> Sort(
             Homes homes,
             string currentSort, // View telling controller: how we currently sorted
             SortDirection currentSortDirection, /* View telling controller: what's our sort direction*/
@@ -1086,7 +1086,7 @@ namespace WebSite.Controllers
 
             // Now use sort direction
             ViewBag.CurrentSort = newSort;
-            IEnumerable<MlsRow> list;
+            IEnumerable<Listing> list;
             if (ViewBag.CurrentSortDirection == SortDirection.Ascending)
             {
                 list = homes.OrderBy(m => m, new HomeComparer(newSort));
