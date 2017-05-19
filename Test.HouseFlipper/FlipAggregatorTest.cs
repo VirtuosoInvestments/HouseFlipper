@@ -45,7 +45,8 @@ namespace Test.HouseFlipper
 
             var notAdded = new List<string>()
             {
-                "O5366758","L4705767","L4707116"
+                "O5366758","L4705767","L4707116",
+                "P4705621","P4704119","K4700271"
             };
             var added = new List<List<string>>()
             {
