@@ -6,7 +6,7 @@ namespace Hack.HouseFlipper.Utility
 {
     public class MlsSet
     {
-        private Dictionary<string, List<Listing>> set;
+        private Dictionary<string, List<Listing>> set = new Dictionary<string, List<Listing>>();
 
         public void Add(Listing record)
         {
@@ -15,11 +15,11 @@ namespace Hack.HouseFlipper.Utility
             List<Listing> list;
             if (set.ContainsKey(houseID))
             {
-                set.Add(houseID, list=new List<Listing>());
+                list = set[houseID];
             }
             else
-            {
-                list = set[houseID];
+            {                
+                set.Add(houseID, list = new List<Listing>());
             }
             //list.Add(record);
             // sort chronologically by sold date

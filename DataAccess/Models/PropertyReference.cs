@@ -8,7 +8,14 @@ namespace Hack.HouseFlipper.DataAccess.Models
 {
     public class PropertyReference
     {
-        public Guid PropertyId { get; set; }
-        public Guid FlipId { get; set; }
+        public string /*Guid*/ PropertyId { get; set; }
+        public Guid PropertyGuid { get; set; }
+        public string /*Guid*/ FlipId { get; set; }
+        public Guid FlipGuid { get; set; }
+
+        public static PropertyReference Create(Listing listing)
+        {
+            return new PropertyReference() { PropertyId = listing.PropertyId() };
+        }
     }
 }

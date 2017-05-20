@@ -74,6 +74,7 @@
     <Compile Include="Rules\IRule.cs" />
     <Compile Include="Rules\RuleCondition.cs" />
     <Compile Include="Rules\RuleSet.cs" />
+    <Compile Include="Rules\SoldRule.cs" />
     <Compile Include="Search\PropertySearch.cs" />
     <Compile Include="Search\PropertySearchOptions.cs" />
     <Compile Include="Tree\SuffixTree.cs" />

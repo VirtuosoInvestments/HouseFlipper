@@ -20,7 +20,8 @@ namespace Test.HouseFlipper
             var listingToPropId = new Dictionary<string, string>();
 
             // instance
-            var instance = new Aggregator(new FlipRule());
+            var soldSet = new MlsSet();
+            var instance = new Aggregator(new RuleSet(RuleCondition.OR, new FlipRule(soldSet), new SoldRule(soldSet)));
             var converter = new Converter();
             foreach (var row in reader.ReadLine())
             {

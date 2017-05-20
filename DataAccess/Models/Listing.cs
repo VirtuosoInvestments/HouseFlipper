@@ -13,6 +13,8 @@ namespace Hack.HouseFlipper.DataAccess.Models
 {
     public enum MlsStatus { Active, Sold }
 
+    public class Listings : List<Listing> { }
+
     [Table("Listings")]
     public class Listing : IComparable
     {

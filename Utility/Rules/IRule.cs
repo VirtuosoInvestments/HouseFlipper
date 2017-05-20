@@ -9,5 +9,6 @@ namespace Hack.HouseFlipper.Utility
     public interface IRule
     {
         bool IsSatisfied(params object[] variables);
+        object Results { get; }
     }
 }
