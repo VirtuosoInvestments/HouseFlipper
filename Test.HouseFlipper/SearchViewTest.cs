@@ -14,7 +14,7 @@ namespace Test.HouseFlipper
         [ClassInitialize]
         public static void Setup(TestContext context)
         {
-            WebSiteSetup.NewApplication(siteName, "", siteDir);
+            WebSiteSetup.NewSite(siteName, siteDir);
         }
 
         [TestMethod]

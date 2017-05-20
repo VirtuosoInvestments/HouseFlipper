@@ -12,11 +12,60 @@ namespace Test.HouseFlipper
 {
     public class WebSiteSetup
     {
-        public static void NewApplication(string siteName, string appName, string siteDir)
+        private const string defaultPool = "DefaultAppPool";
+        public static void NewSite(string siteName, string siteDir)
         {
+            var iisMgr = new ServerManager();
+            RemoveSite(iisMgr, siteName);
+            AddSite(iisMgr, siteName, siteDir);
+        }
+
+        private static void AddSite(ServerManager iisMgr, string siteName, string siteDir)
+        {
+            Console.WriteLine("Adding new IIS site: {0} {1}", siteName, siteDir);
+            var newSite = iisMgr.Sites.Add(siteName, siteDir, 2020);
+            //newSite.ApplicationDefaults.ApplicationPoolName = defaultPool;
+            newSite.TraceFailedRequestsLogging.Enabled = true;
+            //newSite.TraceFailedRequestsLogging.Directory = "C:\\inetpub\\customfolder\\site";
+            newSite.ServerAutoStart = true;
             AddReadACL("NetworkService", siteDir);
+            iisMgr.CommitChanges();
+        }
+
+        private static void RemoveSite(ServerManager iisMgr, string siteName)
+        {
+            foreach (var site in iisMgr.Sites)
+            {
+                var existingSite = site.ToString();
+                if (site.ToString().Equals(siteName))
+                {
+                    Console.WriteLine("Removing old IIS app: {0}", existingSite);
+                    iisMgr.Sites.Remove(site);
+                    iisMgr.CommitChanges();
+                    break;
+                }
+            }
+        }
+
+        public static void NewApplication(string siteName, string appName, string appDir)
+        {
+            AddReadACL("NetworkService", appDir);
             var iisMgr = new ServerManager();
             string appname = siteName + appName;
+            RemoveApplication(iisMgr, siteName, appname);
+            AddApplication(iisMgr, siteName, appName, appDir);
+        }
+
+        private static void AddApplication(ServerManager iisMgr, string siteName, string appName, string appDir)
+        {
+            Console.WriteLine("Adding new IIS app: {0} {1}", appName, appDir);
+            var newapp = iisMgr.Sites[siteName].Applications.Add(appName, appDir);
+            newapp.ApplicationPoolName = siteName;
+            iisMgr.CommitChanges();
+        }
+
+        private static void RemoveApplication(ServerManager iisMgr, string siteName, string appname)
+        {
             foreach (var app in iisMgr.Sites[siteName].Applications)
             {
                 var existingApp = app.ToString();
@@ -28,10 +77,6 @@ namespace Test.HouseFlipper
                     break;
                 }
             }
-            Console.WriteLine("Adding new IIS app: {0} {1}", appName, siteDir);
-            var newapp = iisMgr.Sites[siteName].Applications.Add(appName, siteDir);
-            newapp.ApplicationPoolName = siteName;
-            iisMgr.CommitChanges();
         }
 
         private static void AddReadACL(string account, string dirname)
