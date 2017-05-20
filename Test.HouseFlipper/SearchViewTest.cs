@@ -24,9 +24,11 @@ namespace Test.HouseFlipper
             string title = string.Empty;
             Assert.AreEqual(title, driver.Title);
             var input = string.Empty;
-            driver.FindElement(By.Id(input))
+            driver.FindElement(By.Id(input));
         }
 
+        public void Results() { }
+        public void Map() { }
         
     }
 }

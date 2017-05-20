@@ -92,6 +92,8 @@
     <Compile Include="PropertySearchTest.cs" />
     <Compile Include="MapDisplayTest.cs" />
     <Compile Include="SearchViewTest.cs" />
+    <Compile Include="ResultsViewTest.cs" />
+    <Compile Include="MapViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\Hack.HouseFlipper.DataAccess.csproj">

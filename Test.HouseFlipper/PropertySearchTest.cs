@@ -14,7 +14,7 @@ namespace Test.HouseFlipper
         {
             var instance = new PropertySearch();
             var options = new PropertySearchOptions();
-            List<Property> list = instance.Search(options)
+            List<Property> list = instance.Search(options);
         }
     }
 }
