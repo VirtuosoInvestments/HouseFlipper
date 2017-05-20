@@ -9,11 +9,13 @@ namespace Test.HouseFlipper
     [TestClass]
     public class SearchViewTest
     {
+        private const string siteName = "HouseFlipper";
+        private const string siteDir = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite";
         [ClassInitialize]
         public static void Setup(TestContext context)
         {
-            WebSiteSetup.NewApplication();
-        }        
+            WebSiteSetup.NewApplication(siteName, "", siteDir);
+        }
 
         [TestMethod]
         public void Load()
@@ -29,6 +31,6 @@ namespace Test.HouseFlipper
 
         public void Results() { }
         public void Map() { }
-        
+
     }
 }
