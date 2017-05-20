@@ -58,6 +58,10 @@ namespace Hack.HouseFlipper.DataAccess.Csv
                     string line;                    
                     while ((line = sr.ReadLine()) != null)
                     {
+                        if(string.IsNullOrWhiteSpace(line))
+                        {
+                            continue;
+                        }
                         yield return new MlsRow(line, newFile);
                         newFile = false;
                     }
