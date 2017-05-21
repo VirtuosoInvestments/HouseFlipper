@@ -8,6 +8,6 @@ namespace Hack.HouseFlipper.Utility
 {
     public interface ICommand
     {
-        void Execute(string[] args);
+        void Execute(params string[] args);
     }
 }

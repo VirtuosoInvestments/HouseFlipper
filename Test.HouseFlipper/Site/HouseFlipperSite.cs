@@ -12,38 +12,14 @@ namespace Test.HouseFlipper
 
     public class HouseFlipperSite : MainSite
     {
-        private static int port = 8020;
-        private static string siteName = "HouseFlipperTest";
-        private static string siteDir = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite";
+        private static string siteUrl = Settings.Get(Setting.SiteUrl);
 
-        private static Lazy<string> siteUrl = new Lazy<string>(
-            ()=>
-            {                
-                return WebSiteSetup.NewSite(siteName, siteDir, port);
-            }
-            );
-
-        public override string Url { get { return siteUrl.Value; } }
-
-        private static Lazy<IWebDriver> driver = new Lazy<IWebDriver>(
-            () => 
-            {
-                var instance = new ChromeDriver(@"C:\docusign_source\Core\External\Selenium\ChromeDriver");
-                /*instance.Navigate().GoToUrl(site.Url);
-                string title = string.Empty;
-                Assert.AreEqual(title, instance.Title);
-                var input = string.Empty;
-                instance.FindElement(By.Id(input));*/
-                return instance;
-            }
-            );
-        public override IWebDriver Driver
+        public HouseFlipperSite()
         {
-            get
-            {
-                return driver.Value;
-            }
+            Console.WriteLine("HouseFlipper site url: " + siteUrl);
         }
+
+        public override string Url { get { return siteUrl; } }       
 
         public View GoTo(SiteNavigation navigation)
         {
@@ -56,11 +32,6 @@ namespace Test.HouseFlipper
                 default:
                     throw new InvalidOperationException("Unhandled navigation: " + navigation);
             }
-        }
-
-        public void Remove()
-        {
-            WebSiteSetup.RemoveSite(siteName);
         }
     }
 }

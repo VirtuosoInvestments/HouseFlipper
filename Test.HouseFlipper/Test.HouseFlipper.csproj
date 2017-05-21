@@ -88,7 +88,6 @@
     <Compile Include="Common\FileHelper.cs" />
     <Compile Include="Site\HouseFlipperSite.cs" />
     <Compile Include="Common\Settings.cs" />
-    <Compile Include="Common\WebSiteSetup.cs" />
     <Compile Include="MlsDataReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MlsTokenizerTest.cs" />
@@ -123,6 +122,7 @@
     <None Include="data\flips.csv" />
     <None Include="data\token-test.csv" />
     <None Include="packages.config" />
+    <None Include="Setup.ps1" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -41,6 +41,12 @@ namespace Hack.HouseFlipper.Utility
                     case "count":
                         new CountCommand().Execute(args);
                         break;
+                    case "setupsite":
+                        new SetupSiteCommand().Execute(args);
+                        break;
+                    case "setuptestsite":
+                        new SetupTestSiteCommand().Execute(args);
+                        break;
                     default:
                         throw new InvalidOperationException("Unknown command " + cmdName);
                 }

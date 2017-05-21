@@ -9,7 +9,7 @@ namespace Hack.HouseFlipper.Utility
 {
     public class ClearCommand : ICommand
     {
-        public void Execute(string[] args)
+        public void Execute(params string[] args)
         {
             using (var context = new MlsContext())
             {

@@ -17,6 +17,7 @@ namespace Test.HouseFlipper
         private static HouseFlipperSite site;// = new HouseFlipperSite();
 
         [OneTimeSetUp]
+        [TestFixtureSetUp]
         public static void Setup()
         {
             //siteUrl = WebSiteSetup.NewSite(siteName, siteDir,port);
@@ -24,6 +25,7 @@ namespace Test.HouseFlipper
         }
 
         [OneTimeTearDown]
+        [TestFixtureTearDown]
         public static void TearDown()
         {
             site.Driver.Close();

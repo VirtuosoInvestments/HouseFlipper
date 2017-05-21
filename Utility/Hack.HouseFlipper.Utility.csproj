@@ -40,6 +40,7 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -66,6 +67,8 @@
     <Compile Include="Commands\ImportCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ProcessCommand.cs" />
+    <Compile Include="Commands\SetupSiteCommand.cs" />
+    <Compile Include="Commands\SetupTestSiteCommand.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="Map\MapDisplay.cs" />
     <Compile Include="Program.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="Rules\SoldRule.cs" />
     <Compile Include="Search\PropertySearch.cs" />
     <Compile Include="Search\PropertySearchOptions.cs" />
+    <Compile Include="Setup\WebSiteSetup.cs" />
     <Compile Include="Tree\SuffixTree.cs" />
   </ItemGroup>
   <ItemGroup>

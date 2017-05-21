@@ -24,7 +24,7 @@ namespace Hack.HouseFlipper.Utility
     }
     public class CountCommand : ICommand
     {
-        public void Execute(string[] args)
+        public void Execute(params string[] args)
         {
             var dataFolder = args[0];
             var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);
