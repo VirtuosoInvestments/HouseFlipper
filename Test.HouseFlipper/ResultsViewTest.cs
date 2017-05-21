@@ -1,14 +1,22 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test.HouseFlipper
 {
-    [TestClass]
+    [TestFixture]
     public class ResultsViewTest
     {
-        [TestMethod]
+        [Test]
+        public void Visit()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
         public void ShowResults()
         {
+            throw new NotImplementedException();
         }
     }
 }
