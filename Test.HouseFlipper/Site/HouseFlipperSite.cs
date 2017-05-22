@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using System.IO;
 
 namespace Test.HouseFlipper
 {
@@ -17,6 +18,19 @@ namespace Test.HouseFlipper
         public HouseFlipperSite()
         {
             Console.WriteLine("HouseFlipper site url: " + siteUrl);
+            RemoveVsFolder();
+        }
+
+        private void RemoveVsFolder()
+        {
+            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\.vs";
+            if(Directory.Exists(path))
+            {
+                foreach(var sub in Directory.GetDirectories(path))
+                {
+                    Directory.Delete(sub, true);
+                }
+            }
         }
 
         public override string Url { get { return siteUrl; } }       
