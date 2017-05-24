@@ -8,21 +8,37 @@ using System.Threading.Tasks;
 
 namespace Test.HouseFlipper
 {
-    public abstract class MainSite : IDisposable
+    public abstract class MainSite //: IDisposable
     {
         public virtual string Url {get;}
-        private static Lazy<IWebDriver> driver = new Lazy<IWebDriver>(
+
+        private IWebDriver driver = null;
+        /*private static Lazy<IWebDriver> driver = new Lazy<IWebDriver>(
            () =>
            {
                var instance = new ChromeDriver(@"C:\docusign_source\Core\External\Selenium\ChromeDriver");
                return instance;
            }
-           );
+           );*/
         public IWebDriver Driver
         {
             get
             {
-                return driver.Value;
+                //return driver.Value;
+                if(driver==null)
+                {
+                    var driverPath = Settings.Get(Setting.ChromeDriver);
+                    driver = new ChromeDriver(driverPath);
+                }
+                return driver;
+            }
+        }
+
+        public string Title
+        {
+            get
+            {
+                return Driver.Title;
             }
         }
 
@@ -35,12 +51,18 @@ namespace Test.HouseFlipper
         {
             if (disposing && driver!=null)
             {
-                driver.Value.Close();
+                driver.Close();
                 driver = null;
             }
         }
 
         ~MainSite()
+        {
+            Dispose(true);
+        }
+
+
+        /*~MainSite()
         {
             Dispose(false);
         }
@@ -49,6 +71,6 @@ namespace Test.HouseFlipper
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
+        */
     }
 }

@@ -9,7 +9,8 @@ namespace Test.HouseFlipper
 {
     public enum Setting
     {
-        SiteUrl
+        SiteUrl,
+        ChromeDriver
     }
 
     public class Settings

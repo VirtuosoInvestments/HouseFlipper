@@ -52,7 +52,12 @@ namespace Hack.HouseFlipper.Utility
                 }
             }
 
-            Dictionary<string, Dictionary<string, Dictionary<string, List<Listing>>>> flippedMultiKeyHash=null, activeMultiKeyHash = null;
+            //DoOtherStuff();
+        }
+
+        private static void DoOtherStuff()
+        {
+            Dictionary<string, Dictionary<string, Dictionary<string, List<Listing>>>> flippedMultiKeyHash = null, activeMultiKeyHash = null;
             Dictionary<string, FlippedCharacteristics> indivSubDivAllResults = null, indivSubDivNoPoolResults = null, indivSubDivWithPoolResults = null;
             //<TESTING>
             //Process(out flippedMultiKeyHash, out indivSubDivAllResults, out indivSubDivNoPoolResults, out indivSubDivWithPoolResults, out activeMultiKeyHash);
@@ -396,7 +401,6 @@ namespace Hack.HouseFlipper.Utility
             }
         }
 
-        
 
         private static void AddAverageFlipBySubDivision(string zip, string subDiv, string city, Dictionary<string, FlippedCharacteristics> results, HouseCharacteristics pre, HouseCharacteristics post, int count, string extra, List<FlippedCharacteristics> fcList)
         {

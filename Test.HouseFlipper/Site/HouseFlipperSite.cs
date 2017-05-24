@@ -15,7 +15,8 @@ namespace Test.HouseFlipper
     {
         private static string siteUrl = Settings.Get(Setting.SiteUrl);
 
-        private static string NavigationId = "navigation";
+        public static string NavigationId = "navigation";
+        public static string SearchViewLinkCss = "";
 
         public HouseFlipperSite()
         {
@@ -51,5 +52,23 @@ namespace Test.HouseFlipper
                     throw new InvalidOperationException("Unhandled navigation: " + view);
             }
         }
+
+        public void CheckCss(object searchViewLinkCss)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CheckExists(string id)
+        {
+            if(Find(id)==null)
+            {
+                throw new InvalidOperationException("Error: Could not locate element with id='"+id+"'!");
+            }
+        }
+
+        private IWebElement Find(string id)
+        {
+            return this.Driver.FindElement(By.Id(id));
+        }        
     }
 }
