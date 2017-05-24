@@ -10,17 +10,13 @@ namespace Test.HouseFlipper
     [TestFixture]
     public class SearchViewTest
     {
-        /*private static int port = 8020;
-        private static string siteName = "HouseFlipper";
-        private static string siteDir = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite";
-        private static string siteUrl;*/
-        private static HouseFlipperSite site;// = new HouseFlipperSite();
+        private static HouseFlipperSite site;
+        private SearchView searchView;       
 
         [OneTimeSetUp]
         [TestFixtureSetUp]
         public static void Setup()
-        {
-            //siteUrl = WebSiteSetup.NewSite(siteName, siteDir,port);
+        {           
             site = new HouseFlipperSite();
         }
 
@@ -32,25 +28,36 @@ namespace Test.HouseFlipper
         }
 
         [Test]
-        public void Visit()
-        {
-            //var siteUrl = Settings.Get(Setting.SiteUrl);
-            //var driver = new ChromeDriver(@"C:\docusign_source\Core\External\Selenium\ChromeDriver");
-            //driver.Navigate().GoToUrl(site.Url);
-            //string title = string.Empty;
-            //Assert.AreEqual(title, driver.Title);
-            //var input = string.Empty;
-            //driver.FindElement(By.Id(input));
-            var searchView = site.GoTo(SiteNavigation.Search);
-            Assert.IsNotNull(searchView);
-        }
-
-        [Test]
         public void PerformSearch()
         {
-            var searchView = site.GoTo(SiteNavigation.Search);
+            var searchView = site.GoTo(Views.Search);
             Assert.IsNotNull(searchView);
             throw new NotImplementedException();
         }
+
+        [Test]
+        public void Visit()
+        {
+            GoToSite();
+            ClickOnSearch();
+            VerifyForm();            
+        }
+
+        private void VerifyForm()
+        {
+            searchView.VerifyForm();
+        }
+
+        private void ClickOnSearch()
+        {
+            searchView = (SearchView)site.GoTo(Views.Search);
+        }
+
+        private void GoToSite()
+        {
+            site.GoToSite();
+        }
+
+        
     }
 }

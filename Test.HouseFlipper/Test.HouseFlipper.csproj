@@ -102,6 +102,7 @@
     <Compile Include="Site\MainSite.cs" />
     <Compile Include="Site\SearchView.cs" />
     <Compile Include="Site\View.cs" />
+    <Compile Include="HouseFlipperSiteTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\Hack.HouseFlipper.DataAccess.csproj">

@@ -9,11 +9,13 @@ using System.IO;
 
 namespace Test.HouseFlipper
 {
-    public enum SiteNavigation { Search }
+    public enum Views { Search }
 
     public class HouseFlipperSite : MainSite
     {
         private static string siteUrl = Settings.Get(Setting.SiteUrl);
+
+        private static string NavigationId = "navigation";
 
         public HouseFlipperSite()
         {
@@ -35,16 +37,18 @@ namespace Test.HouseFlipper
 
         public override string Url { get { return siteUrl; } }       
 
-        public View GoTo(SiteNavigation navigation)
+        public View GoTo(Views view)
         {
-            switch(navigation)
+            var nav = this.Driver.FindElement(By.Id(NavigationId));
+            switch(view)
             {
-                case SiteNavigation.Search:
-                    var view = new SearchView(this);
-                    view.GoToView();
-                    return view;
+                case Views.Search:
+                    var link = nav.FindElement(By.LinkText(SearchView.LinkText));
+                    link.Click();
+                    var searchView = new SearchView(this);                    
+                    return searchView;
                 default:
-                    throw new InvalidOperationException("Unhandled navigation: " + navigation);
+                    throw new InvalidOperationException("Unhandled navigation: " + view);
             }
         }
     }
