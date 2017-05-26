@@ -5,6 +5,7 @@ using Hack.HouseFlipper.DataAccess.Csv;
 using Hack.HouseFlipper.DataAccess.Models;
 using System.Collections.Specialized;
 using System.Collections.Generic;
+using Hack.HouseFlipper.BusinessObjects;
 
 namespace Test.HouseFlipper
 {

@@ -41,14 +41,24 @@ namespace Test.HouseFlipper
         public void Navigation()
         {
             site.GoToSite();
-            site.CheckExists(HouseFlipperSite.NavigationId);
+            var navMenu = site.Navigation;
+            Assert.IsNotNull(navMenu);
+            var navMenuItems = site.NavMenuItems;
+            Assert.IsNotNull(navMenuItems);
+            Assert.AreEqual(1, navMenuItems.Count);
         }   
         
         [Test]
         public void Search()
         {
             site.GoToSite();
-            site.CheckCss(HouseFlipperSite.SearchViewLinkCss);
+            var searchMenu = site.SearchViewMenu;
+            Assert.IsNotNull(searchMenu);
+            Assert.AreEqual("Search", searchMenu.Text);
+
+            var searchLink = site.SearchViewLink;
+            Assert.IsNotNull(searchLink);
+            Assert.AreEqual("Search", searchLink);
         }  
     }
 }

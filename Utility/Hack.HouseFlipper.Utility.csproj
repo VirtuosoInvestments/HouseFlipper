@@ -55,13 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aggregators\ActiveAggregator.cs" />
-    <Compile Include="Aggregators\Aggregator.cs" />
-    <Compile Include="Aggregators\FlipAggregator.cs" />
-    <Compile Include="Aggregators\MlsSet.cs" />
-    <Compile Include="Aggregators\SoldAggregator.cs" />
-    <Compile Include="Aggregators\SubdivisionTable.cs" />
-    <Compile Include="Aggregators\ZipTable.cs" />
     <Compile Include="Commands\ClearCommand.cs" />
     <Compile Include="Commands\CountCommand.cs" />
     <Compile Include="Commands\ImportCommand.cs" />
@@ -70,18 +63,9 @@
     <Compile Include="Commands\SetupSiteCommand.cs" />
     <Compile Include="Commands\SetupTestSiteCommand.cs" />
     <Compile Include="Importer.cs" />
-    <Compile Include="Map\MapDisplay.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rules\FlipRule.cs" />
-    <Compile Include="Rules\IRule.cs" />
-    <Compile Include="Rules\RuleCondition.cs" />
-    <Compile Include="Rules\RuleSet.cs" />
-    <Compile Include="Rules\SoldRule.cs" />
-    <Compile Include="Search\PropertySearch.cs" />
-    <Compile Include="Search\PropertySearchOptions.cs" />
     <Compile Include="Setup\WebSiteSetup.cs" />
-    <Compile Include="Tree\SuffixTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
