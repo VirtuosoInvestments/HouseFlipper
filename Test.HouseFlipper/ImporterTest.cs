@@ -1,22 +1,20 @@
-﻿using System;
-using System.Text;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Hack.HouseFlipper.Utility;
+﻿using Hack.HouseFlipper.DataAccess.Csv;
 using Hack.HouseFlipper.DataAccess.DB;
-using System.Collections.Specialized;
-using System.Collections.Generic;
 using Hack.HouseFlipper.DataAccess.Models;
-using System.Data.Entity;
+using Hack.HouseFlipper.Utility;
 using Moq;
-using Hack.HouseFlipper.DataAccess.Csv;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data.Entity;
 
 namespace Test.HouseFlipper
 {
-    [TestClass]
+    [TestFixture]
     public class ImporterTest
     {
-        [TestMethod]
+        [Test]
         public void Import()
         {
             // Arrange
@@ -87,7 +85,7 @@ namespace Test.HouseFlipper
             return true;
         }
 
-        [TestMethod]
+        [Test]
         public void AddRecord()
         {
             var data = new StringDictionary();

@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Hack.HouseFlipper.Utility;
+﻿using Hack.HouseFlipper.BusinessObjects;
 using Hack.HouseFlipper.DataAccess.Models;
+using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace Test.HouseFlipper
 {
-    [TestClass]
+    [TestFixture]
     public class MapDisplayTest
     {
-        [TestMethod]
+        [Test]
         public void GetMarkers()
         {
             var instance = new MapDisplay();

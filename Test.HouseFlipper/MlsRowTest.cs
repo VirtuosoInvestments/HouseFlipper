@@ -1,20 +1,19 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Hack.HouseFlipper.DataAccess.Models;
-using System.Collections.Specialized;
+﻿using Hack.HouseFlipper.DataAccess.Models;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
-using System.Dynamic;
+using System.Collections.Specialized;
 
 namespace Test.HouseFlipper
 {
-    [TestClass]
+    [TestFixture]
     public class MlsRowTest
     {
         class SomeObject
         {
 
         }
-        [TestMethod]
+        [Test]
         public void Constructor()
         {
             var data = new StringDictionary();

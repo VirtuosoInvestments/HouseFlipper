@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Hack.HouseFlipper.Utility;
-using System.Collections.Generic;
+﻿using Hack.HouseFlipper.BusinessObjects;
 using Hack.HouseFlipper.DataAccess.Models;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Test.HouseFlipper
 {
-    [TestClass]
+    [TestFixture]
     public class PropertySearchTest
     {
-        [TestMethod]
+        [Test]
         public void Search()
         {
             var instance = new PropertySearch();

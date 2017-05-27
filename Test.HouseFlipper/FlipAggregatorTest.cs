@@ -1,18 +1,17 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Hack.HouseFlipper.Utility;
+﻿using Hack.HouseFlipper.BusinessObjects;
 using Hack.HouseFlipper.DataAccess.Csv;
 using Hack.HouseFlipper.DataAccess.Models;
-using System.Collections.Specialized;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
-using Hack.HouseFlipper.BusinessObjects;
+using System.Collections.Specialized;
 
 namespace Test.HouseFlipper
 {
-    [TestClass]
+    [TestFixture]
     public class FlipAggregatorTest
     {
-        [TestMethod]
+        [Test]
         public void Add()
         {
             // dependency

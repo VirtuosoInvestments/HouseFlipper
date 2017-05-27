@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using Hack.HouseFlipper.DataAccess.Csv;
+using NUnit.Framework;
 
 namespace Test.HouseFlipper
 {
-    [TestClass]
+    [TestFixture]
     public class MlsTokenizerTest
     {
-        [TestMethod]
+        [Test]
         public void Split()
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\listing.csv";
@@ -24,7 +24,7 @@ namespace Test.HouseFlipper
                 }
             }
         }
-        [TestMethod]
+        [Test]
         public void TokenTest()
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\token-test.csv";

@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Hack.HouseFlipper.DataAccess.Csv;
-using System.IO;
+﻿using Hack.HouseFlipper.DataAccess.Csv;
+using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Test.HouseFlipper
 {
-    [TestClass]
+    [TestFixture]
     public class MlsDataReaderTest
     {
-        [TestMethod]
+        [Test]
         public void Read()
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\listing.csv";
@@ -33,7 +32,7 @@ namespace Test.HouseFlipper
             Assert.AreEqual(lines.Count, count);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadFolder()
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data";
