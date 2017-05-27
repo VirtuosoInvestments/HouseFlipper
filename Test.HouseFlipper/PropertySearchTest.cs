@@ -1,5 +1,5 @@
-﻿using Hack.HouseFlipper.BusinessObjects;
-using Hack.HouseFlipper.DataAccess.Models;
+﻿using HouseFlipper.BusinessObjects;
+using HouseFlipper.DataAccess.Models;
 using NUnit.Framework;
 using System.Collections.Generic;
 

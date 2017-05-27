@@ -1,4 +1,4 @@
-﻿using Hack.HouseFlipper.DataAccess.DB;
+﻿using HouseFlipper.DataAccess.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;

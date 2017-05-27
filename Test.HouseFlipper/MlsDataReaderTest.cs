@@ -1,4 +1,4 @@
-﻿using Hack.HouseFlipper.DataAccess.Csv;
+﻿using HouseFlipper.DataAccess.Csv;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;

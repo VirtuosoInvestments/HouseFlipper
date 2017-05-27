@@ -1,12 +1,12 @@
-﻿using Hack.HouseFlipper.DataAccess.DB;
-using Hack.HouseFlipper.DataAccess.Models;
+﻿using HouseFlipper.DataAccess.DB;
+using HouseFlipper.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hack.HouseFlipper.Utility.Commands
+namespace HouseFlipper.Utility.Commands
 {
     public class ProcessCommand
     {

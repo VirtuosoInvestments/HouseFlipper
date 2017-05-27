@@ -1,11 +1,11 @@
-﻿using Hack.HouseFlipper.DataAccess.Models;
+﻿using HouseFlipper.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hack.HouseFlipper.BusinessObjects
+namespace HouseFlipper.BusinessObjects
 {
     public class Aggregator
     {

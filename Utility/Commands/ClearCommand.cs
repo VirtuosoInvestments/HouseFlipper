@@ -1,11 +1,11 @@
-﻿using Hack.HouseFlipper.DataAccess.DB;
+﻿using HouseFlipper.DataAccess.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hack.HouseFlipper.Utility
+namespace HouseFlipper.Utility
 {
     public class ClearCommand : ICommand
     {

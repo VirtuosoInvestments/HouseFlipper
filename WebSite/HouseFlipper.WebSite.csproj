@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebSite</RootNamespace>
-    <AssemblyName>WebSite</AssemblyName>
+    <RootNamespace>HouseFlipper.WebSite</RootNamespace>
+    <AssemblyName>HouseFlipper.WebSite</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -296,13 +296,13 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessObjects\Hack.HouseFlipper.BusinessObjects.csproj">
+    <ProjectReference Include="..\BusinessObjects\HouseFlipper.BusinessObjects.csproj">
       <Project>{72560c76-219a-4137-9f5e-1c112ab114ea}</Project>
-      <Name>Hack.HouseFlipper.BusinessObjects</Name>
+      <Name>HouseFlipper.BusinessObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccess\Hack.HouseFlipper.DataAccess.csproj">
+    <ProjectReference Include="..\DataAccess\HouseFlipper.DataAccess.csproj">
       <Project>{718b99f4-02a9-4359-a150-eab48af7edd5}</Project>
-      <Name>Hack.HouseFlipper.DataAccess</Name>
+      <Name>HouseFlipper.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

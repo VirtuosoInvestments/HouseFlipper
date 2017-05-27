@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hack.HouseFlipper.DataAccess.Models
+namespace HouseFlipper.DataAccess.Models
 {
     public class FlippedCharacteristics : IComparable
     {

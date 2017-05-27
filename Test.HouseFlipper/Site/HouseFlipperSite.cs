@@ -36,7 +36,14 @@ namespace Test.HouseFlipper
             }
         }
 
-        public string SearchViewLink { get { return this.SearchViewMenu.GetAttribute("href"); }  }
+        public string SearchViewLink
+        {
+            get
+            {
+                var searchMenuItem = this.SearchViewMenu;
+                return searchMenuItem.FindElement(By.TagName("a")).GetAttribute("href");
+            }
+        }
 
         public HouseFlipperSite()
         {
@@ -57,7 +64,7 @@ namespace Test.HouseFlipper
         }
 
         public override string Url { get { return siteUrl; } }
-        
+
 
         public View GoTo(Views view)
         {

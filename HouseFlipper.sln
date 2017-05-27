@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hack.HouseFlipper.DataAccess", "DataAccess\Hack.HouseFlipper.DataAccess.csproj", "{718B99F4-02A9-4359-A150-EAB48AF7EDD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseFlipper.DataAccess", "DataAccess\HouseFlipper.DataAccess.csproj", "{718B99F4-02A9-4359-A150-EAB48AF7EDD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hack.HouseFlipper.Utility", "Utility\Hack.HouseFlipper.Utility.csproj", "{181680BC-3C57-498C-B24D-6962F2CE4501}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseFlipper.Utility", "Utility\HouseFlipper.Utility.csproj", "{181680BC-3C57-498C-B24D-6962F2CE4501}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hack.HouseFlipper.WebSite", "WebSite\Hack.HouseFlipper.WebSite.csproj", "{BE6F3F23-EA9D-45B8-A7C3-068361A2BB5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseFlipper.WebSite", "WebSite\HouseFlipper.WebSite.csproj", "{BE6F3F23-EA9D-45B8-A7C3-068361A2BB5C}"
 EndProject
-Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Setup", "Setup\Setup.isproj", "{7B268DAB-2923-4B44-AAAA-F89CF8B3388E}"
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "HouseFlipper.Msi", "Setup\HouseFlipper.Msi.isproj", "{7B268DAB-2923-4B44-AAAA-F89CF8B3388E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.HouseFlipper", "Test.HouseFlipper\Test.HouseFlipper.csproj", "{A35CF2EA-70DA-492F-B76F-3B6E87CAA426}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.HouseFlipper.WebSite", "Test.HouseFlipper\Test.HouseFlipper.WebSite.csproj", "{A35CF2EA-70DA-492F-B76F-3B6E87CAA426}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hack.HouseFlipper.BusinessObjects", "BusinessObjects\Hack.HouseFlipper.BusinessObjects.csproj", "{72560C76-219A-4137-9F5E-1C112AB114EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseFlipper.BusinessObjects", "BusinessObjects\HouseFlipper.BusinessObjects.csproj", "{72560C76-219A-4137-9F5E-1C112AB114EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.HouseFlipper.BusinessObjects", "Test.HouseFlipper.BusinessObjects\Test.HouseFlipper.BusinessObjects.csproj", "{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +86,16 @@ Global
 		{72560C76-219A-4137-9F5E-1C112AB114EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72560C76-219A-4137-9F5E-1C112AB114EA}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{72560C76-219A-4137-9F5E-1C112AB114EA}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{C3CB9CBC-D359-4B17-96CD-6D7F7434FF7E}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

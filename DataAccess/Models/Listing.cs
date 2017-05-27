@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace Hack.HouseFlipper.DataAccess.Models
+namespace HouseFlipper.DataAccess.Models
 {
     public enum MlsStatus { Active, Sold }
 

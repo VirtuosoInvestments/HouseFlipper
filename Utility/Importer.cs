@@ -1,6 +1,6 @@
-﻿using Hack.HouseFlipper.DataAccess.Csv;
-using Hack.HouseFlipper.DataAccess.DB;
-using Hack.HouseFlipper.DataAccess.Models;
+﻿using HouseFlipper.DataAccess.Csv;
+using HouseFlipper.DataAccess.DB;
+using HouseFlipper.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hack.HouseFlipper.Utility
+namespace HouseFlipper.Utility
 {
     public class Importer
     {

@@ -1,0 +1,7 @@
+C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper.BusinessObjects\bin\Debug\Test.HouseFlipper.BusinessObjects.dll
+C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper.BusinessObjects\bin\Debug\Test.HouseFlipper.BusinessObjects.pdb
+C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper.BusinessObjects\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper.BusinessObjects\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper.BusinessObjects\obj\Debug\Test.HouseFlipper.BusinessObjects.dll
+C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper.BusinessObjects\obj\Debug\Test.HouseFlipper.BusinessObjects.pdb
+C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper.BusinessObjects\obj\Debug\Test.HouseFlipper.BusinessObjects.csprojResolveAssemblyReference.cache

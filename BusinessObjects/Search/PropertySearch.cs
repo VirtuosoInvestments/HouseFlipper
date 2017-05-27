@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hack.HouseFlipper.DataAccess.Models;
+using HouseFlipper.DataAccess.Models;
 
-namespace Hack.HouseFlipper.BusinessObjects
+namespace HouseFlipper.BusinessObjects
 {
     public class PropertySearch
     {

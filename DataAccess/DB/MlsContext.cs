@@ -1,4 +1,4 @@
-﻿using Hack.HouseFlipper.DataAccess.Models;
+﻿using HouseFlipper.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hack.HouseFlipper.DataAccess.DB
+namespace HouseFlipper.DataAccess.DB
 {
     public class MlsContext : DbContext
     {

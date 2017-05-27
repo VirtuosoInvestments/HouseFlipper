@@ -58,7 +58,7 @@ namespace Test.HouseFlipper
 
             var searchLink = site.SearchViewLink;
             Assert.IsNotNull(searchLink);
-            Assert.AreEqual("Search", searchLink);
+            Assert.AreEqual("/Search", searchLink);
         }  
     }
 }

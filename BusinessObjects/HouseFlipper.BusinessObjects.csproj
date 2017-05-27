@@ -7,8 +7,8 @@
     <ProjectGuid>{72560C76-219A-4137-9F5E-1C112AB114EA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hack.HouseFlipper.BusinessObjects</RootNamespace>
-    <AssemblyName>Hack.HouseFlipper.BusinessObjects</AssemblyName>
+    <RootNamespace>HouseFlipper.BusinessObjects</RootNamespace>
+    <AssemblyName>HouseFlipper.BusinessObjects</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -59,9 +59,9 @@
     <Compile Include="Tree\SuffixTree.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\Hack.HouseFlipper.DataAccess.csproj">
+    <ProjectReference Include="..\DataAccess\HouseFlipper.DataAccess.csproj">
       <Project>{718b99f4-02a9-4359-a150-eab48af7edd5}</Project>
-      <Name>Hack.HouseFlipper.DataAccess</Name>
+      <Name>HouseFlipper.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

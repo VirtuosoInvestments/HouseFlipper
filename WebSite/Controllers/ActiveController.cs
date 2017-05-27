@@ -1,4 +1,4 @@
-﻿using Hack.HouseFlipper.DataAccess.Models;
+﻿using HouseFlipper.DataAccess.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hack.HouseFlipper.DataAccess.Csv;
+using HouseFlipper.DataAccess.Csv;
 using NUnit.Framework;
 
 namespace Test.HouseFlipper

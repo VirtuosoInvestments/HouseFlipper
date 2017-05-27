@@ -6,8 +6,8 @@
     <ProjectGuid>{A35CF2EA-70DA-492F-B76F-3B6E87CAA426}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test.HouseFlipper</RootNamespace>
-    <AssemblyName>Test.HouseFlipper</AssemblyName>
+    <RootNamespace>Test.HouseFlipper.WebSite</RootNamespace>
+    <AssemblyName>Test.HouseFlipper.WebSite</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -105,17 +105,17 @@
     <Compile Include="HouseFlipperSiteTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessObjects\Hack.HouseFlipper.BusinessObjects.csproj">
+    <ProjectReference Include="..\BusinessObjects\HouseFlipper.BusinessObjects.csproj">
       <Project>{72560c76-219a-4137-9f5e-1c112ab114ea}</Project>
-      <Name>Hack.HouseFlipper.BusinessObjects</Name>
+      <Name>HouseFlipper.BusinessObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccess\Hack.HouseFlipper.DataAccess.csproj">
+    <ProjectReference Include="..\DataAccess\HouseFlipper.DataAccess.csproj">
       <Project>{718b99f4-02a9-4359-a150-eab48af7edd5}</Project>
-      <Name>Hack.HouseFlipper.DataAccess</Name>
+      <Name>HouseFlipper.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Utility\Hack.HouseFlipper.Utility.csproj">
+    <ProjectReference Include="..\Utility\HouseFlipper.Utility.csproj">
       <Project>{181680bc-3c57-498c-b24d-6962f2ce4501}</Project>
-      <Name>Hack.HouseFlipper.Utility</Name>
+      <Name>HouseFlipper.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

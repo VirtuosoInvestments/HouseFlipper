@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hack.HouseFlipper.DataAccess.Csv
+namespace HouseFlipper.DataAccess.Csv
 {
     // This tokenizer class is a specialized tokenizer that expects
     // each line of the MLS.csv file to be of the format

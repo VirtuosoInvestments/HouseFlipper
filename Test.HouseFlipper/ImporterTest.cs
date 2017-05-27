@@ -1,7 +1,7 @@
-﻿using Hack.HouseFlipper.DataAccess.Csv;
-using Hack.HouseFlipper.DataAccess.DB;
-using Hack.HouseFlipper.DataAccess.Models;
-using Hack.HouseFlipper.Utility;
+﻿using HouseFlipper.DataAccess.Csv;
+using HouseFlipper.DataAccess.DB;
+using HouseFlipper.DataAccess.Models;
+using HouseFlipper.Utility;
 using Moq;
 using NUnit.Framework;
 using System;
