@@ -62,7 +62,6 @@
     <Compile Include="Commands\ProcessCommand.cs" />
     <Compile Include="Commands\SetupSiteCommand.cs" />
     <Compile Include="Commands\SetupTestSiteCommand.cs" />
-    <Compile Include="Importer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup\WebSiteSetup.cs" />

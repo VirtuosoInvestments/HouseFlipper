@@ -58,6 +58,7 @@
     <Compile Include="Csv\MlsTokenizer.cs" />
     <Compile Include="DB\MlsContext.cs" />
     <Compile Include="Csv\MlsReader.cs" />
+    <Compile Include="Importer.cs" />
     <Compile Include="Models\Flip.cs" />
     <Compile Include="Models\FlippedCharacteristics.cs" />
     <Compile Include="Models\FlippedHouse.cs" />
