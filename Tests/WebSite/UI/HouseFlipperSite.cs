@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Test.HouseFlipper.Common;
 
-namespace Test.HouseFlipper
+namespace Test.HouseFlipper.WebSite
 {
     public enum Views { Search }
 
@@ -64,36 +64,17 @@ namespace Test.HouseFlipper
 
         public View GoTo(Views view)
         {
+            this.GoToSite();
             var nav = this.Navigation;
             switch (view)
             {
                 case Views.Search:
-                    var link = nav.FindElement(By.LinkText(SearchView.LinkText));
-                    link.Click();
+                    this.SearchViewMenu.Click();
                     var searchView = new SearchView(this);
                     return searchView;
                 default:
                     throw new InvalidOperationException("Unhandled navigation: " + view);
             }
-        }
-
-        public void CheckExists(string id)
-        {
-            if (Find(id) == null)
-            {
-                throw new InvalidOperationException("Error: Could not locate element with id='" + id + "'!");
-            }
-        }
-
-        private IWebElement Find(string id)
-        {
-            var by = By.Id(id);
-            return Find(by);
-        }
-
-        private IWebElement Find(By by)
-        {
-            return this.Driver.FindElement(by);
-        }
+        }        
     }
 }

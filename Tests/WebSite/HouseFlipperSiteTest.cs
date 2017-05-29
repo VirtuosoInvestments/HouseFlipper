@@ -8,7 +8,7 @@ using OpenQA.Selenium.Firefox;
 using System.Net;
 using Test.HouseFlipper.Common;
 
-namespace Test.HouseFlipper
+namespace Test.HouseFlipper.WebSite
 {
     [TestFixture]
     public class HouseFlipperSiteTest
@@ -21,6 +21,14 @@ namespace Test.HouseFlipper
         {
             site = new HouseFlipperSite();
         }
+
+        [OneTimeTearDown]
+        [TestFixtureTearDown]
+        public static void TearDown()
+        {
+            site.Dispose();
+        }
+
 
         [Test]
         public void Visit()

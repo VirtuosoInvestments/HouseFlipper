@@ -5,7 +5,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using NUnit.Framework;
 
-namespace Test.HouseFlipper
+namespace Test.HouseFlipper.WebSite
 {
     [TestFixture]
     public class SearchViewTest
@@ -24,7 +24,7 @@ namespace Test.HouseFlipper
         [TestFixtureTearDown]
         public static void TearDown()
         {
-            site.Driver.Close();
+            site.Dispose();
         }
 
         [Test]
@@ -38,26 +38,8 @@ namespace Test.HouseFlipper
         [Test]
         public void Visit()
         {
-            GoToSite();
-            ClickOnSearch();
-            VerifyForm();            
-        }
-
-        private void VerifyForm()
-        {
+            var searchView = site.GoTo(Views.Search);            
             searchView.VerifyForm();
-        }
-
-        private void ClickOnSearch()
-        {
-            searchView = (SearchView)site.GoTo(Views.Search);
-        }
-
-        private void GoToSite()
-        {
-            site.GoToSite();
-        }
-
-        
+        }               
     }
 }

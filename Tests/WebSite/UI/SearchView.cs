@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test.HouseFlipper
+namespace Test.HouseFlipper.WebSite
 {
     public class SearchView : View
     {
@@ -19,34 +19,15 @@ namespace Test.HouseFlipper
 
         public SearchView(HouseFlipperSite mainSite) : base(mainSite) { }
 
-        public IWebElement GetCheckBox(string id)
-        {
-            return this.Driver.FindElement(By.Id(id));
-        }
-
-        public IWebElement GetTextField(string id)
-        {
-            return this.Driver.FindElement(By.Id(id));
-        }
-
         public override void VerifyForm()
         {
-            if (GetCheckBox(SoldCheckBoxId) == null)
-            {
-                throw new InvalidOperationException("Error: Could not locate sold checkbox!");
-            }
 
-            if (GetCheckBox(ActiveCheckBoxId) == null)
-            {
-                throw new InvalidOperationException("Error: Could not locate active checkbox!");
-            }
-
-            if(GetTextField(WithinTextFieldId) == null)
-            {
-                throw new InvalidOperationException("Error: Could not locate within text field!");
-            }
+            WebElement.CheckExists(new CssSearch() { Text = "Sold", TagName = "label" });
+            WebElement.CheckExists(SoldCheckBoxId);
+            WebElement.CheckExists(new CssSearch() { Text = "Active", TagName = "label" });
+            WebElement.CheckExists(ActiveCheckBoxId);
+            WebElement.CheckExists(new CssSearch() { Text = "Within (miles)", TagName = "label" });
+            WebElement.CheckExists(WithinTextFieldId);            
         }
-
-
     }
 }

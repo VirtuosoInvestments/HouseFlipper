@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Test.HouseFlipper.Common;
 
-namespace Test.HouseFlipper
+namespace Test.HouseFlipper.WebSite
 {
     public abstract class MainSite //: IDisposable
     {
         public virtual string Url {get;}
 
         private IWebDriver driver = null;
-        public IWebDriver Driver
+        protected IWebDriver Driver
         {
             get
             {
@@ -23,6 +23,7 @@ namespace Test.HouseFlipper
                 {
                     var driverPath = Settings.Get(Setting.ChromeDriver);
                     driver = new ChromeDriver(driverPath);
+                    WebElement.Driver = driver;
                 }
                 return driver;
             }
@@ -40,7 +41,7 @@ namespace Test.HouseFlipper
         {
             Driver.Navigate().GoToUrl(this.Url);
         }
-
+                
         protected virtual void Dispose(bool disposing)
         {
             if (disposing && driver!=null)
@@ -49,14 +50,14 @@ namespace Test.HouseFlipper
                 driver = null;
             }
         }
-
+        /*
         ~MainSite()
         {
             Dispose(true);
-        }
+        }*/
 
 
-        /*~MainSite()
+        ~MainSite()
         {
             Dispose(false);
         }
@@ -65,6 +66,6 @@ namespace Test.HouseFlipper
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        */
+        }
     }
 }
