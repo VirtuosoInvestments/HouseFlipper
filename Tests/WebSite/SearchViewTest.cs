@@ -28,6 +28,7 @@ namespace Test.HouseFlipper.WebSite
         }
 
         [Test]
+        [Category("PathIssue")]
         public void PerformSearch()
         {
             var searchView = site.GoTo(Views.Search);
@@ -36,6 +37,7 @@ namespace Test.HouseFlipper.WebSite
         }
 
         [Test]
+        [Category("PathIssue")]
         public void Visit()
         {
             var searchView = site.GoTo(Views.Search);            

@@ -10,6 +10,7 @@ namespace Test.HouseFlipper.DataAccess
     public class MlsTokenizerTest
     {
         [Test]
+        [Category("PathIssue")]
         public void Split()
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\listing.csv";
@@ -26,6 +27,7 @@ namespace Test.HouseFlipper.DataAccess
             }
         }
         [Test]
+        [Category("PathIssue")]
         public void TokenTest()
         {
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\token-test.csv";

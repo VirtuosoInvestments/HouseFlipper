@@ -22,7 +22,7 @@ namespace Test.HouseFlipper.WebSite
             var result = string.Format("{0}[", TagName);
             bool isFirst = true;
             if (!string.IsNullOrEmpty(Text)) { attributes.Add("text", Text); }
-            foreach(var a in attributes.Keys)
+            foreach(string a in attributes.Keys)
             {
                 if(isFirst)
                 {

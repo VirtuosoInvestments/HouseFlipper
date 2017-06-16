@@ -39,6 +39,7 @@ namespace Test.HouseFlipper.WebSite
         }
 
         [Test]
+        [Category("PathIssue")]
         public void Title()
         {
             //var site = new HouseFlipperSite();
@@ -47,6 +48,7 @@ namespace Test.HouseFlipper.WebSite
         }
 
         [Test]
+        [Category("PathIssue")]
         public void Navigation()
         {
             site.GoToSite();
@@ -58,6 +60,7 @@ namespace Test.HouseFlipper.WebSite
         }   
         
         [Test]
+        [Category("PathIssue")]
         public void Search()
         {
             site.GoToSite();

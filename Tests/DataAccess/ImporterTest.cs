@@ -18,7 +18,7 @@ namespace Test.HouseFlipper.DataAccess
         public void Import()
         {
             // Arrange
-            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\listing.csv";
+            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data\listing.csv";
             var readerMock = new Mock<MlsReader>(path);
             readerMock.Setup(x => x.ReadLine()).Returns(
                   new List<MlsRow>()

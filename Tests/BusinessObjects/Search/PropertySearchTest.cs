@@ -6,6 +6,7 @@ using System.Collections.Generic;
 namespace Test.HouseFlipper.BusinessObjects
 {
     [TestFixture]
+    [Category("NotImplemented")]
     public class PropertySearchTest
     {
         [Test]

@@ -9,13 +9,14 @@ using System.Collections.Specialized;
 namespace Test.HouseFlipper.BusinessObjects
 {
     [TestFixture]
+    [Category("Regression")]
     public class FlipAggregatorTest
     {
         [Test]
         public void Add()
         {
             // dependency
-            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\flips.csv";
+            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data\flips.csv";
             var reader = new MlsReader(path);
             var listingToPropId = new Dictionary<string, string>();
 
