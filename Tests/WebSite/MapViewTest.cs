@@ -5,6 +5,7 @@ using System;
 namespace Test.HouseFlipper.WebSite
 {
     [TestFixture]
+    [Category("UI")]
     public class MapViewTest
     {
         [Test]

@@ -6,9 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace Test.HouseFlipper.BusinessObjects
+namespace Test.HouseFlipper.BusinessObjects.Aggregators
 {
     [TestFixture]
+    [Category("BusinessObjects")]
     public class FlipAggregatorTest
     {
         [Test]

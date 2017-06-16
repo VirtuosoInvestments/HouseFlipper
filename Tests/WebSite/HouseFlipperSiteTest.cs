@@ -11,6 +11,7 @@ using Test.HouseFlipper.Common;
 namespace Test.HouseFlipper.WebSite
 {
     [TestFixture]
+    [Category("UI")]
     public class HouseFlipperSiteTest
     {
         private static HouseFlipperSite site;

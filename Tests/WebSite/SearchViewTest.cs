@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace Test.HouseFlipper.WebSite
 {
     [TestFixture]
+    [Category("UI")]
     public class SearchViewTest
     {
         private static HouseFlipperSite site;
