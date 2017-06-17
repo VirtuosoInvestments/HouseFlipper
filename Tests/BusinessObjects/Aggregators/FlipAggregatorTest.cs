@@ -8,11 +8,11 @@ using System.Collections.Specialized;
 
 namespace Test.HouseFlipper.BusinessObjects
 {
-    [TestFixture]
-    [Category("Regression")]
+    [TestFixture]    
     public class FlipAggregatorTest
     {
         [Test]
+        [Category("Regression")]
         public void Add()
         {
             // dependency

@@ -126,6 +126,9 @@
     <None Include="packages.config" />
     <None Include="Setup.ps1" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="chromedriver\chromedriver.exe" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

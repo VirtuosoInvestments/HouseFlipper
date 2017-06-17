@@ -10,10 +10,9 @@ namespace Test.HouseFlipper.DataAccess
     public class MlsDataReaderTest
     {
         [Test]
-        [Category("PathIssue")]
         public void Read()
         {
-            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data\listing.csv";
+            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data\listing.csv";
             List<string> lines = FileHelper.GetLines(path);
             var instance = new MlsReader(path);
             var collection = instance.ReadLine();
@@ -35,10 +34,9 @@ namespace Test.HouseFlipper.DataAccess
         }
 
         [Test]
-        [Category("PathIssue")]
         public void ReadFolder()
         {
-            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Test.HouseFlipper\data";
+            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data";
             List<List<string>> all = FileHelper.GetFiles(path);
             var instance = new MlsReader(path, "*.csv", SearchOption.AllDirectories);
             var collection = instance.ReadLine();
@@ -64,6 +62,13 @@ namespace Test.HouseFlipper.DataAccess
                 {
                     Assert.IsFalse(line.IsHeader);
                 }
+
+                while(lineNumberInFile != lines.Count && string.IsNullOrWhiteSpace(lines[lineNumberInFile]))
+                {
+                    ++lineNumberInFile;
+                    ++totalLinesRead;
+                }
+
                 Assert.AreEqual(lines[lineNumberInFile], line.Text);
                 ++lineNumberInFile;
                 ++totalLinesRead;

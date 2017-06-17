@@ -39,16 +39,13 @@ namespace Test.HouseFlipper.WebSite
         }
 
         [Test]
-        [Category("PathIssue")]
         public void Title()
         {
-            //var site = new HouseFlipperSite();
             site.GoToSite();
             Assert.AreEqual("House Flipper", site.Title);
         }
 
         [Test]
-        [Category("PathIssue")]
         public void Navigation()
         {
             site.GoToSite();
@@ -60,7 +57,6 @@ namespace Test.HouseFlipper.WebSite
         }   
         
         [Test]
-        [Category("PathIssue")]
         public void Search()
         {
             site.GoToSite();
