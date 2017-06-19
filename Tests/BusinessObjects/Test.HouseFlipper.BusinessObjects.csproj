@@ -72,7 +72,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Aggregators\FlipAggregatorTest.cs" />
+    <Compile Include="Aggregators\AggregatorTest.cs" />
     <Compile Include="Map\MapDisplayTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\PropertySearchTest.cs" />

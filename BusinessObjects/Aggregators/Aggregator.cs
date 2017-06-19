@@ -9,22 +9,54 @@ namespace HouseFlipper.BusinessObjects
 {
     public class Aggregator
     {
-        private Func<MlsSet, Listing, bool> ShouldAdd;
-        protected MlsSet set = new MlsSet();
+        
+        private IDataSet dataSet;        
+
+        public Aggregator(IDataSet dataSet)
+        {
+            this.dataSet = dataSet;
+        }
+
+        public void Execute(Action<object> callback)
+        {
+            if (dataSet.Peek())
+            {
+                callback(dataSet.Next());
+            }
+        }
+
+        public void Execute(Func<object, bool> where, Action<object> collect)
+        {
+            dataSet.Seek(0);
+            while (dataSet.Peek())
+            {
+                object item;
+                if(where(item=dataSet.Next()))
+                {
+                    collect(item);
+                }
+            }
+        }
+    }
+
+    public class OldAggregator
+    {
+        private Func<PropertyListingsMap, Listing, bool> ShouldAdd;
+        protected PropertyListingsMap set = new PropertyListingsMap();
         private IRule rule;
 
-        public Aggregator()
+        public OldAggregator()
         {
             this.DataSet = new Dictionary<string, List<Flip>>();
         }
 
-        public Aggregator(Func<MlsSet, Listing, bool> rule, MlsSet initialSet = null):this()
+        public OldAggregator(Func<PropertyListingsMap, Listing, bool> rule, PropertyListingsMap initialSet = null):this()
         {           
             this.set = initialSet;
             this.ShouldAdd = rule;
         }
 
-        public Aggregator(IRule rule):this()
+        public OldAggregator(IRule rule):this()
         {
             this.rule = rule;
         }
@@ -64,4 +96,5 @@ namespace HouseFlipper.BusinessObjects
             return false;
         }
     }
+    
 }

@@ -43,7 +43,7 @@
     <Compile Include="Aggregators\ActiveAggregator.cs" />
     <Compile Include="Aggregators\Aggregator.cs" />
     <Compile Include="Aggregators\FlipAggregator.cs" />
-    <Compile Include="Aggregators\MlsSet.cs" />
+    <Compile Include="Aggregators\PropertyListingsMap.cs" />
     <Compile Include="Aggregators\SoldAggregator.cs" />
     <Compile Include="Aggregators\SubdivisionTable.cs" />
     <Compile Include="Aggregators\ZipTable.cs" />

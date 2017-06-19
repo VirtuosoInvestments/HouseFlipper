@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace HouseFlipper.BusinessObjects
 {    
-    public class SoldAggregator : Aggregator
+    public class SoldAggregator : OldAggregator
     {
-        public SoldAggregator(MlsSet initialSet=null) : base((set, row) => row.IsSold(), initialSet)
+        public SoldAggregator(PropertyListingsMap initialSet=null) : base((set, row) => row.IsSold(), initialSet)
         { }
     }    
 }

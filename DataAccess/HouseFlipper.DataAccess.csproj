@@ -65,6 +65,7 @@
     <Compile Include="Models\GeoLocation.cs" />
     <Compile Include="Models\Homes.cs" />
     <Compile Include="Models\HouseCharacteristics.cs" />
+    <Compile Include="Models\IDataSet.cs" />
     <Compile Include="Models\ListingReference.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\Listing.cs" />

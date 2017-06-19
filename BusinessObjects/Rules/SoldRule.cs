@@ -10,9 +10,9 @@ namespace HouseFlipper.BusinessObjects
 {
     public class SoldRule : IRule
     {
-        private MlsSet soldSet;
+        private PropertyListingsMap soldSet;
 
-        public SoldRule(MlsSet soldSet)
+        public SoldRule(PropertyListingsMap soldSet)
         {
             this.soldSet = soldSet;
         }

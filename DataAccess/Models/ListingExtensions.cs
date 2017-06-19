@@ -21,7 +21,7 @@ namespace HouseFlipper.DataAccess.Models
         public static string PropertyId(this Listing record)
         {
             string fullAddress = record.FullAddress();
-            var houseID = fullAddress.ToLower();
+            var houseID = fullAddress.ToLower().Replace(" ","").ToUpper();
             return houseID;
         }
 

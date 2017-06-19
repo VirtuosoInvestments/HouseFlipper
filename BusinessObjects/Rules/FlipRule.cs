@@ -10,9 +10,9 @@ namespace HouseFlipper.BusinessObjects
 {
     public class FlipRule : IRule
     {
-        private MlsSet soldSet;       
+        private PropertyListingsMap soldSet;       
 
-        public FlipRule(MlsSet soldSet)
+        public FlipRule(PropertyListingsMap soldSet)
         {
             this.soldSet = soldSet;
             this.DictionaryResults = new Dictionary<PropertyId, Listings>();

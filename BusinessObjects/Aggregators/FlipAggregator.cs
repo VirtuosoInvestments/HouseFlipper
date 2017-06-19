@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace HouseFlipper.BusinessObjects
 {
-    public class FlipAggregator : Aggregator
+    public class FlipAggregator : OldAggregator
     {
         public FlipAggregator() : base((set, row) => row.IsSold() && set.ContainsKey(row))
         {            
-            var initialSet = new MlsSet();
+            var initialSet = new PropertyListingsMap();
             sold = new SoldAggregator(initialSet);
             var zipTable = new ZipTable();
             var subDivTable = new SubdivisionTable();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HouseFlipper.BusinessObjects
 {
-    public class ActiveAggregator : Aggregator
+    public class ActiveAggregator : OldAggregator
     {
         public ActiveAggregator() : base((set, row) => row.IsActive())
         {

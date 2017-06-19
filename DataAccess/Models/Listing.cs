@@ -13,19 +13,42 @@ namespace HouseFlipper.DataAccess.Models
 {
     public enum MlsStatus { Active, Sold }
 
-    public class Listings : List<Listing> { }
+    public class Listings : List<Listing>, IDataSet
+    {
+        public object Next()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Peek()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Seek(int v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     [Table("Listings")]
     public class Listing : IComparable
     {
+        private Dictionary<string, PropertyInfo> reflection { get; set; }
+
         public Listing(StringDictionary data)
         {
-            this.Lookup = data;
-            var hash = new Dictionary<string, PropertyInfo>();
+            Reflect(data);
+        }
+
+        private void Reflect(StringDictionary data)
+        {
+            this.data = data;
+            this.reflection = new Dictionary<string, PropertyInfo>();
             foreach (var p in typeof(Listing).GetProperties())
             {
                 var thisName = p.Name.ToLower();
-                hash.Add(thisName, p);
+                reflection.Add(thisName, p);
             }
 
             foreach (string k in data.Keys)
@@ -34,9 +57,9 @@ namespace HouseFlipper.DataAccess.Models
                 if (name == "#") { continue; }
                 var propName = name.Replace(" ", string.Empty).Replace("/", string.Empty);
 
-                if (hash.ContainsKey(propName))
+                if (reflection.ContainsKey(propName))
                 {
-                    var p = hash[propName];
+                    var p = reflection[propName];
                     p.SetMethod.Invoke(this, new object[] { data[k] });
                 }
                 else
@@ -63,9 +86,17 @@ namespace HouseFlipper.DataAccess.Models
 
         public Listing() { }
 
+        public object this[string key]
+        {
+            get
+            {
+                return this.reflection[key].GetMethod.Invoke(this, null);
+            }
+        }
+
         [JsonIgnore]
         [NotMapped]
-        public StringDictionary Lookup { get; private set; }
+        public StringDictionary data { get; private set; }        
 
         public double GetNumericValue(string val, int? decimalsToRound=null)
         {
