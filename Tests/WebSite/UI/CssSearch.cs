@@ -19,23 +19,67 @@ namespace Test.HouseFlipper.WebSite
 
         public override string ToString()
         {
+
+
+            
+            // FIRST WAY
             var result = string.Format("{0}[", TagName);
+            string expr = string.Empty;
             bool isFirst = true;
-            if (!string.IsNullOrEmpty(Text)) { attributes.Add("text", Text); }
-            foreach(string a in attributes.Keys)
+            foreach (string a in attributes.Keys)
             {
-                if(isFirst)
+                if (isFirst)
                 {
                     isFirst = false;
                 }
                 else
                 {
-                    result += ",";
+                    expr += ",";
                 }
-                result += string.Format("{0}='{1}'", a, attributes[a]);
+                expr += string.Format("{0}='{1}'", a, attributes[a]);
             }
-            result += "]";
+
+
+            var sep = string.Empty;
+            if (!string.IsNullOrWhiteSpace(expr))
+            {
+                sep = ",";
+            }
+
+            if (!string.IsNullOrEmpty(this.Text))
+            {
+                expr += string.Format("text()='{0}'", Text);
+            }
+
+            result += expr + "]";
             return result;
+
+            /*
+            string result = string.Empty;
+            // SECOND WAY
+            if (attributes.Keys.Count > 0)
+            {
+                result = string.Format(".{0}[", TagName);
+                string expr = string.Empty;
+                bool isFirst = true;
+                foreach (string a in attributes.Keys)
+                {
+                    if (isFirst)
+                    {
+                        isFirst = false;
+                    }
+                    else
+                    {
+                        expr += ",";
+                    }
+                    expr += string.Format("{0}='{1}'", a, attributes[a]);
+                }
+            }
+            else if (!string.IsNullOrEmpty(this.Text))
+            {
+                result = string.Format(".{0}:contains('{1}')", TagName, Text);                                
+            }
+            return result;*/
         }
     }
 }

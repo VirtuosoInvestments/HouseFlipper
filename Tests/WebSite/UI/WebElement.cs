@@ -26,6 +26,16 @@ namespace Test.HouseFlipper.WebSite
             }
         }
 
+        internal static IWebElement FindByXPath(string search)
+        {
+            IWebElement elem = null;
+            if ((elem=Find(By.XPath(search))) == null)
+            {
+                throw new InvalidOperationException("Error: Could not locate element with xpath='" + search + "'!");
+            }
+            return elem;
+        }
+
         public static void CheckExists(CssSearch css)
         {
             var search = css.ToString();

@@ -37,7 +37,6 @@ namespace Test.HouseFlipper.WebSite
         }
 
         [Test]
-        [Category("Regression")]
         public void Visit()
         {
             var searchView = site.GoTo(Views.Search);            

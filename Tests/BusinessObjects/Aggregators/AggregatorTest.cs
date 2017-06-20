@@ -148,7 +148,7 @@ namespace Test.HouseFlipper.BusinessObjects
 
 
         [Test]
-        [Category("Regression")]
+        [Category("NotImplemented")]
         public void Flips()
         {
             // [ARRANGE]

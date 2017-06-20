@@ -22,11 +22,11 @@ namespace Test.HouseFlipper.WebSite
         public override void VerifyForm()
         {
 
-            WebElement.CheckExists(new CssSearch() { Text = "Sold", TagName = "label" });
+            WebElement.FindByXPath(".//label[text()='Sold']");//WebElement.CheckExists(new CssSearch() { Text = "Sold", TagName = "label" });
             WebElement.CheckExists(SoldCheckBoxId);
-            WebElement.CheckExists(new CssSearch() { Text = "Active", TagName = "label" });
+            WebElement.FindByXPath(".//label[text()='Active']");//WebElement.CheckExists(new CssSearch() { Text = "Active", TagName = "label" });
             WebElement.CheckExists(ActiveCheckBoxId);
-            WebElement.CheckExists(new CssSearch() { Text = "Within (miles)", TagName = "label" });
+            WebElement.FindByXPath(".//label[text()='Within (miles)']");// WebElement.CheckExists(new CssSearch() { Text = "Within (miles)", TagName = "label" });
             WebElement.CheckExists(WithinTextFieldId);            
         }
     }
