@@ -10,11 +10,19 @@ namespace HouseFlipper.BusinessObjects
     public class Aggregator
     {
         
-        private IDataSet dataSet;        
+        private IDataSet dataSet;
+        private Listings dataSet1;
+        private Func<object, bool> filter;
 
         public Aggregator(IDataSet dataSet)
         {
             this.dataSet = dataSet;
+        }
+
+        public Aggregator(IDataSet dataSet, Func<object, bool> filter)
+            : this(dataSet)
+        {
+            this.filter = filter;
         }
 
         public void Execute(Action<object> callback)
@@ -25,18 +33,32 @@ namespace HouseFlipper.BusinessObjects
             }
         }
 
-        public void Execute(Func<object, bool> where, Action<object> collect)
+        public void Execute(Func<object, bool> filter, Action<object> collect)
         {
-            dataSet.Seek(0);
+            //dataSet.Seek(0);
             while (dataSet.Peek())
             {
                 object item;
-                if(where(item=dataSet.Next()))
+                if(filter(item=dataSet.Next()))
                 {
                     collect(item);
                 }
             }
         }
+
+        public object Execute()
+        {
+            while (dataSet.Peek())
+            {
+                object item;
+                if (filter(item = dataSet.Current))
+                {
+                    dataSet.Select();
+                }
+                dataSet.MoveMext();
+            }
+            return dataSet.Selected;
+        }        
     }
 
     public class OldAggregator

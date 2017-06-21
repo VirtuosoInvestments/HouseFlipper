@@ -8,8 +8,13 @@ namespace HouseFlipper.DataAccess.Models
 {
     public interface IDataSet
     {
+        object Selected { get; }
+        object Current { get; }
+
         bool Peek();
         object Next();
         void Seek(int v);
+        void Select();
+        void MoveMext();
     }
 }

@@ -19,7 +19,6 @@ namespace Test.HouseFlipper.BusinessObjects
             throw new NotImplementedException();
         }
         [Test]
-        [Category("NotImplemented")]
         public void Active()
         {
             // [ARRANGE]
@@ -30,14 +29,14 @@ namespace Test.HouseFlipper.BusinessObjects
 
             var exclude = new List<string>()
             {
-                "O5366758","L4705767","L4707116",
-                "P4705621","P4704119","K4700271"
+                "O5366758","L4711733","L4711734",
+                "L4706089","L4706090","L4707116",
+                "L4707117","L4703920","L4703921",
+                "L4703922"
             };
-            var include = new List<List<string>>()
+            var include = new List<string>()
             {
-                new List<string>(){ "L4711733", "L4711734" },
-                new List<string>() { "L4707116", "L4707117" },
-                new List<string>(){ "L4703920", "L4703921", "L4703922" }
+                "L4705767","L4705768"
             };
 
             var dataSet = new Listings();
@@ -52,25 +51,25 @@ namespace Test.HouseFlipper.BusinessObjects
                 }
             }
 
-            var keys = new List<string>(){ "MLSNumber" };
+            var keys = new List<string>(){ "MLNumber" };
             var results = new Listings();
-            Func<object,bool> where = (listing) => ((Listing)listing).IsActive();
-            Action<object> collect = (listing) => results.Add(listing as Listing);                
-            var instance = new Aggregator(dataSet);
+            Func<object,bool> filter = (listing) => ((Listing)listing).IsActive();
+            //Func<IDataSet,object> collect = (data) => data;                
+            var instance = new Aggregator(dataSet,filter);
 
             // [ACT]
-            instance.Execute(where,collect);
+            results = (Listings)instance.Execute();
 
 
             // [ASSERT]
             foreach (var id in exclude)
             {
-                Assert.IsFalse(results.Where((listing)=>(string)listing[keys[0]]==id).Count()>0);
+                Assert.AreEqual(0,results.Where((listing)=>(string)listing[keys[0]]==id).Count(), "Error: {0} should be excluded", id);
             }
 
             foreach (var id in include)
             {
-                Assert.IsTrue(results.Where((listing) => listing[keys[0]] == id).Count() == 1);
+                Assert.AreEqual(1,results.Where((listing) => (string)listing[keys[0]] == id).Count(), "Error: {0} should be included", id);
             }
         }
 
@@ -78,6 +77,8 @@ namespace Test.HouseFlipper.BusinessObjects
         [Category("NotImplemented")]
         public void Sold()
         {
+            throw new NotImplementedException();
+            /*
             // [ARRANGE]
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data\flips.csv";
             var reader = new MlsReader(path);
@@ -144,6 +145,7 @@ namespace Test.HouseFlipper.BusinessObjects
                     ++i;
                 }
             }
+            */
         }
 
 
@@ -151,6 +153,8 @@ namespace Test.HouseFlipper.BusinessObjects
         [Category("NotImplemented")]
         public void Flips()
         {
+            throw new NotImplementedException();
+            /*
             // [ARRANGE]
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data\flips.csv";
             var reader = new MlsReader(path);
@@ -217,6 +221,7 @@ namespace Test.HouseFlipper.BusinessObjects
                     ++i;
                 }
             }
+            */
         }
     
 
