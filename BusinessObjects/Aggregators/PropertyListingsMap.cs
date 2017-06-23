@@ -4,22 +4,20 @@ using System.Collections.Generic;
 
 namespace HouseFlipper.BusinessObjects
 {
-    public class PropertyListingsMap
-    {
-        private Dictionary<string, List<Listing>> set = new Dictionary<string, List<Listing>>();
-
+    public class PropertyListingsMap : Dictionary<string, List<Listing>>
+    {        
         public void Add(Listing record)
         {
             //var exists = false;
             string houseID = record.PropertyId();
             List<Listing> list;
-            if (set.ContainsKey(houseID))
+            if (this.ContainsKey(houseID))
             {
-                list = set[houseID];
+                list = this[houseID];
             }
             else
             {                
-                set.Add(houseID, list = new List<Listing>());
+                this.Add(houseID, list = new List<Listing>());
             }
             //list.Add(record);
             // sort chronologically by sold date
@@ -46,7 +44,7 @@ namespace HouseFlipper.BusinessObjects
         public bool ContainsKey(Listing record)
         {
             string houseID = record.PropertyId();
-            return set.ContainsKey(houseID);
+            return this.ContainsKey(houseID);
         }
     }
 }

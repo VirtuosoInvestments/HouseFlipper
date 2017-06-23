@@ -74,18 +74,70 @@ namespace Test.HouseFlipper.BusinessObjects
         }
 
         [Test]
-        [Category("NotImplemented")]
         public void Sold()
         {
-            throw new NotImplementedException();
-            /*
             // [ARRANGE]
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data\flips.csv";
             var reader = new MlsReader(path);
             var listingToPropId = new Dictionary<string, string>();
             var soldSet = new PropertyListingsMap();
-            var instance = new OldAggregator(new RuleSet(RuleCondition.AND, new FlipRule(soldSet), new SoldRule(soldSet)));
+
+            var include = new List<string>()
+            {
+                "O5366758","L4711733","L4711734",
+                "L4706089","L4706090","L4707116",
+                "L4707117","L4703920","L4703921",
+                "L4703922"
+            };
+            var exclude = new List<string>()
+            {
+                "L4705767","L4705768"
+            };
+
+            var dataSet = new Listings();
             var converter = new Converter();
+            foreach (var row in reader.ReadLine())
+            {
+                var listing = converter.Convert(row);
+
+                if (listing != null)
+                {
+                    dataSet.Add(listing);
+                }
+            }
+
+            var keys = new List<string>() { "MLNumber" };
+            var results = new Listings();
+            Func<object, bool> filter = (listing) => ((Listing)listing).IsSold();
+            //Func<IDataSet,object> collect = (data) => data;                
+            var instance = new Aggregator(dataSet, filter);
+
+            // [ACT]
+            results = (Listings)instance.Execute();
+
+
+            // [ASSERT]
+            foreach (var id in exclude)
+            {
+                Assert.AreEqual(0, results.Where((listing) => (string)listing[keys[0]] == id).Count(), "Error: {0} should be excluded", id);
+            }
+
+            foreach (var id in include)
+            {
+                Assert.AreEqual(1, results.Where((listing) => (string)listing[keys[0]] == id).Count(), "Error: {0} should be included", id);
+            }
+        }
+
+
+        [Test]
+        [Category("Regression")]
+        public void Flips()
+        {
+            // [ARRANGE]
+            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data\flips.csv";
+            var reader = new MlsReader(path);
+            var listingToPropId = new Dictionary<string, string>();
+            var soldSet = new PropertyListingsMap();
 
             // Expect instance Add method to .....
             // 1n. O5366758 -> not a flip (not added)
@@ -95,65 +147,105 @@ namespace Test.HouseFlipper.BusinessObjects
             // 5n. L4705767 -> act (not added)
             // 6a. L4703920 -> flip < 1 year, multiple times (added)
 
-            var notAdded = new List<string>()
+            var exclude = new List<string>()
             {
                 "O5366758","L4705767","L4707116",
                 "P4705621","P4704119","K4700271"
             };
-            var added = new List<List<string>>()
+            var include = new List<List<string>>()
             {
                 new List<string>(){ "L4711733", "L4711734" },
                 new List<string>() { "L4707116", "L4707117" },
                 new List<string>(){ "L4703920", "L4703921", "L4703922" }
             };
 
-
-            // [ACT]
+            var dataSet = new Listings();
+            var converter = new Converter();
             foreach (var row in reader.ReadLine())
             {
                 var listing = converter.Convert(row);
 
                 if (listing != null)
                 {
-                    instance.Add(listing);
-
-                    var mlsNumber = listing.MLNumber;
-                    var id = listing.PropertyId();
-                    listingToPropId.Add(mlsNumber, id);
+                    dataSet.Add(listing);
                 }
             }
+
+            var keys = new List<string>() { "MLNumber" };
+            Func<object, bool> filter = (listing) => ((Listing)listing).IsSold();
+
+            Func<IDataSet, object> operation =
+                (data) =>
+                {
+                    var map = new PropertyListingsMap();
+                    var listings = (Listings)data;                    
+
+                    foreach (var listing in listings)
+                    {
+                        var query = listings.Where((item) => item.PropertyId() == listing.PropertyId());
+                        var count = query.Count();
+                        if(count>1)
+                        {
+                            foreach(var item in query)
+                            {
+                                map.Add(item);
+                            }
+                        }
+                    }
+
+                    foreach(var key in map.Keys)
+                    {
+                        var l = map[key];
+                        
+                        for(int i=l.Count-1; i>0; i--)
+                        {
+                            var closeDate1 = l[i - 1].CloseDateValue();
+                            var closeDate2 = l[i].CloseDateValue();
+                           
+                            if(closeDate2.Value.Subtract(closeDate2.Value).TotalDays > 365 )
+                            {
+                                l.RemoveAt(i);
+                            }
+                        }
+
+                        if(l.Count<2)
+                        {
+                            map.Remove(key);
+                        }
+                    }
+
+                    return map;
+                };
+
+            var instance = new Aggregator(dataSet, filter, operation);
+
+            // [ACT]
+            var results = (PropertyListingsMap)instance.Execute();
+
 
             // [ASSERT]
-            foreach (var not in notAdded)
+            foreach (var id in exclude)
             {
-                Assert.IsFalse(instance.DataSet.ContainsKey(listingToPropId[not]));
+                var query = dataSet.Where((listing) => listing.MLNumber.ToLower().Trim() == id.ToLower().Trim()).FirstOrDefault();
+                var exPropId = query.PropertyId();
+                Assert.IsFalse(results.ContainsKey(exPropId), "Error: {0} should be excluded", id);
+                //Assert.AreEqual(0, results.Where((listing) => (string)listing[keys[0]] == id).Count(), "Error: {0} should be excluded", id);
             }
 
-            foreach (var add in added)
+            foreach (var set in include)
             {
-                int i = 0;
-                var propId = listingToPropId[add[i++]];
-                Assert.IsTrue(instance.DataSet.ContainsKey(propId));
+                var query = dataSet.Where((listing) => listing.MLNumber.ToLower().Trim() == set[0].ToLower().Trim()).FirstOrDefault();
+                var incPropId = query.PropertyId();
+                Assert.IsTrue(results.ContainsKey(incPropId));
+                var list = results[incPropId];
+                Assert.IsTrue(list != null && list.Count() > set.Count);
 
-                foreach (var flip in instance.DataSet[propId])
+                foreach(var expected in set)
                 {
-                    var sold1 = add[i - 1];
-                    var sold2 = add[i];
-                    Assert.AreEqual(propId, flip.PropertyId);
-                    Assert.AreEqual(sold1, flip.Before.MLNumber);
-                    Assert.AreEqual(sold2, flip.After.MLNumber);
-                    ++i;
+                    Assert.IsTrue(list.Where((l)=>l.MLNumber.Trim().ToLower()==expected.ToLower().Trim()).Count()==1);
                 }
+                //Assert.AreEqual(1, results.Where((listing) => (string)listing[keys[0]] == id).Count(), "Error: {0} should be included", id);
             }
-            */
-        }
-
-
-        [Test]
-        [Category("NotImplemented")]
-        public void Flips()
-        {
-            throw new NotImplementedException();
             /*
             // [ARRANGE]
             var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data\flips.csv";

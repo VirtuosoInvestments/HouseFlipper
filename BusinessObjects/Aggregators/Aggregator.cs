@@ -11,8 +11,8 @@ namespace HouseFlipper.BusinessObjects
     {
         
         private IDataSet dataSet;
-        private Listings dataSet1;
         private Func<object, bool> filter;
+        private Func<IDataSet, object> operation;
 
         public Aggregator(IDataSet dataSet)
         {
@@ -23,6 +23,12 @@ namespace HouseFlipper.BusinessObjects
             : this(dataSet)
         {
             this.filter = filter;
+        }
+
+        public Aggregator(Listings dataSet, Func<object, bool> filter, Func<IDataSet, object> operation)
+            :this(dataSet,filter)
+        {
+            this.operation = operation;
         }
 
         public void Execute(Action<object> callback)
@@ -57,7 +63,15 @@ namespace HouseFlipper.BusinessObjects
                 }
                 dataSet.MoveMext();
             }
-            return dataSet.Selected;
+            var select = dataSet.Selected;
+            if (operation == null)
+            {
+                return select;
+            }
+            else
+            {
+                return operation((IDataSet)select);
+            }
         }        
     }
 
