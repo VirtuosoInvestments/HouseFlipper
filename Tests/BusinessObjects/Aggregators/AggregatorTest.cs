@@ -278,8 +278,7 @@ namespace Test.HouseFlipper.BusinessObjects
             var include = new List<List<string>>()
             {
                 new List<string>(){ "L4711733", "L4711734" },
-                //new List<string>() { "L4707116", "L4707117" },
-                new List<string>(){ "L4703920", "L4703921"/*, "L4703922"*/ }
+                new List<string>(){ "L4703920", "L4703921" }
             };
 
             var dataSet = new Listings();
