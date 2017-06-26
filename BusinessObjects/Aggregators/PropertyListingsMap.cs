@@ -21,14 +21,23 @@ namespace HouseFlipper.BusinessObjects
             }
             //list.Add(record);
             // sort chronologically by sold date
+            var recordDate = record.CloseDateValue();
             var insertAt = -1;
             for(int i = 0; i<list.Count; i++)
             {
                 var item = list[i];
-                if(item.CloseDateValue() > record.CloseDateValue())
+                var thisDate = item.CloseDateValue();
+                if (thisDate > recordDate)
                 {
                     insertAt = i;
                     break;
+                }
+                else if(thisDate==recordDate)
+                {
+                    if(record.MLNumber==item.MLNumber)
+                    {
+                        return;
+                    }
                 }
             }
             if(insertAt<0)
