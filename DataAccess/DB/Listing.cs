@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using HouseFlipper.DataAccess.Models;
 
 namespace HouseFlipper.DataAccess.DB
 {
-      
-
     [Table("Listings")]
     public class Listing : IComparable
     {
