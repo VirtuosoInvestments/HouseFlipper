@@ -19,7 +19,9 @@ namespace Test.HouseFlipper.BusinessObjects
         {
             throw new NotImplementedException();
         }
+
         [Test]
+        [Category("Regression")]
         public void Active()
         {
             // [ARRANGE]
@@ -75,6 +77,7 @@ namespace Test.HouseFlipper.BusinessObjects
         }
 
         [Test]
+        [Category("Regression")]
         public void Sold()
         {
             // [ARRANGE]
@@ -131,6 +134,7 @@ namespace Test.HouseFlipper.BusinessObjects
 
 
         [Test]
+        [Category("Regression")]
         public void Flips()
         {
             // [ARRANGE]
@@ -254,6 +258,7 @@ namespace Test.HouseFlipper.BusinessObjects
         }
 
         [Test]
+        [Category("Regression")]
         public void FlipsDateRange()
         {
             // [ARRANGE]

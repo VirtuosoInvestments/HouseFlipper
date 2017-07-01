@@ -86,6 +86,7 @@ namespace Test.HouseFlipper.DataAccess
         }
 
         [Test]
+        [Category("Regression")]
         public void AddRecord()
         {
             var data = new StringDictionary();

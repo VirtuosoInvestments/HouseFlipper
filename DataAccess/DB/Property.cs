@@ -7,7 +7,15 @@ using System.Threading.Tasks;
 namespace HouseFlipper.DataAccess.DB
 {
     public class Property
-    {
+    {       
+        public Property(Listing record)
+        {
+            this.Address = record.Address;
+            this.City = record.City;
+            this.PostalCode = record.PostalCode;
+            this.Status = record.Status;
+        }
+
         public int Id { get; set; }
 
         public string Address { get; set; }
@@ -17,24 +25,9 @@ namespace HouseFlipper.DataAccess.DB
         public string Status { get; set; }
 
 
-        ////[NotMapped]
         public MlsStatus StatusValue()
         {
-
-            var str = this.Status.ToLower();
-            if (str == "sld")
-            {
-                return MlsStatus.Sold;
-            }
-            else if (str == "act")
-            {
-                return MlsStatus.Active;
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
-
+            return MlsStatusMapper.GetValue(this.Status);
         }
 
     }    

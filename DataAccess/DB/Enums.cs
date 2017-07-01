@@ -8,6 +8,7 @@ namespace HouseFlipper.DataAccess.DB
 {
     public enum MlsStatus
     {
+        Unknown,
         Active,
         Sold
     }
@@ -17,5 +18,26 @@ namespace HouseFlipper.DataAccess.DB
         None = 0,
         Private = 1,
         Community = 2
+    }
+
+    public static class MlsStatusMapper
+    {
+        public static MlsStatus GetValue(string status)
+        {
+            var str = status;
+            if (str == "sld")
+            {
+                return MlsStatus.Sold;
+            }
+            else if (str == "act")
+            {
+                return MlsStatus.Active;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+
+        }
     }
 }

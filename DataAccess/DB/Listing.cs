@@ -72,9 +72,9 @@ namespace HouseFlipper.DataAccess.DB
 
         [JsonIgnore]
         [NotMapped]
-        public StringDictionary data { get; private set; }        
+        public StringDictionary data { get; private set; }
 
-        public double GetNumericValue(string val, int? decimalsToRound=null)
+        public double GetNumericValue(string val, int? decimalsToRound = null)
         {
             if (string.IsNullOrWhiteSpace(val)) { return double.MinValue; }
             val = val.Replace(",", string.Empty).Replace("$", string.Empty);
@@ -87,29 +87,17 @@ namespace HouseFlipper.DataAccess.DB
 
         public int Id { get; set; }
 
+        public DateTime Date { get; set; }
+
         public string MLNumber { get; set; }
         public string Status { get; set; }
 
 
-        ////[NotMapped]
         public MlsStatus StatusValue()
         {
-
-            var str = this.Status.ToLower();
-            if (str == "sld")
-            {
-                return MlsStatus.Sold;
-            }
-            else if (str == "act")
-            {
-                return MlsStatus.Active;
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
-
+            return MlsStatusMapper.GetValue(this.Status);
         }
+
         public string Address { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
@@ -274,7 +262,7 @@ namespace HouseFlipper.DataAccess.DB
         [NotMapped]
         public string PostFlipAvgSPSqFt { get; set; }
         [NotMapped]
-        public double? AfterRepairValue {get;set;}
+        public double? AfterRepairValue { get; set; }
         public void SetAfterRepairValue(double val)
         {
             this.AfterRepairValue = val;

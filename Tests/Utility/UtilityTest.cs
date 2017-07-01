@@ -11,13 +11,13 @@ namespace Utility
     [TestFixture]
     public class UtilityTest
     {
-        [Test]
-        public void Import()
+        private const string utilExe = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Utility\bin\Debug\util.exe";
+        private readonly string appconfig = utilExe + ".config";
+
+        [OneTimeSetUp]
+        public void OneTimeSetup()
         {
             Database.Delete("MlsContext");
-
-            var exe = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Utility\bin\Debug\util.exe";
-            var appconfig = exe + ".config";
             var content = string.Empty;
             using (var sr = new StreamReader(appconfig))
             {
@@ -30,47 +30,90 @@ namespace Utility
                 sw.Flush();
             }
 
-            try
+            var args = @"-import ""E:\DocuSign\Backup\Laptop\My Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Data\Listings""";
+
+            var p = Process.Start(utilExe, args);
+            p.WaitForExit((int)TimeSpan.FromMinutes(5).TotalMilliseconds);
+        }
+
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            var content = string.Empty;
+            using (var sr = new StreamReader(appconfig))
             {
-                var args = @"-import ""E:\DocuSign\Backup\Laptop\My Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Data\Listings""";
-
-                var p = Process.Start(exe, args);
-                p.WaitForExit((int)TimeSpan.FromMinutes(5).TotalMilliseconds);
-
-                using (var context = new MlsContext())
-                {
-                    var count = (from i in context.Listings
-                                 select i).Count();
-                    Assert.IsTrue(count > 0);
-                    Assert.AreEqual(26587, count);
-
-                    var count2 = (from i in context.Properties
-                                  select i).Count();
-                    Assert.IsTrue(count2 > 0);
-
-                    var count3 = (from i in context.PropertyListings
-                                  select i).Count();
-                    Assert.IsTrue(count3 > 0);
-                }
+                content = sr.ReadToEnd();
             }
-            finally
+            content = content.Replace("Initial Catalog=TestMLS", "Initial Catalog=MLS");
+            using (var sw = new StreamWriter(appconfig))
             {
-                using (var sr = new StreamReader(appconfig))
-                {
-                    content = sr.ReadToEnd();
-                }
-                content = content.Replace("Initial Catalog=TestMLS", "Initial Catalog=MLS");
-                using (var sw = new StreamWriter(appconfig))
-                {
-                    sw.Write(content);
-                    sw.Flush();
-                }
+                sw.Write(content);
+                sw.Flush();
+            }
+        }
+
+        [Test]
+        [Category("Regression")]
+        public void Import()
+        {
+            using (var context = new MlsContext())
+            {
+                var count = (from i in context.Listings
+                             select i).Count();
+                Assert.IsTrue(count > 0);
+                Assert.AreEqual(26587, count);
+
+                var count2 = (from i in context.Properties
+                              select i).Count();
+                Assert.IsTrue(count2 > 0);
+
+                var count3 = (from i in context.PropertyListings
+                              select i).Count();
+                Assert.IsTrue(count3 > 0);
+            }
+        }
+
+        [Test]
+        public void NoDuplicates()
+        {
+            using (var context = new MlsContext())
+            {
+                var count = (from i in context.Listings
+                             select i).Count();
+
+                var count2 = (from i in context.Listings
+                             select i.MLNumber).Distinct().Count();
+
+                Assert.AreEqual(count, count2);
+            }
+        }
+
+        [Test]
+        [Category("Regression")]
+        public void ListingId()
+        {
+            using (var context = new MlsContext())
+            {
+                var newListing = new Listing();
+                newListing.MLNumber = "foo" + DateTime.Now.ToString();
+                context.Listings.Add(newListing);
+                var id = newListing.Id;
+                context.SaveChanges();
+                Assert.AreNotEqual(id, newListing.Id);
             }
         }
 
         [Test]
         [Category("NotImplemented")]
-        public void ImportParallel()
+        public void AddDatesCmd()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void ImportParallelCmd()
         {
             // TODO: Delete DB
             throw new NotImplementedException();
