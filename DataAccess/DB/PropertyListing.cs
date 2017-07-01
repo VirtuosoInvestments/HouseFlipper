@@ -11,7 +11,7 @@ namespace HouseFlipper.DataAccess.DB
     [Table("PropertyListings")]
     public class PropertyListing
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int PropertyId { get; set; }
         public string ListingId { get; set; }
     }

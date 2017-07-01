@@ -85,7 +85,7 @@ namespace HouseFlipper.DataAccess.DB
             return double.Parse(val);
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         public string MLNumber { get; set; }
         public string Status { get; set; }
