@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace WebSite.Controllers
+namespace HouseFlipper.WebSite.Controllers
 {
     public class GeoLocationController : ApiController
     {

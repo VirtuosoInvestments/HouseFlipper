@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HouseFlipper.DataAccess.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,6 @@ using System.Threading.Tasks;
 
 namespace HouseFlipper.DataAccess.Models
 {
-    public class Property
-    {
-    }
-
     public class PropertyId
     {
         public PropertyId(Listing listing)
@@ -27,7 +24,7 @@ namespace HouseFlipper.DataAccess.Models
         public override bool Equals(object obj)
         {
             var pId = obj as PropertyId;
-            if(pId == null)
+            if (pId == null)
             {
                 return false;
             }

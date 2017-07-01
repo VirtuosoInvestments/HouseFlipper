@@ -1,5 +1,6 @@
 ﻿using System;
 using HouseFlipper.DataAccess.Models;
+using HouseFlipper.DataAccess.DB;
 
 namespace HouseFlipper.BusinessObjects
 {

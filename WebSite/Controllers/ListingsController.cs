@@ -11,8 +11,9 @@ using HouseFlipper.DataAccess.Models;
 using PagedList;
 using System.Reflection;
 using Google.Maps.Geocoding;
+using HouseFlipper.DataAccess;
 
-namespace WebSite.Controllers
+namespace HouseFlipper.WebSite.Controllers
 {    
     public class ListingsController : Controller
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 
-namespace WebSite.Controllers
+namespace HouseFlipper.WebSite.Controllers
 {
     public class ZipComparer : IComparer<Homes>
     {

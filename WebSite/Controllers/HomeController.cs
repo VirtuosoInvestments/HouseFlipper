@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebSite.Controllers
+namespace HouseFlipper.WebSite.Controllers
 {
     public class HomeController : Controller
     {

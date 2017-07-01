@@ -1,4 +1,5 @@
-﻿using HouseFlipper.DataAccess.DB;
+﻿using HouseFlipper.DataAccess;
+using HouseFlipper.DataAccess.DB;
 using HouseFlipper.DataAccess.Models;
 using Newtonsoft.Json;
 using System;
@@ -10,7 +11,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 
-namespace WebSite.Controllers
+namespace HouseFlipper.WebSite.Controllers
 {
 
     public class FlipsController : Controller

@@ -58,6 +58,8 @@
     <Compile Include="Csv\MlsTokenizer.cs" />
     <Compile Include="DB\MlsContext.cs" />
     <Compile Include="Csv\MlsReader.cs" />
+    <Compile Include="DB\PropertyListing.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="Models\Flip.cs" />
     <Compile Include="Models\FlippedCharacteristics.cs" />
@@ -67,11 +69,13 @@
     <Compile Include="Models\HouseCharacteristics.cs" />
     <Compile Include="Models\IDataSet.cs" />
     <Compile Include="Models\ListingReference.cs" />
+    <Compile Include="Models\Listings.cs" />
     <Compile Include="Models\Map.cs" />
-    <Compile Include="Models\Listing.cs" />
-    <Compile Include="Models\Enums.cs" />
+    <Compile Include="DB\Listing.cs" />
+    <Compile Include="DB\Enums.cs" />
     <Compile Include="Models\ListingExtensions.cs" />
-    <Compile Include="Models\Property.cs" />
+    <Compile Include="DB\Property.cs" />
+    <Compile Include="Models\PropertyId.cs" />
     <Compile Include="Models\PropertyReference.cs" />
     <Compile Include="Models\PropertyResult.cs" />
     <Compile Include="Models\Subdivisions.cs" />

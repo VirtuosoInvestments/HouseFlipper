@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Linq;
 
-namespace WebSite.Controllers
+namespace HouseFlipper.WebSite.Controllers
 {
     public class ResultsController : Controller
     {

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace WebSite.Controllers
+namespace HouseFlipper.WebSite.Controllers
 {
     public class MapController : Controller
     {

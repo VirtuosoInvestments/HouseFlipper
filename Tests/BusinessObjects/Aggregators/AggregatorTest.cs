@@ -1,5 +1,6 @@
 ﻿using HouseFlipper.BusinessObjects;
 using HouseFlipper.DataAccess.Csv;
+using HouseFlipper.DataAccess.DB;
 using HouseFlipper.DataAccess.Models;
 using NUnit.Framework;
 using System;

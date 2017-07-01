@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseFlipper.DataAccess.Models
+namespace HouseFlipper.DataAccess.DB
 {
-    public enum SortDirection { None = -1, Ascending = 0, Descending = 1 }
+    public enum MlsStatus
+    {
+        Active,
+        Sold
+    }
+
     public enum PoolType
     {
         None = 0,

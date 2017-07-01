@@ -8,62 +8,11 @@ using System.Reflection;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using HouseFlipper.DataAccess.Models;
 
-namespace HouseFlipper.DataAccess.Models
+namespace HouseFlipper.DataAccess.DB
 {
-    public enum MlsStatus { Active, Sold }
-
-    public class Listings : List<Listing>, IDataSet
-    {
-        int current = 0;
-
-        public object Selected
-        {
-            get
-            {
-                var selected = new Listings();
-                foreach(var i in chosen)
-                {
-                    selected.Add(this[i]);
-                }
-                return selected;
-            }           
-        }
-
-        public object Current
-        {
-            get
-            {
-                return this[current];
-            }
-        }
-
-        public object Next()
-        {
-            return this[current++];
-        }
-
-        public bool Peek()
-        {
-            return current < this.Count;
-        }
-
-        public void Seek(int v)
-        {
-            current = v;
-        }
-
-        private List<int> chosen = new List<int>();
-        public void Select()
-        {
-            chosen.Add(current);
-        }
-
-        public void MoveMext()
-        {
-            ++current;
-        }
-    }
+      
 
     [Table("Listings")]
     public class Listing : IComparable

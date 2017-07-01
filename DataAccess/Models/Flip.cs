@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HouseFlipper.DataAccess.DB;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;

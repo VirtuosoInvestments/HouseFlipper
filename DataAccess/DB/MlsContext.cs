@@ -18,7 +18,10 @@ namespace HouseFlipper.DataAccess.DB
         }
 
         public virtual DbSet<Listing> Listings { get; set; }
-        public virtual DbSet<PropertyResult> SearchResults { get; set; }
+
+        public virtual DbSet<Property> Properties { get; set; }
+
+        public virtual DbSet<PropertyListing> PropertyListings { get; set; }
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{

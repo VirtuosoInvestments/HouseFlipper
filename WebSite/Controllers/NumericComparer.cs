@@ -1,10 +1,11 @@
-﻿using HouseFlipper.DataAccess.Models;
+﻿using HouseFlipper.DataAccess;
+using HouseFlipper.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebSite.Controllers
+namespace HouseFlipper.WebSite.Controllers
 {
     public class NumericComparer : IComparer<double>
     {

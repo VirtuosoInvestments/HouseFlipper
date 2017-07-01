@@ -189,7 +189,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\ActiveController.cs" />
     <Compile Include="Controllers\FlipsController.cs" />
     <Compile Include="Controllers\GeoLocationController.cs">

@@ -1,4 +1,5 @@
 ﻿using HouseFlipper.BusinessObjects;
+using HouseFlipper.DataAccess.DB;
 using HouseFlipper.DataAccess.Models;
 using NUnit.Framework;
 using System.Collections.Generic;

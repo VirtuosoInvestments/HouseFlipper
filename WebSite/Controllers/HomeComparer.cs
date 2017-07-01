@@ -1,11 +1,12 @@
-﻿using HouseFlipper.DataAccess.Models;
+﻿using HouseFlipper.DataAccess.DB;
+using HouseFlipper.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
 
-namespace WebSite.Controllers
+namespace HouseFlipper.WebSite.Controllers
 {
     public class HomeComparer : IComparer<Listing>
     {
