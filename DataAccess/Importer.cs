@@ -53,7 +53,7 @@ namespace HouseFlipper.DataAccess
             {
                 context.Listings.Add(record);
                 context.SaveChanges();
-                AddProperty(record);                
+                //AddProperty(record);                
             }
             else
             {
