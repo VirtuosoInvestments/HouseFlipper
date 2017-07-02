@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace HouseFlipper.DataAccess.DB
 {
     public class Property
-    {       
+    {
+        public Property() { }      
         public Property(Listing record)
         {
             this.Address = record.Address;

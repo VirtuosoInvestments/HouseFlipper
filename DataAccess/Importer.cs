@@ -91,7 +91,9 @@ namespace HouseFlipper.DataAccess
 
         private void AddPropertyListing(Listing record, Property property)
         {
-            throw new NotImplementedException();
+            var propListing = new PropertyListing(record, property);
+            context.PropertyListings.Add(propListing);
+            context.SaveChanges();
         }
 
         private static StringDictionary ToDictionary(string[] colNames, string[] fields)

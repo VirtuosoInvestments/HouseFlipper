@@ -87,7 +87,7 @@ namespace HouseFlipper.DataAccess.DB
 
         public int Id { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public string MLNumber { get; set; }
         public string Status { get; set; }

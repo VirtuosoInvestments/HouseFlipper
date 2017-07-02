@@ -76,6 +76,10 @@
       <Project>{718b99f4-02a9-4359-a150-eab48af7edd5}</Project>
       <Name>HouseFlipper.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Utility\HouseFlipper.Utility.csproj">
+      <Project>{181680bc-3c57-498c-b24d-6962f2ce4501}</Project>
+      <Name>HouseFlipper.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -33,7 +33,8 @@ namespace Utility
             var args = @"-import ""E:\DocuSign\Backup\Laptop\My Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Data\Listings""";
 
             var p = Process.Start(utilExe, args);
-            p.WaitForExit((int)TimeSpan.FromMinutes(5).TotalMilliseconds);
+            var done = p.WaitForExit((int)TimeSpan.FromMinutes(10).TotalMilliseconds);
+            Assert.IsTrue(done);
         }
 
 
@@ -90,7 +91,6 @@ namespace Utility
         }
 
         [Test]
-        [Category("Regression")]
         public void ListingId()
         {
             using (var context = new MlsContext())
@@ -116,6 +116,14 @@ namespace Utility
         public void ImportParallelCmd()
         {
             // TODO: Delete DB
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void DeleteDbCmd()
+        {
+            //TODO: Be sure to ask user if they are sure they want to drop the database, but also provide an override -force flag to skip confirmationn or -confirm
             throw new NotImplementedException();
         }
     }
