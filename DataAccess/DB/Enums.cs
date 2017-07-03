@@ -24,7 +24,7 @@ namespace HouseFlipper.DataAccess.DB
     {
         public static MlsStatus GetValue(string status)
         {
-            var str = status;
+            var str = status.ToLower().Trim();
             if (str == "sld")
             {
                 return MlsStatus.Sold;

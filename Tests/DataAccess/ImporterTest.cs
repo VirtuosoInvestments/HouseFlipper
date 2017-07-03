@@ -5,6 +5,7 @@ using HouseFlipper.DataAccess.Models;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data.Entity;
@@ -35,7 +36,7 @@ namespace Test.HouseFlipper.DataAccess
 
             var contextMock = new Mock<MlsContext>();
             var listingsMock = new Mock<DbSet<Listing>>();
-            
+
 
             listingsMock.Setup(x => x.Add(It.IsAny<Listing>())).Returns((Listing u) => u);
             contextMock.Setup(x => x.Listings).Returns(listingsMock.Object);
@@ -78,7 +79,7 @@ namespace Test.HouseFlipper.DataAccess
             };
 
             Assert.AreEqual(expected.Length, headers.Length);
-            for(var i=0; i<expected.Length; i++)
+            for (var i = 0; i < expected.Length; i++)
             {
                 Assert.AreEqual(expected[i], headers[i]);
             }
@@ -86,7 +87,6 @@ namespace Test.HouseFlipper.DataAccess
         }
 
         [Test]
-        [Category("Regression")]
         public void AddRecord()
         {
             var data = new StringDictionary();
@@ -138,9 +138,20 @@ namespace Test.HouseFlipper.DataAccess
             // Arrange
 
             var contextMock = new Mock<MlsContext>();
-            var listingsMock = new Mock<DbSet<Listing>>();
-            listingsMock.Setup(x => x.Add(It.IsAny<Listing>())).Returns((Listing u) => u);
-            contextMock.Setup(x => x.Listings).Returns(listingsMock.Object);
+            var listingData = new List<Listing> {
+                                  new Listing() { MLNumber = "123" }
+                               }.AsQueryable();
+
+            var mockListingsSet = new Mock<DbSet<Listing>>();
+
+            mockListingsSet.As<IQueryable<Listing>>().Setup(m => m.Provider).Returns(listingData.Provider);
+            mockListingsSet.As<IQueryable<Listing>>().Setup(m => m.Expression).Returns(listingData.Expression);
+            mockListingsSet.As<IQueryable<Listing>>().Setup(m => m.ElementType).Returns(listingData.ElementType);
+            mockListingsSet.As<IQueryable<Listing>>().Setup(m => m.GetEnumerator()).Returns(listingData.GetEnumerator());
+
+            contextMock.Setup(m => m.Listings.Find(It.IsAny<object[]>())).Returns(new Listing() { MLNumber = "123" });
+
+            contextMock.Setup(e => e.Listings).Returns(mockListingsSet.Object);
 
             // Act
 
@@ -159,18 +170,18 @@ namespace Test.HouseFlipper.DataAccess
                     o.Invoke(row));
             }
 
-            listingsMock.Verify(
+            mockListingsSet.Verify(
               x =>
                 x.Add(
                   It.Is<Listing>(
-                    u => Evaluate(u,list)
+                    u => Evaluate(u, list)
                   )),
-                
-                Times.Once);            
+
+                Times.Once);
         }
 
         private bool Evaluate(Listing u, List<dynamic> list)
-        { 
+        {
             foreach (var o in list)
             {
                 Assert.AreEqual(

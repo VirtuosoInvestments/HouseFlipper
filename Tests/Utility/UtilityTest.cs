@@ -33,7 +33,7 @@ namespace Utility
             var args = @"-import ""E:\DocuSign\Backup\Laptop\My Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Data\Listings""";
 
             var p = Process.Start(utilExe, args);
-            var done = p.WaitForExit((int)TimeSpan.FromMinutes(10).TotalMilliseconds);
+            var done = p.WaitForExit((int)TimeSpan.FromMinutes(5).TotalMilliseconds);
             Assert.IsTrue(done);
         }
 
