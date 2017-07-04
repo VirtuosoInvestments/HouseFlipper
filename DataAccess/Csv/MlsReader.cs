@@ -68,5 +68,26 @@ namespace HouseFlipper.DataAccess.Csv
                 }
             }
         }
+
+        public virtual void ReadParallel(Action<MlsRow> callback)
+        {
+            Parallel.ForEach(files, (file) =>
+            {
+                var newFile = true;
+                using (var sr = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.ReadWrite)))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (string.IsNullOrWhiteSpace(line))
+                        {
+                            continue;
+                        }
+                        callback(new MlsRow(line, newFile));
+                        newFile = false;
+                    }
+                }
+            });            
+        }
     }    
 }

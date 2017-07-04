@@ -44,18 +44,26 @@ namespace Test.HouseFlipper.DataAccess
             var importerMock = new Mock<Importer>(readerMock.Object, contextMock.Object);
             importerMock.Setup(x => x.AddRecord(
                 It.Is<string[]>(h => EvaluateHeaders(h)),
-                It.Is<string[]>(v => EvaluateValues(v))));
+                It.Is<string[]>(v => EvaluateValues(v)),
+                It.IsAny<MlsContext>()));
 
             // Act
 
-            var _instance = importerMock.Object; //new Importer(readerMock.Object, contextMock.Object);
-            _instance.Run();
+            var _instance = importerMock.Object;
+            _instance.Run(false);
 
             // Assert
 
             contextMock.Verify(x => x.SaveChanges());
 
-            importerMock.Verify(x => x.AddRecord(It.IsAny<string[]>(), It.IsAny<string[]>()), Times.Once);
+            importerMock.Verify(x => x.AddRecord(It.IsAny<string[]>(), It.IsAny<string[]>(), It.IsAny<MlsContext>()), Times.Once);
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void ImportParallel()
+        {
+            throw new NotImplementedException();
         }
 
         private bool EvaluateValues(string[] values)
