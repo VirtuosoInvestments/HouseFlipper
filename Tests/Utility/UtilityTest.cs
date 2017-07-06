@@ -48,15 +48,33 @@ namespace Utility
                 var count = (from i in context.Listings
                              select i).Count();
                 Assert.IsTrue(count > 0);
-                Assert.AreEqual(26587, count);
+                Assert.AreEqual(26587, count, "Error: Actual listings count in database incorrect!");
+            }
+        }
 
-                /*var count2 = (from i in context.Properties
+        [Test]
+        [Category(SKIP_SETUP)]
+        [Category("Regression")]
+        public void Properties()
+        {
+            using (var context = new MlsContext())
+            {
+                var count2 = (from i in context.Properties
                               select i).Count();
-                Assert.IsTrue(count2 > 0);
+                Assert.IsTrue(count2 > 0, "Error: No properties found in database!");                
+            }
+        }
 
+        [Test]
+        [Category(SKIP_SETUP)]
+        [Category("Regression")]
+        public void PropertyListings()
+        {
+            using (var context = new MlsContext())
+            {
                 var count3 = (from i in context.PropertyListings
                               select i).Count();
-                Assert.IsTrue(count3 > 0);*/
+                Assert.IsTrue(count3 > 0, "Error: No property listings found in database!");
             }
         }
 
