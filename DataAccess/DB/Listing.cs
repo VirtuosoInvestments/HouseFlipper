@@ -380,6 +380,7 @@ namespace HouseFlipper.DataAccess.DB
         [NotMapped]
         public string PreFlipAvgLPSqFt { get; set; }
         public string County { get; set; }
+        public string State { get; internal set; }
 
         public int PoolValue()
         {

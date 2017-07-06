@@ -11,6 +11,8 @@ namespace HouseFlipper.DataAccess.Csv
     {
         private string[] files;
 
+        public string CurrentFile { get; private set; }
+
         public MlsReader(string dataFolder, string filesSearchPattern, SearchOption searchOption)
         {  
             if(string.IsNullOrWhiteSpace(dataFolder))
@@ -52,8 +54,9 @@ namespace HouseFlipper.DataAccess.Csv
         {
             foreach (var file in files)
             {
+                this.CurrentFile = file;
                 var newFile = true;
-                using (var sr = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.ReadWrite)))
+                using (var sr = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.Read)))
                 {
                     string line;                    
                     while ((line = sr.ReadLine()) != null)
@@ -69,7 +72,7 @@ namespace HouseFlipper.DataAccess.Csv
             }
         }
 
-        public virtual void ReadParallel(Action<MlsRow> callback)
+        public virtual void ReadParallel(Action<string,MlsRow> callback)
         {
             Parallel.ForEach(files, (file) =>
             {
@@ -83,7 +86,7 @@ namespace HouseFlipper.DataAccess.Csv
                         {
                             continue;
                         }
-                        callback(new MlsRow(line, newFile));
+                        callback(file, new MlsRow(line, newFile));
                         newFile = false;
                     }
                 }

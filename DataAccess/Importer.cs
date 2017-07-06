@@ -5,6 +5,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace HouseFlipper.DataAccess
@@ -42,11 +43,11 @@ namespace HouseFlipper.DataAccess
             if (parallel)
             {
                 _reader.ReadParallel(
-                    (mlsRow) =>
+                    (file, mlsRow) =>
                     {
                         ++rowNum;
                         Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
-                        Process(ref fieldNames, mlsRow);
+                        Process(file, ref fieldNames, mlsRow);
                     });
             }
             else
@@ -56,7 +57,7 @@ namespace HouseFlipper.DataAccess
                 {
                     ++rowNum;
                     Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
-                    Process(ref fieldNames, mlsRow, context);
+                    Process(_reader.CurrentFile, ref fieldNames, mlsRow, context);
                 }
                 context.SaveChanges();
             }
@@ -66,6 +67,7 @@ namespace HouseFlipper.DataAccess
         }
 
         private string[] Process(
+            string file,
             ref string[] fieldNames,
             MlsRow mlsRow,
             MlsContext context = null)
@@ -77,20 +79,26 @@ namespace HouseFlipper.DataAccess
             }
             else
             {
-                AddRecord(fieldNames, values, context);
+                AddRecord(fieldNames, values, file, context);
             }
 
             return fieldNames;
         }
 
-        public virtual Listing AddRecord(
+        public virtual Listing AddRecord(            
             string[] colNames,
             string[] fields,
+            string file = null,
             MlsContext context = null)
         {
             StringDictionary data = ToDictionary(colNames, fields);
             var record = new Listing(data);
-            var mlNum = record.MLNumber.ToLower().Trim();
+            record.State = "FL";
+            if (file != null)
+            {
+                record.County = GetCounty(file);
+            }
+            //var mlNum = record.MLNumber.ToLower().Trim();
             bool doSave = false;
             if (context == null)
             {
@@ -129,6 +137,20 @@ namespace HouseFlipper.DataAccess
             *///}
 
             return record;
+        }
+
+        private string GetCounty(string file)
+        {
+            var fileName = Path.GetFileName(file).ToLower().Trim();
+            foreach (var k in CountyAbbreviations.Instance.Keys)
+            {
+                var t = k.ToLower().Trim();                
+                if(fileName.StartsWith(t))
+                {
+                    return CountyAbbreviations.Instance[k];
+                }
+            }
+            throw new InvalidOperationException("Error: Could not find county that maps to file name '"+ fileName + "'");
         }
 
         private void AddProperty(MlsContext context, Listing record)

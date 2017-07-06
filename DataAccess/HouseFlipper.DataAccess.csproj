@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Csv\CountyAbbreviations.cs" />
     <Compile Include="Csv\MlsRow.cs" />
     <Compile Include="Csv\MlsTokenizer.cs" />
     <Compile Include="DB\MlsContext.cs" />

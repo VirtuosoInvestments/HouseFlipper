@@ -42,9 +42,10 @@ namespace Test.HouseFlipper.DataAccess
             contextMock.Setup(x => x.Listings).Returns(listingsMock.Object);
 
             var importerMock = new Mock<Importer>(readerMock.Object, contextMock.Object);
-            importerMock.Setup(x => x.AddRecord(
+            importerMock.Setup(x => x.AddRecord(                
                 It.Is<string[]>(h => EvaluateHeaders(h)),
                 It.Is<string[]>(v => EvaluateValues(v)),
+                It.IsAny<string>(),
                 It.IsAny<MlsContext>()));
 
             // Act
@@ -56,7 +57,13 @@ namespace Test.HouseFlipper.DataAccess
 
             contextMock.Verify(x => x.SaveChanges());
 
-            importerMock.Verify(x => x.AddRecord(It.IsAny<string[]>(), It.IsAny<string[]>(), It.IsAny<MlsContext>()), Times.Once);
+            importerMock.Verify(
+                x => x.AddRecord(                    
+                    It.IsAny<string[]>(), 
+                    It.IsAny<string[]>(),
+                    It.IsAny<string>(),
+                    It.IsAny<MlsContext>()), 
+                Times.Once);
         }
 
         [Test]
@@ -163,7 +170,7 @@ namespace Test.HouseFlipper.DataAccess
 
             // Act
 
-            var row = new Importer(null, contextMock.Object).AddRecord(
+            var row = new Importer(null, contextMock.Object).AddRecord(             
                 headers,
                 values);
 
