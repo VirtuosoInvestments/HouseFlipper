@@ -165,6 +165,26 @@ namespace Utility
             }
         }
 
+        [Test]
+        [Category(SKIP_SETUP)]
+        public void State()
+        {
+            using (var context = new MlsContext())
+            {
+                var query = (from i in context.Listings
+                             where i.State != null && i.State.Length > 0
+                             select i.State);
+                var count = query.Count();
+                var allListingsCount = (from i in context.Listings
+                                        select i).Count();
+                Assert.IsTrue(count > 0);
+                Assert.AreEqual(allListingsCount, count);
+                var distinct = query.Distinct().ToList();
+                Assert.AreEqual(1, distinct.Count);
+                Assert.AreEqual("FL", distinct[0]);
+            }
+        }
+
         private Process Run(string args, int timeout)
         {
             DateTime now, expected, actual;
