@@ -130,6 +130,69 @@ namespace Test.HouseFlipper.BusinessObjects
             }
         }
 
+        [Test]
+        [Category("NotImplemented")]
+        public void AverageFlipInZip()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void AverageFlipInCounty()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void AverageFlipInState()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void AverageFlipInSubdivision()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void AverageFlipInCommonSubdivision()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void AverageFlipInLocationRadius()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void ActiveWithinFlipRadius()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("NotImplemented")]
+        public void ActiveWithinFlipPriceRange()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        [Test]
+        [Category("NotImplemented")]
+        public void ActiveMatchingFlipNumberOfRooms()
+        {
+            throw new NotImplementedException();
+        }
 
         [Test]
         public void Flips()
