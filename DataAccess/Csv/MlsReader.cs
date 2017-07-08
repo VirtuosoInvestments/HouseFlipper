@@ -86,11 +86,38 @@ namespace HouseFlipper.DataAccess.Csv
                         {
                             continue;
                         }
-                        callback(file, new MlsRow(line, newFile));
+                        callback.BeginInvoke(file, new MlsRow(line, newFile),null,null);
                         newFile = false;
                     }
                 }
             });            
+        }
+
+        public virtual void ReadBulkParallel(Action<string, List<MlsRow>> callback)
+        {
+            Parallel.ForEach(files, (file) =>
+            {
+                var newFile = true;
+                var list = new List<MlsRow>();
+                using (var sr = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.ReadWrite)))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (string.IsNullOrWhiteSpace(line))
+                        {
+                            continue;
+                        }
+                        ///callback(file, new MlsRow(line, newFile));
+                        list.Add(new MlsRow(line, newFile));
+                        newFile = false;
+                    }
+                }
+                if (list != null && list.Count > 0)
+                {
+                    callback.BeginInvoke(file, list,null,null);
+                }
+            });
         }
     }    
 }

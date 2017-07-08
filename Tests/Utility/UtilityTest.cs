@@ -16,14 +16,14 @@ namespace Utility
         private const string SKIP_SETUP = "SkipSetup";
         private const string utilExe = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Utility\bin\Debug\util.exe";
         private readonly string appconfig = utilExe + ".config";
-        private const int timeoutMins = 9;
+        private const int _defaultTimeoutMins = 10;
 
         [SetUp]
         public void OneTimeSetup()
         {
             if (CheckForSkipSetup())
             {
-                if(!Database.Exists("MlsContext"))
+                if (!Database.Exists("MlsContext"))
                 {
                     ImportTestData();
                 }
@@ -33,13 +33,13 @@ namespace Utility
                 ImportTestData();
             }
         }
-        
+
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
             UndoAppConfig();
         }
-        
+
         [Test]
         public void Import()
         {
@@ -61,7 +61,7 @@ namespace Utility
             {
                 var count2 = (from i in context.Properties
                               select i).Count();
-                Assert.IsTrue(count2 > 0, "Error: No properties found in database!");                
+                Assert.IsTrue(count2 > 0, "Error: No properties found in database!");
             }
         }
 
@@ -79,11 +79,12 @@ namespace Utility
         }
 
         [Test]
+        [Category(SKIP_SETUP)]
         [Category("Regression")]
         public void ImportParallel()
         {
             Database.Delete("MlsContext");
-            FixAppConfig();
+            /*FixAppConfig();
 
             var args = @"-import parallel ""E:\DocuSign\Backup\Laptop\My Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Data\Listings""";
             var timeout = (int)TimeSpan.FromMinutes(timeoutMins).TotalMilliseconds;
@@ -91,6 +92,14 @@ namespace Utility
             try
             {
                 p=Run(args, timeout);
+            }
+            catch(Exception)
+            {
+                if (Database.Exists("MlsContext"))
+                {
+                    Database.Delete("MlsContext");
+                }
+                throw;
             }
             finally
             {
@@ -101,7 +110,18 @@ namespace Utility
                         p.Kill();
                     }
                 }
-            }
+            }*/
+            ImportTestData(TimeSpan.FromMinutes(10),true, false);
+            Import();
+        }
+
+        [Test]
+        [Category(SKIP_SETUP)]
+        [Category("Regression")]
+        public void ImportBulk()
+        {
+            Database.Delete("MlsContext");
+            ImportTestData(TimeSpan.FromMinutes(10),true, true);
             Import();
         }
 
@@ -116,9 +136,9 @@ namespace Utility
                              select i).Count();
 
                 var uniqueCount = (from i in context.Listings
-                             select i.MLNumber).Distinct().Count();
+                                   select i.MLNumber).Distinct().Count();
 
-                Assert.AreEqual(uniqueCount,count);
+                Assert.AreEqual(uniqueCount, count);
             }
         }
 
@@ -151,7 +171,7 @@ namespace Utility
         {
             throw new NotImplementedException();
         }
-        
+
         [Test]
         [Category("NotImplemented")]
         public void DeleteDbCmd()
@@ -167,16 +187,16 @@ namespace Utility
             using (var context = new MlsContext())
             {
                 var query = (from i in context.Listings
-                             where i.County!=null && i.County.Length>0
+                             where i.County != null && i.County.Length > 0
                              select i.County);
-                var count = query.Count();                
+                var count = query.Count();
                 var allListingsCount = (from i in context.Listings
-                             select i).Count();
+                                        select i).Count();
                 Assert.IsTrue(count > 0);
                 Assert.AreEqual(allListingsCount, count);
                 var distinct = query.Distinct().ToList();
                 Assert.AreEqual(CountyAbbreviations.Instance.Keys.Count, distinct.Count);
-                foreach(var county in CountyAbbreviations.Instance.Values)
+                foreach (var county in CountyAbbreviations.Instance.Values)
                 {
                     Assert.IsTrue(distinct.Contains(county));
                 }
@@ -206,14 +226,14 @@ namespace Utility
         private Process Run(string args, int timeout)
         {
             DateTime now, expected, actual;
-            Output("Process start time: {0}", now=DateTime.Now);
-            Output("Expected end time: {0}", expected=now.AddMilliseconds(timeout));
+            Output("Process start time: {0}", now = DateTime.Now);
+            Output("Expected end time: {0}", expected = now.AddMilliseconds(timeout));
             Process p = Process.Start(utilExe, args);
             var done = p.WaitForExit(timeout);
-            Output("Wait end time: {0}", actual=DateTime.Now);
+            Output("Wait end time: {0}", actual = DateTime.Now);
             Assert.IsTrue(done, "Error: Process took longer than expected to complete! Expected end time:{0}, Current time:{1}", expected, actual);
             return p;
-            
+
             /*
             Process p = new Process();
             p.StartInfo = new ProcessStartInfo();
@@ -293,17 +313,43 @@ namespace Utility
             }
         }
 
-        private void ImportTestData()
+        private void ImportTestData(TimeSpan? timeSpan=null, bool parallel = false, bool bulk = false)
         {
             Database.Delete("MlsContext");
             FixAppConfig();
+            var parallelStr = string.Empty;
+            if (parallel)
+            {
+                parallelStr = "parallel ";
+            }
 
-            var args = @"-import ""E:\DocuSign\Backup\Laptop\My Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Data\Listings""";
-            var timeout = (int)TimeSpan.FromMinutes(timeoutMins).TotalMilliseconds;
+            var bulkStr = string.Empty;
+            if (bulk)
+            {
+                bulkStr = "bulk ";
+            }
+            var args = @"-import " + parallelStr + bulkStr + @"""E:\DocuSign\Backup\Laptop\My Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Data\Listings""";
+            int timeout = -1;
+            if (timeSpan.HasValue)
+            {
+                timeout = (int)timeSpan.Value.TotalMilliseconds;
+            }
+            else
+            {
+                timeout = (int)TimeSpan.FromMinutes(_defaultTimeoutMins).TotalMilliseconds;
+            }
             Process p = null;
             try
             {
                 p = Run(args, timeout);
+            }
+            catch (Exception)
+            {
+                if (Database.Exists("MlsContext"))
+                {
+                    Database.Delete("MlsContext");
+                }
+                throw;
             }
             finally
             {

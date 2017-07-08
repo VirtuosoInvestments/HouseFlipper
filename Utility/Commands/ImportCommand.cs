@@ -4,13 +4,14 @@ using HouseFlipper.DataAccess.DB;
 using System.IO;
 using System;
 
-namespace HouseFlipper.Utility
+namespace HouseFlipper.Utility.Commands
 {
     public class ImportCommand : ICommand
     {
         public void Execute(params string[] args)
         {
             var parallel = false;
+            var bulk = false;
             var dataFolder = string.Empty;
             if(args==null || args.Length==0)
             {
@@ -23,6 +24,10 @@ namespace HouseFlipper.Utility
                 {
                     parallel = true;
                 }
+                else if(tmp=="bulk")
+                {
+                    bulk = true;
+                }
                 else
                 {
                     dataFolder = a;
@@ -34,11 +39,8 @@ namespace HouseFlipper.Utility
                 throw new ArgumentException("Data folder path not specified");
             }
 
-            var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);
-            using (var context = new MlsContext())
-            {
-                new Importer(reader, context).Run(parallel);
-            }
+            var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);            
+            new Importer(reader, parallel).Run(bulk);            
         }
     }    
 }

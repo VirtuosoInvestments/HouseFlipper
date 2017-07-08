@@ -1,6 +1,7 @@
 ﻿using HouseFlipper.DataAccess.Csv;
 using HouseFlipper.DataAccess.DB;
 using HouseFlipper.DataAccess.Models;
+using HouseFlipper.Utility.Commands;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HouseFlipper.Utility
@@ -21,35 +23,47 @@ namespace HouseFlipper.Utility
             //string dataFolder = 
             //@"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\data";
 
-            if (args != null && args.Length > 0)
+            try
             {
-                int i = 0;
-                var cmdName = args[i++].ToLower();
-                if (cmdName.StartsWith("-"))
+                if (args != null && args.Length > 0)
                 {
-                    cmdName = cmdName.Substring(1);
+                    int i = 0;
+                    var cmdName = args[i++].ToLower();
+                    if (cmdName.StartsWith("-"))
+                    {
+                        cmdName = cmdName.Substring(1);
+                    }
+                    args = args.Skip(1).ToArray();
+                    switch (cmdName)
+                    {
+                        case "import":
+                            new ImportCommand().Execute(args);
+                            break;
+                        case "clear":
+                            new ClearCommand().Execute(args);
+                            break;
+                        case "delete":
+                            new DeleteCommand().Execute(args);
+                            break;
+                        case "count":
+                            new CountCommand().Execute(args);
+                            break;
+                        case "setupsite":
+                            new SetupSiteCommand().Execute(args);
+                            break;
+                        case "setuptestsite":
+                            new SetupTestSiteCommand().Execute(args);
+                            break;
+                        default:
+                            throw new InvalidOperationException("Unknown command " + cmdName);
+                    }
                 }
-                args = args.Skip(1).ToArray();
-                switch (cmdName)
-                {
-                    case "import":
-                        new ImportCommand().Execute(args);
-                        break;
-                    case "clear":
-                        new ClearCommand().Execute(args);
-                        break;
-                    case "count":
-                        new CountCommand().Execute(args);
-                        break;
-                    case "setupsite":
-                        new SetupSiteCommand().Execute(args);
-                        break;
-                    case "setuptestsite":
-                        new SetupTestSiteCommand().Execute(args);
-                        break;
-                    default:
-                        throw new InvalidOperationException("Unknown command " + cmdName);
-                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Waiting 1 minute, for user to see exception.....Close window once you see the error message");
+                Console.WriteLine(ex.ToString());
+                Thread.Sleep(TimeSpan.FromMinutes(1));
             }
 
             //DoOtherStuff();

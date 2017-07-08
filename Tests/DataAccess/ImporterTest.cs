@@ -51,7 +51,7 @@ namespace Test.HouseFlipper.DataAccess
             // Act
 
             var _instance = importerMock.Object;
-            _instance.Run(false);
+            _instance.Run(/*false*/);
 
             // Assert
 
@@ -170,7 +170,7 @@ namespace Test.HouseFlipper.DataAccess
 
             // Act
 
-            var row = new Importer(null, contextMock.Object).AddRecord(             
+            var row = new Importer(null, /*contextMock.Object*/false).AddRecord(             
                 headers,
                 values);
 

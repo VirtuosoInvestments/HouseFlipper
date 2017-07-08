@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseFlipper.Utility
+namespace HouseFlipper.Utility.Commands
 {
     public class ClearCommand : ICommand
     {

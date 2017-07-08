@@ -3,24 +3,27 @@ using HouseFlipper.DataAccess.DB;
 using HouseFlipper.DataAccess.Models;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace HouseFlipper.DataAccess
 {
     public class Importer
     {
-        private MlsContext _context = null;
-        private MlsContext Context
+        //'''private MlsContext _context = null;'''
+        private bool _multiThreaded;
+        protected virtual MlsContext Context
         {
             get
             {
-                if (_context != null)
+                /*'''if (_context != null)
                 {
                     return _context;
-                }
+                }'''*/
                 return new MlsContext();
             }
         }
@@ -29,81 +32,128 @@ namespace HouseFlipper.DataAccess
         private ConcurrentDictionary<string, Listing> hash = new ConcurrentDictionary<string, Listing>();
 
 
-        public Importer(MlsReader reader, MlsContext context)
+        public Importer(MlsReader reader, bool multiThreaded)
         {
             _reader = reader;
-            _context = context;
+            _multiThreaded = multiThreaded;
         }
-        public void Run(bool parallel)
+        public void Run(bool bulk = false)
         {
+            Console.WriteLine("Running in parallel={0}, bulk={1} mode", _multiThreaded, bulk);
             var timer = new Stopwatch();
             timer.Start();
-            string[] fieldNames = null;
+            string[] colNames = null;
             var rowNum = 0;
-            if (parallel)
+            if (_multiThreaded)
             {
-                _reader.ReadParallel(
-                    (file, mlsRow) =>
-                    {
-                        ++rowNum;
-                        Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
-                        Process(file, ref fieldNames, mlsRow);
-                    });
+                if (bulk)
+                {
+                    _reader.ReadBulkParallel(
+                        (file, list) =>
+                        {
+                            ProcessBulk(file, ref colNames, list, ref rowNum);
+                        });
+                }
+                else
+                {
+                    _reader.ReadParallel(
+                        (file, mlsRow) =>
+                        {
+                            Interlocked.Increment(ref rowNum);
+                            Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
+                            Process(file, ref colNames, mlsRow);
+                        });
+                }
             }
             else
             {
-                var context = this.Context;
-                foreach (var mlsRow in _reader.ReadLine())
+                using (var context = this.Context)
                 {
-                    ++rowNum;
-                    Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
-                    Process(_reader.CurrentFile, ref fieldNames, mlsRow, context);
+                    foreach (var mlsRow in _reader.ReadLine())
+                    {
+                        ++rowNum;
+                        Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
+                        Process(_reader.CurrentFile, ref colNames, mlsRow, context);
+                    }
+                    context.SaveChangesAsync();
                 }
-                context.SaveChanges();
             }
             timer.Stop();
+            Console.WriteLine("Completed run in parallel={0}, bulk={1} mode", _multiThreaded, bulk);
             Console.WriteLine("Total time: {0} minutes", timer.Elapsed.TotalMinutes);
 
         }
 
+        private void ProcessBulk(
+            string file,
+            ref string[] colNames,
+            List<MlsRow> list,
+            ref int rowNum)
+        {
+            using (var context = this.Context)
+            {
+                foreach (var mlsRow in list)
+                {
+                    Interlocked.Increment(ref rowNum);
+                    Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
+
+                    var values = MlsTokenizer.Split(mlsRow.Text);
+                    if (mlsRow.IsHeader)
+                    {
+                        colNames = values;
+                    }
+                    else
+                    {
+                        Listing record = CreateListing(colNames, values, file);
+                        context.Listings.Add(record);
+
+                    }
+                }
+                context.SaveChangesAsync();
+            }
+        }
+
         private string[] Process(
             string file,
-            ref string[] fieldNames,
+            ref string[] colNames,
             MlsRow mlsRow,
             MlsContext context = null)
         {
             var values = MlsTokenizer.Split(mlsRow.Text);
             if (mlsRow.IsHeader)
             {
-                fieldNames = values;
+                colNames = values;
             }
             else
             {
-                AddRecord(fieldNames, values, file, context);
+                AddRecord(colNames, values, file, context);
             }
 
-            return fieldNames;
+            return colNames;
         }
 
-        public virtual Listing AddRecord(            
+        public virtual Listing AddRecord(
             string[] colNames,
             string[] fields,
             string file = null,
             MlsContext context = null)
         {
-            StringDictionary data = ToDictionary(colNames, fields);
-            var record = new Listing(data);
-            record.State = "FL";
-            if (file != null)
-            {
-                record.County = GetCounty(file);
-            }
+            Listing record = CreateListing(colNames, fields, file);
             //var mlNum = record.MLNumber.ToLower().Trim();
-            bool doSave = false;
-            if (context == null)
+            //'''bool doSave = false;'''
+            //'''if (context == null)'''
+            if (_multiThreaded)
             {
-                doSave = true;
-                context = this.Context;
+                //'''doSave = true;'''
+                using (context = this.Context)
+                {
+                    context.Listings.Add(record);
+                    context.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                context.Listings.Add(record);
             }
 
             //var query = from i in context.Listings
@@ -125,10 +175,10 @@ namespace HouseFlipper.DataAccess
             //if (!exists) //count==0
             //{
             context.Listings.Add(record);
-            if (doSave)
+            /*'''if (doSave)
             {
                 context.SaveChanges();
-            }
+            }'''*/
             //AddProperty(record);                
             /*}
             else
@@ -139,18 +189,31 @@ namespace HouseFlipper.DataAccess
             return record;
         }
 
+        private Listing CreateListing(string[] colNames, string[] fields, string file)
+        {
+            StringDictionary data = ToDictionary(colNames, fields);
+            var record = new Listing(data);
+            record.State = "FL";
+            if (file != null)
+            {
+                record.County = GetCounty(file);
+            }
+
+            return record;
+        }
+
         private string GetCounty(string file)
         {
             var fileName = Path.GetFileName(file).ToLower().Trim();
             foreach (var k in CountyAbbreviations.Instance.Keys)
             {
-                var t = k.ToLower().Trim();                
-                if(fileName.StartsWith(t))
+                var t = k.ToLower().Trim();
+                if (fileName.StartsWith(t))
                 {
                     return CountyAbbreviations.Instance[k];
                 }
             }
-            throw new InvalidOperationException("Error: Could not find county that maps to file name '"+ fileName + "'");
+            throw new InvalidOperationException("Error: Could not find county that maps to file name '" + fileName + "'");
         }
 
         private void AddProperty(MlsContext context, Listing record)
