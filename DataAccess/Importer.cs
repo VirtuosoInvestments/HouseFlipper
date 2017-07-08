@@ -14,16 +14,12 @@ namespace HouseFlipper.DataAccess
 {
     public class Importer
     {
-        //'''private MlsContext _context = null;'''
+        private MlsContext _context = null;
         private bool _multiThreaded;
-        protected virtual MlsContext Context
+        protected virtual MlsContext NewContext
         {
             get
             {
-                /*'''if (_context != null)
-                {
-                    return _context;
-                }'''*/
                 return new MlsContext();
             }
         }
@@ -32,11 +28,22 @@ namespace HouseFlipper.DataAccess
         private ConcurrentDictionary<string, Listing> hash = new ConcurrentDictionary<string, Listing>();
 
 
-        public Importer(MlsReader reader, bool multiThreaded)
+        public Importer(MlsReader reader, bool multiThreaded=true)
         {
             _reader = reader;
-            _multiThreaded = multiThreaded;
+            _multiThreaded = multiThreaded;            
+            if(!multiThreaded)
+            {
+                _context = NewContext;
+            }
         }
+
+        /*public Importer(MlsReader reader, MlsContext context)
+        {
+            _reader = reader;
+            _multiThreaded = false;
+            _context = context;
+        }*/
         public void Run(bool bulk = false)
         {
             Console.WriteLine("Running in parallel={0}, bulk={1} mode", _multiThreaded, bulk);
@@ -46,12 +53,14 @@ namespace HouseFlipper.DataAccess
             var rowNum = 0;
             if (_multiThreaded)
             {
+                //var all = new List<MlsRow>();
                 if (bulk)
-                {
+                {                    
                     _reader.ReadBulkParallel(
                         (file, list) =>
                         {
-                            ProcessBulk(file, ref colNames, list, ref rowNum);
+                            BulkProcess(file, ref colNames, list, ref rowNum);
+                            //all.AddRange(list);
                         });
                 }
                 else
@@ -61,63 +70,38 @@ namespace HouseFlipper.DataAccess
                         {
                             Interlocked.Increment(ref rowNum);
                             Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
-                            Process(file, ref colNames, mlsRow);
+                            ParallelProcess(file, ref colNames, mlsRow);
+                            //all.AddRange(list);
                         });
                 }
+                //_context.Listings.AddRange(all);
+                //_context.SaveChangesAsync();
             }
             else
             {
-                using (var context = this.Context)
-                {
+                //using (var context = this.NewContext)
+                //{
+                    var context = _context;
                     foreach (var mlsRow in _reader.ReadLine())
                     {
                         ++rowNum;
                         Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
                         Process(_reader.CurrentFile, ref colNames, mlsRow, context);
                     }
-                    context.SaveChangesAsync();
-                }
+                    context.SaveChanges();
+                //}
             }
             timer.Stop();
             Console.WriteLine("Completed run in parallel={0}, bulk={1} mode", _multiThreaded, bulk);
             Console.WriteLine("Total time: {0} minutes", timer.Elapsed.TotalMinutes);
 
         }
-
-        private void ProcessBulk(
-            string file,
-            ref string[] colNames,
-            List<MlsRow> list,
-            ref int rowNum)
-        {
-            using (var context = this.Context)
-            {
-                foreach (var mlsRow in list)
-                {
-                    Interlocked.Increment(ref rowNum);
-                    Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
-
-                    var values = MlsTokenizer.Split(mlsRow.Text);
-                    if (mlsRow.IsHeader)
-                    {
-                        colNames = values;
-                    }
-                    else
-                    {
-                        Listing record = CreateListing(colNames, values, file);
-                        context.Listings.Add(record);
-
-                    }
-                }
-                context.SaveChangesAsync();
-            }
-        }
-
+        
         private string[] Process(
             string file,
             ref string[] colNames,
             MlsRow mlsRow,
-            MlsContext context = null)
+            MlsContext context)
         {
             var values = MlsTokenizer.Split(mlsRow.Text);
             if (mlsRow.IsHeader)
@@ -130,6 +114,59 @@ namespace HouseFlipper.DataAccess
             }
 
             return colNames;
+        }
+
+        private object _locker = new object();
+        private string[] ParallelProcess(
+            string file,
+            ref string[] colNames,
+            MlsRow mlsRow)
+        {
+            var values = MlsTokenizer.Split(mlsRow.Text);
+            if (mlsRow.IsHeader)
+            {
+                colNames = values;
+            }
+            else
+            {
+                lock (_locker)
+                {
+                    AddRecord(colNames, values, file, null);
+                }
+            }
+
+            return colNames;
+        }
+
+        private void BulkProcess(
+            string file,
+            ref string[] colNames,
+            List<MlsRow> list,
+            ref int rowNum)
+        {
+            lock (_locker)
+            {
+                using (var context = this.NewContext)
+                {
+                    foreach (var mlsRow in list)
+                    {
+                        Interlocked.Increment(ref rowNum);
+                        Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
+
+                        var values = MlsTokenizer.Split(mlsRow.Text);
+                        if (mlsRow.IsHeader)
+                        {
+                            colNames = values;
+                        }
+                        else
+                        {
+                            Listing record = CreateListing(colNames, values, file);
+                            context.Listings.Add(record);
+                        }
+                    }
+                    context.SaveChangesAsync();
+                }
+            }
         }
 
         public virtual Listing AddRecord(
@@ -145,7 +182,7 @@ namespace HouseFlipper.DataAccess
             if (_multiThreaded)
             {
                 //'''doSave = true;'''
-                using (context = this.Context)
+                using (context = this.NewContext)
                 {
                     context.Listings.Add(record);
                     context.SaveChangesAsync();
@@ -174,7 +211,7 @@ namespace HouseFlipper.DataAccess
 
             //if (!exists) //count==0
             //{
-            context.Listings.Add(record);
+            //'''context.Listings.Add(record);'''
             /*'''if (doSave)
             {
                 context.SaveChanges();
