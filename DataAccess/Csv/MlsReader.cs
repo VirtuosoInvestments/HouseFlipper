@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -92,6 +93,63 @@ namespace HouseFlipper.DataAccess.Csv
                     }
                 }
             });            
+        }
+
+        public virtual Task ReadParallel2(Action<string, MlsRow> receiveData)
+        {
+            return Task.Run(async () =>
+            {
+                foreach (var file in files)
+                {
+                    var newFile = true;
+                    using (var sr = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.ReadWrite)))
+                    {
+                        string line;
+                        while ((line = await sr.ReadLineAsync()) != null)
+                        {
+                            if (string.IsNullOrWhiteSpace(line))
+                            {
+                                continue;
+                            }
+                            /*var asyncResult = */
+                            receiveData/*.BeginInvoke*/(file, new MlsRow(line, newFile)/*,null,null*/);
+                        }
+                    }
+                }//);
+            });
+        }
+
+        public async virtual void ReadParallel3(Action<string, MlsRow> receiveData)
+        {
+            foreach(var file in files)
+            {
+                var newFile = true;
+                using (var sr = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.ReadWrite)))
+                {
+                    string line;
+                    while ((line = await sr.ReadLineAsync()) != null)
+                    {
+                        if (string.IsNullOrWhiteSpace(line))
+                        {
+                            continue;
+                        }
+                        /*var asyncResult = */
+                        //receiveData/*.BeginInvoke*/(file, new MlsRow(line, newFile)/*,null,null*/);
+
+                        /*var asyncResult = */
+                        receiveData.BeginInvoke(file, new MlsRow(line, newFile),
+                            (ar) =>
+                            {
+                                var result = (AsyncResult)ar;
+                                var caller = (Action<string, MlsRow>)result.AsyncDelegate;
+
+                                caller.EndInvoke(ar);
+                            }, 
+                            null);
+
+                    }
+                }
+            }//);
         }
 
         public virtual void ReadBulk(Action<string, List<MlsRow>> callback)

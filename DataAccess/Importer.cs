@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace HouseFlipper.DataAccess
 {
@@ -44,7 +45,7 @@ namespace HouseFlipper.DataAccess
             _multiThreaded = false;
             _context = context;
         }*/
-        public void Run(bool bulk = false)
+        public async void Run(bool bulk = false)
         {
             Console.WriteLine("Running in parallel={0}, bulk={1} mode", _multiThreaded, bulk);
             var timer = new Stopwatch();
@@ -65,14 +66,17 @@ namespace HouseFlipper.DataAccess
                 }
                 else
                 {
-                    _reader.ReadParallel(
-                        (file, mlsRow) =>
-                        {
-                            Interlocked.Increment(ref rowNum);
-                            Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
-                            ParallelProcess(file, ref colNames, mlsRow);
-                            //all.AddRange(list);
-                        });
+                    await Task.Run(async () =>
+                    {
+                    await    _reader.ReadParallel2(
+                            (file, mlsRow) =>
+                            {
+                                Interlocked.Increment(ref rowNum);
+                                Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
+                                ParallelProcess(file, ref colNames, mlsRow);
+                                //all.AddRange(list);
+                            });
+                    });
                 }
                 //_context.Listings.AddRange(all);
                 //_context.SaveChangesAsync();

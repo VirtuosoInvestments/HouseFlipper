@@ -16,6 +16,7 @@ namespace Test.HouseFlipper.DataAccess
     public class ImporterTest
     {
         [Test]
+        [Category("Regression")]
         public void Import()
         {
             // Arrange
@@ -102,6 +103,7 @@ namespace Test.HouseFlipper.DataAccess
         }
 
         [Test]
+        [Category("Regression")]
         public void AddRecord()
         {
             var data = new StringDictionary();

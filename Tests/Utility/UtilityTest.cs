@@ -13,7 +13,8 @@ namespace Utility
     [TestFixture]
     public class UtilityTest
     {
-        private const string SKIP_SETUP = "SkipSetup";
+        private const string DONT_CREATE_DB = "DontCreateDb";
+        private const string SETUP_IF_NECESSARY = "SkipSetup";
         private const string utilExe = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Utility\bin\Debug\util.exe";
         private readonly string appconfig = utilExe + ".config";
         private const int _defaultTimeoutMins = 10;
@@ -21,16 +22,23 @@ namespace Utility
         [SetUp]
         public void OneTimeSetup()
         {
-            if (CheckForSkipSetup())
+            if(CheckFor(DONT_CREATE_DB))
+            {
+                return;
+            }
+            //if (CheckForSkipSetup())
+            if (CheckFor(SETUP_IF_NECESSARY))
             {
                 if (!Database.Exists("MlsContext"))
                 {
-                    ImportTestData();
+                    //ImportTestData();
+                    ImportTestData(TimeSpan.FromMinutes(1), true, true);
                 }
             }
             else
             {
-                ImportTestData();
+                //ImportTestData();
+                ImportTestData(TimeSpan.FromMinutes(1), true, true);
             }
         }
 
@@ -41,19 +49,35 @@ namespace Utility
         }
 
         [Test]
+        [Category(DONT_CREATE_DB)]
         public void Import()
         {
-            using (var context = new MlsContext())
-            {
-                var count = (from i in context.Listings
-                             select i).Count();
-                Assert.IsTrue(count > 0);
-                Assert.AreEqual(26587, count, "Error: Actual listings count in database incorrect!");
-            }
+            Database.Delete("MlsContext");
+            ImportTestData(TimeSpan.FromMinutes(10), false, false);
+            VerifyImport();
+        }               
+
+        [Test]
+        [Category(DONT_CREATE_DB)]
+        [Category("Regression")]
+        public void ImportParallel()
+        {
+            Database.Delete("MlsContext");
+            ImportTestData(TimeSpan.FromMinutes(10), true, false);
+            VerifyImport();
         }
 
         [Test]
-        [Category(SKIP_SETUP)]
+        //[Category(DONT_CREATE_DB)]
+        public void ImportBulk()
+        {
+            //Database.Delete("MlsContext");
+            //ImportTestData(TimeSpan.FromMinutes(1), true, true);
+            VerifyImport();
+        }
+
+        [Test]
+        [Category(SETUP_IF_NECESSARY)]
         [Category("Regression")]
         public void Properties()
         {
@@ -66,7 +90,7 @@ namespace Utility
         }
 
         [Test]
-        [Category(SKIP_SETUP)]
+        [Category(SETUP_IF_NECESSARY)]
         [Category("Regression")]
         public void PropertyListings()
         {
@@ -76,56 +100,10 @@ namespace Utility
                               select i).Count();
                 Assert.IsTrue(count3 > 0, "Error: No property listings found in database!");
             }
-        }
+        }        
 
         [Test]
-        [Category(SKIP_SETUP)]
-        [Category("Regression")]
-        public void ImportParallel()
-        {
-            Database.Delete("MlsContext");
-            /*FixAppConfig();
-
-            var args = @"-import parallel ""E:\DocuSign\Backup\Laptop\My Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite\Data\Listings""";
-            var timeout = (int)TimeSpan.FromMinutes(timeoutMins).TotalMilliseconds;
-            Process p = null;
-            try
-            {
-                p=Run(args, timeout);
-            }
-            catch(Exception)
-            {
-                if (Database.Exists("MlsContext"))
-                {
-                    Database.Delete("MlsContext");
-                }
-                throw;
-            }
-            finally
-            {
-                if(p!=null)
-                {
-                    if(!p.HasExited)
-                    {
-                        p.Kill();
-                    }
-                }
-            }*/
-            ImportTestData(TimeSpan.FromMinutes(10),true, false);
-            Import();
-        }
-
-        [Test]
-        [Category(SKIP_SETUP)]
-        public void ImportBulk()
-        {
-            Database.Delete("MlsContext");
-            ImportTestData(TimeSpan.FromMinutes(1),true, true);
-            Import();
-        }
-
-        [Test]
-        [Category(SKIP_SETUP)]
+        [Category(SETUP_IF_NECESSARY)]
         [Category("Regression")]
         public void NoDuplicates()
         {
@@ -142,7 +120,7 @@ namespace Utility
         }
 
         [Test]
-        [Category(SKIP_SETUP)]
+        [Category(SETUP_IF_NECESSARY)]
         public void ListingId()
         {
             using (var context = new MlsContext())
@@ -180,7 +158,7 @@ namespace Utility
         }
 
         [Test]
-        [Category(SKIP_SETUP)]
+        [Category(SETUP_IF_NECESSARY)]
         public void County()
         {
             using (var context = new MlsContext())
@@ -203,7 +181,7 @@ namespace Utility
         }
 
         [Test]
-        [Category(SKIP_SETUP)]
+        [Category(SETUP_IF_NECESSARY)]
         public void State()
         {
             using (var context = new MlsContext())
@@ -364,9 +342,26 @@ namespace Utility
 
         private bool CheckForSkipSetup()
         {
+            var cat = SETUP_IF_NECESSARY;
+            return CheckFor(cat);
+        }
+
+        private static bool CheckFor(string cat)
+        {
             var categories = TestContext.CurrentContext.Test.Properties["Category"] as IList;
-            bool skipSetup = categories != null && categories.Contains(SKIP_SETUP);
+            bool skipSetup = categories != null && categories.Contains(cat);
             return skipSetup;
+        }
+
+        public void VerifyImport()
+        {
+            using (var context = new MlsContext())
+            {
+                var count = (from i in context.Listings
+                             select i).Count();
+                Assert.IsTrue(count > 0);
+                Assert.AreEqual(26587, count, "Error: Actual listings count in database incorrect!");
+            }
         }
     }
 }
