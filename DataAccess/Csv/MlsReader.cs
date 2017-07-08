@@ -86,14 +86,15 @@ namespace HouseFlipper.DataAccess.Csv
                         {
                             continue;
                         }
-                        callback.BeginInvoke(file, new MlsRow(line, newFile),null,null);
+                        /*var asyncResult = */callback/*.BeginInvoke*/(file, new MlsRow(line, newFile)/*,null,null*/);
+                        //callback.EndInvoke(asyncResult);
                         newFile = false;
                     }
                 }
             });            
         }
 
-        public virtual void ReadBulkParallel(Action<string, List<MlsRow>> callback)
+        public virtual void ReadBulk(Action<string, List<MlsRow>> callback)
         {
             Parallel.ForEach(files, (file) =>
             {
@@ -115,7 +116,7 @@ namespace HouseFlipper.DataAccess.Csv
                 }
                 if (list != null && list.Count > 0)
                 {
-                    callback.BeginInvoke(file, list,null,null);
+                    callback/*.BeginInvoke*/(file, list/*,null,null*/);
                 }
             });
         }

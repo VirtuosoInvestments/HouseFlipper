@@ -117,11 +117,10 @@ namespace Utility
 
         [Test]
         [Category(SKIP_SETUP)]
-        [Category("Regression")]
         public void ImportBulk()
         {
             Database.Delete("MlsContext");
-            ImportTestData(TimeSpan.FromMinutes(10),true, true);
+            ImportTestData(TimeSpan.FromMinutes(1),true, true);
             Import();
         }
 

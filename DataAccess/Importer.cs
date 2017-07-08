@@ -56,7 +56,7 @@ namespace HouseFlipper.DataAccess
                 //var all = new List<MlsRow>();
                 if (bulk)
                 {                    
-                    _reader.ReadBulkParallel(
+                    _reader.ReadBulk(
                         (file, list) =>
                         {
                             BulkProcess(file, ref colNames, list, ref rowNum);
@@ -144,8 +144,8 @@ namespace HouseFlipper.DataAccess
             List<MlsRow> list,
             ref int rowNum)
         {
-            lock (_locker)
-            {
+            //lock (_locker)
+            //{
                 using (var context = this.NewContext)
                 {
                     foreach (var mlsRow in list)
@@ -164,9 +164,9 @@ namespace HouseFlipper.DataAccess
                             context.Listings.Add(record);
                         }
                     }
-                    context.SaveChangesAsync();
+                    context.SaveChanges();
                 }
-            }
+            //}
         }
 
         public virtual Listing AddRecord(
