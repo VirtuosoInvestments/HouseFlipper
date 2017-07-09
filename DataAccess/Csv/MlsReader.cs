@@ -95,10 +95,10 @@ namespace HouseFlipper.DataAccess.Csv
             });            
         }
 
-        public virtual Task ReadParallel2(Action<string, MlsRow> receiveData)
+        public async virtual void ReadParallel2(Action<string, MlsRow> receiveData, Action completed)
         {
-            return Task.Run(async () =>
-            {
+            //return Task.Run(async () =>
+            //{
                 foreach (var file in files)
                 {
                     var newFile = true;
@@ -113,10 +113,54 @@ namespace HouseFlipper.DataAccess.Csv
                             }
                             /*var asyncResult = */
                             receiveData/*.BeginInvoke*/(file, new MlsRow(line, newFile)/*,null,null*/);
+                            newFile = false;
                         }
                     }
                 }//);
-            });
+            //});
+            completed();
+        }
+
+        public async virtual void ReadParallel4(Action<string, MlsRow> receiveData, Action completed)
+        {
+            //return Task.Run(async () =>
+            //{
+            foreach (var file in files)
+            {
+                var newFile = true;
+                using (var sr = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.ReadWrite)))
+                {
+
+                    var line = await sr.ReadLineAsync();
+                    while(true)
+                    {
+                        if(line==null)
+                        {
+                            break;
+                        }
+                        if (string.IsNullOrWhiteSpace(line))
+                        {
+                            line = await sr.ReadLineAsync();
+                            continue;
+                        }
+                        /*var asyncResult = */
+                        receiveData.BeginInvoke(file, new MlsRow(line, newFile),
+                            /*async*/ (ar)=>
+                            {
+                                var result = (AsyncResult)ar;
+                                var caller = (Action<string, MlsRow>)result.AsyncDelegate;
+                                //line = await sr.ReadLineAsync();
+                                string l = (string)ar.AsyncState;
+                                Console.WriteLine("Got: "+l);
+                                caller.EndInvoke(ar);
+                            }
+                            ,line);
+                        newFile = false;
+                    }
+                }
+            }//);
+            //});
+            completed();
         }
 
         public async virtual void ReadParallel3(Action<string, MlsRow> receiveData)
@@ -146,7 +190,7 @@ namespace HouseFlipper.DataAccess.Csv
                                 caller.EndInvoke(ar);
                             }, 
                             null);
-
+                        newFile = false;
                     }
                 }
             }//);

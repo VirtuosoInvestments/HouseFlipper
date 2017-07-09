@@ -33,10 +33,7 @@ namespace HouseFlipper.DataAccess
         {
             _reader = reader;
             _multiThreaded = multiThreaded;            
-            if(!multiThreaded)
-            {
-                _context = NewContext;
-            }
+            _context = NewContext;            
         }
 
         /*public Importer(MlsReader reader, MlsContext context)
@@ -54,45 +51,59 @@ namespace HouseFlipper.DataAccess
             var rowNum = 0;
             if (_multiThreaded)
             {
-                //var all = new List<MlsRow>();
                 if (bulk)
                 {                    
                     _reader.ReadBulk(
                         (file, list) =>
                         {
-                            BulkProcess(file, ref colNames, list, ref rowNum);
-                            //all.AddRange(list);
+                            BulkProcess(file, ref colNames, list, ref rowNum);                                                
                         });
                 }
                 else
                 {
-                    await Task.Run(async () =>
-                    {
-                    await    _reader.ReadParallel2(
+                    var resetEvent = new AutoResetEvent(false);
+                    _reader.ReadParallel2(
                             (file, mlsRow) =>
                             {
                                 Interlocked.Increment(ref rowNum);
                                 Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
                                 ParallelProcess(file, ref colNames, mlsRow);
                                 //all.AddRange(list);
+                            },
+                            ()=>
+                            {
+                                resetEvent.Set();
                             });
-                    });
+                    resetEvent.WaitOne();
+             
+                    /*
+                    var resetEvent = new AutoResetEvent(false);
+                    _reader.ReadParallel4(
+                            (file, mlsRow) =>
+                            {
+                                Interlocked.Increment(ref rowNum);
+                                Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
+                                ParallelProcess(file, ref colNames, mlsRow);
+                                //all.AddRange(list);
+                            },
+                            () =>
+                            {
+                                resetEvent.Set();
+                            });
+                    resetEvent.WaitOne();*/
                 }
-                //_context.Listings.AddRange(all);
-                //_context.SaveChangesAsync();
             }
             else
             {
                 //using (var context = this.NewContext)
-                //{
-                    var context = _context;
+                //{                    
                     foreach (var mlsRow in _reader.ReadLine())
                     {
                         ++rowNum;
                         Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
-                        Process(_reader.CurrentFile, ref colNames, mlsRow, context);
+                        Process(_reader.CurrentFile, ref colNames, mlsRow, _context);
                     }
-                    context.SaveChanges();
+                    _context.SaveChanges();
                 //}
             }
             timer.Stop();
@@ -133,10 +144,10 @@ namespace HouseFlipper.DataAccess
             }
             else
             {
-                lock (_locker)
-                {
+                //lock (_locker)
+                //{
                     AddRecord(colNames, values, file, null);
-                }
+                //}
             }
 
             return colNames;
