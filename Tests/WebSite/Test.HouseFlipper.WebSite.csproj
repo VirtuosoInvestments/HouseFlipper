@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="data\zipflips.csv" />
     <None Include="data\search.csv" />
     <None Include="data\listing.csv" />
     <None Include="data\listing2.csv" />

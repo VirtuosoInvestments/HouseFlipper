@@ -134,7 +134,147 @@ namespace Test.HouseFlipper.BusinessObjects
         [Category("NotImplemented")]
         public void AverageFlipInZip()
         {
-            throw new NotImplementedException();
+            // [ARRANGE]
+            var path = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\Tests\WebSite\data\zipflips.csv";
+            var reader = new MlsReader(path);
+            var listingToPropId = new Dictionary<string, string>();
+            var soldSet = new PropertyListingsMap();
+
+            // Expect instance Add method to .....
+            // 1e. O5366758 -> not a flip (exclude)
+            // 3e. L4706089 -> flip > 1 year (exclude)
+            // 5e. L4705767 -> act (exclude)
+            // 2i. L4711733 -> flip < 1 year (include)
+            // 4i. L4707116 -> flip == 1 year (include)
+            // 6i. L4703920 -> flip < 1 year, multiple times (include)
+
+            var exclude = new List<string>()
+            {
+                "O5366758","L4706089","L4706090",
+                "L4705767","L4705768",
+                "P4705621","P4704119","K4700271"
+            };
+            var include = new Dictionary<string,List<object>>()
+            {
+                { "34759",
+                 new List<object>() {
+                new List<string>(){ "L4711733", "L4711734" }
+                 } },
+
+                { "33810",
+                 new List<object>() {
+                new List<string>() { "L4707116", "L4707117" }
+                 } },
+
+                { "33809",
+                new List<object>() {
+                new List<string>(){ "L4703920", "L4703921", "L4703922" }
+                } },
+
+                { "93810",
+                new List<object>(){
+                new List<string>() { "Z4707116", "Z4707117" },
+                new List<string>(){ "Z4703920", "Z4703921", "Z4703922" }
+                } }
+            };
+
+            var dataSet = new Listings();
+            var converter = new Converter();
+            foreach (var row in reader.ReadLine())
+            {
+                var listing = converter.Convert(row);
+
+                if (listing != null)
+                {
+                    dataSet.Add(listing);
+                }
+            }
+
+            var keys = new List<string>() { "MLNumber" };
+            Func<object, bool> filter = (listing) => ((Listing)listing).IsSold();
+
+            Func<IDataSet, object> operation =
+                (data) =>
+                {
+                    var map = new PropertyListingsMap();
+                    var listings = (Listings)data;
+
+                    foreach (var listing in listings)
+                    {
+                        var query = listings.Where((item) => item.PropertyId() == listing.PropertyId());
+                        var count = query.Count();
+                        if (count > 1)
+                        {
+                            foreach (var item in query)
+                            {
+                                map.Add(item);
+                            }
+                        }
+                    }
+
+                    var removeKeys = new List<string>();
+                    foreach (var key in map.Keys)
+                    {
+                        var l = map[key];
+
+                        for (int i = l.Count - 1; i > 0; i--)
+                        {
+                            var closeDate1 = l[i - 1].CloseDateValue();
+                            var closeDate2 = l[i].CloseDateValue();
+
+                            if (closeDate2.Value.Subtract(closeDate1.Value).TotalDays > 365)
+                            {
+                                l.RemoveAt(i);
+                            }
+                        }
+
+                        if (l.Count < 2)
+                        {
+                            removeKeys.Add(key);
+                        }
+                    }
+
+                    foreach (var key in removeKeys)
+                    {
+                        map.Remove(key);
+                    }
+
+                    return map;
+                };
+
+            var instance = new Aggregator(dataSet, filter, operation);
+
+            // [ACT]
+            var results = (Dictionary<string, List<object>>)instance.Execute();
+
+
+            // [ASSERT]
+            Assert.IsNotNull(results);
+            foreach (var id in exclude)
+            {
+                var query = dataSet.Where((listing) => listing.MLNumber.ToLower().Trim() == id.ToLower().Trim()).FirstOrDefault();
+                var exPropId = query.PropertyId();
+                Assert.IsFalse(results.ContainsKey(exPropId), "Error: {0} should be excluded", id);
+            }
+
+            foreach (var key in include.Keys)
+            {
+                foreach (var set in include[key])
+                {
+                    throw new NotImplementedException();
+                    /*var query = dataSet.Where((listing) => listing.MLNumber.ToLower().Trim() == set[0].ToLower().Trim()).FirstOrDefault();
+                    var incPropId = query.PropertyId();
+                    Assert.IsTrue(results.ContainsKey(incPropId));
+                    var list = results[incPropId];
+                    Assert.IsTrue(list != null && list.Count() == set.Count);
+
+                    foreach (var expected in set)
+                    {
+                        Assert.IsTrue(list.Where((l) => l.MLNumber.Trim().ToLower() == expected.ToLower().Trim()).Count() == 1);
+                    }*/
+                }
+            }
+            
         }
 
         [Test]
