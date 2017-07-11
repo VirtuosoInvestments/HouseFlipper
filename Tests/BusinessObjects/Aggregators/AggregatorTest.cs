@@ -131,7 +131,7 @@ namespace Test.HouseFlipper.BusinessObjects
         }
 
         [Test]
-        [Category("NotImplemented")]
+        [Category("Regression")]
         public void AverageFlipInZip()
         {
             // [ARRANGE]
