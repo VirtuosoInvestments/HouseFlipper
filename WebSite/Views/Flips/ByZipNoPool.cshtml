@@ -1,0 +1,108 @@
+﻿@model IEnumerable<HouseFlipper.DataAccess.Models.FlippedCharacteristics>
+
+@{
+    ViewBag.Title = "Flips: Zipcode";
+}
+
+<h2>Flips: Zipcode</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Zipcode)
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.PreFlip.Beds)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreFlip.FullBaths)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreFlip.HalfBaths)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreFlip.SqFtHeated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreFlip.YearBuilt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profit)
+        </th>
+        <th>
+            PurchasePrice
+        </th>
+        <th>
+            SoldPrice
+        </th>        
+        <th>
+            ROIP
+        </th>
+        <th>
+            ROIS
+        </th>
+        <th>
+            PreSqFt
+        </th>
+        <th>
+            PostSqFt
+        </th>
+        <th>
+            LP/SqFt
+        </th>
+        <th>
+            SP/SqFt
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zipcode)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.PostFlip.Beds)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostFlip.FullBaths)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.PostFlip.HalfBaths)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.PostFlip.SqFtHeated)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.PostFlip.YearBuilt)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Profit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreFlip.PriceStr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostFlip.PriceStr)
+        </td>        
+        <td>
+            @Html.DisplayFor(model => item.RoiPurchase)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.RoiSold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreFlip.SqFtHeated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostFlip.SqFtHeated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreFlip.PriceSqFt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostFlip.PriceSqFt)
+        </td>
+    </tr>
+}
+
+</table>

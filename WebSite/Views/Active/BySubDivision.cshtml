@@ -1,0 +1,109 @@
+﻿@model IEnumerable<HouseFlipper.DataAccess.Models.MlsRow>
+
+@{
+    ViewBag.Title = "Active Similar By Subdivision";
+}
+
+<h2>Active Homes By Subdivision (Similar to PreFlip)</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Subdivision
+        </th>
+        <th>
+            Zipcode
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>                
+        <th>
+            @Html.DisplayNameFor(model => model.Beds)
+        </th>
+        <th>
+            Full
+        </th>
+        <th>
+            Half
+        </th>
+        <th>
+            Year
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pool)
+        </th>   
+        <th>
+            Price
+        </th>
+        <th>
+            PreFlip(Avg Price)
+        </th>
+        <th>
+            Within %
+        </th>
+        <th>
+            SqFt
+        </th>
+        <th>
+            LP/SqFt
+        </th>
+        <th>
+            PostFlip(Avg SP/SqFt)
+        </th>
+        <th>
+            ARV
+        </th>
+        <th>
+            Profit
+        </th>
+        <th></th>   
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LegalSubdivisionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SqFtHeated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Beds)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullBaths)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HalfBaths)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearBuilt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pool)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.ListOfficeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ListAgentFullName)
+        </td>
+    </tr>
+}
+
+</table>
