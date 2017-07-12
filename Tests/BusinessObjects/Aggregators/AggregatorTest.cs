@@ -154,28 +154,52 @@ namespace Test.HouseFlipper.BusinessObjects
                 "L4705767","L4705768",
                 "P4705621","P4704119","K4700271"
             };
-            var include = new Dictionary<string,List<object>>()
+            var include = new Dictionary<string, List<object>>()
             {
                 { "34759",
-                 new List<object>() {
-                new List<string>(){ "L4711733", "L4711734" }
-                 } },
+                  new List<object>() {
+                     new Dictionary<string,object>() {  //avg
+                        { "purchase_price", 1 },
+                        { "sold_price", 1 },
+                        { "year", 1 },
+                        { "p_beds", 1 },
+                        { "p_baths", 1 },
+                        { "p_beds", 1 },
+                        { "p_pool", 1 },
+                        { "p_sqft", 1 },                        
+                        { "s_beds", 1 },
+                        { "s_baths", 1 },
+                        { "s_beds", 1 },                        
+                        { "s_sqft", 1 },
+                        { "s_pool", 1 }
+                     },
+                    new List<string>(){ "L4711733", "L4711734" } // 1 flip
+                 }},
 
                 { "33810",
-                 new List<object>() {
-                new List<string>() { "L4707116", "L4707117" }
-                 } },
+                  new List<object>() {
+                    new Dictionary<string,object>() {  //avg
+                        { "beds", 1 }
+                    },
+                    new List<object>() { "L4707116", "L4707117" }
+                 }},
 
                 { "33809",
-                new List<object>() {
-                new List<string>(){ "L4703920", "L4703921", "L4703922" }
-                } },
+                  new List<object>() {
+                    new Dictionary<string,object>() {  //avg
+                        { "beds", 1 }
+                    },
+                    new List<object>(){ "L4703920", "L4703921", "L4703922" }
+                }},
 
-                { "93810",
-                new List<object>(){
-                new List<string>() { "Z4707116", "Z4707117" },
-                new List<string>(){ "Z4703920", "Z4703921", "Z4703922" }
-                } }
+                { "93810",  // 2 flips
+                  new List<object>(){
+                    new Dictionary<string,object>() {  //avg
+                        { "beds", 1 }
+                    },
+                  new List<object>() { "Z4707116", "Z4707117" },  // 1st property
+                  new List<object>(){ "Z4703920", "Z4703921", "Z4703922" } // 2nd property
+                }}
             };
 
             var dataSet = new Listings();
@@ -274,7 +298,7 @@ namespace Test.HouseFlipper.BusinessObjects
                     }*/
                 }
             }
-            
+
         }
 
         [Test]
@@ -422,7 +446,7 @@ namespace Test.HouseFlipper.BusinessObjects
 
                     foreach (var key in removeKeys)
                     {
-                        map.Remove(key);                        
+                        map.Remove(key);
                     }
 
                     return map;
