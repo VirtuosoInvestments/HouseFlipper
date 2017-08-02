@@ -1,4 +1,4 @@
-﻿@model HouseFlipper.DataAccess.Models.MlsRow
+﻿@model HouseFlipper.DataAccess.DB.Listing
 
 @{
     ViewBag.Title = "Edit";
@@ -15,7 +15,7 @@
         <h4>Listing</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
             @Html.LabelFor(model => model.MLNumber, htmlAttributes: new { @class = "control-label col-md-2" })
