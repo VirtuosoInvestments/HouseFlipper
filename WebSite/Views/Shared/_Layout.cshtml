@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title - House Flipper</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -11,8 +11,141 @@
     @RenderSection("scripts", required: false)
 </head>
 <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("House Flipper", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>*@
+                    <li>@Html.ActionLink("Listings", "Index", "Listings")</li>
+                    @*<li>@Html.ActionLink("Flips", "Index", "Flips")</li>
+                        <li>@Html.ActionLink("ZipCode", "ByZip", "Flips")</li>
+                        <li>@Html.ActionLink("SubDivision", "BySubDivision", "Flips")</li>
+                        <li>@Html.ActionLink("CommonSubDiv", "ByCommonSubDivision", "Flips")</li>*@
 
-    @RenderBody()
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Flips<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                @Html.ActionLink("All", "Index", "Flips")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Zipcode", "ByZip", "Flips")
+                            </li>
+                            <!--
+                            <li>
+                                @Html.ActionLink("Subdivision", "Subdivision", "Flips")
+                            </li>
+                            <li>
+                                @Html.ActionLink("ZipCode>NoPool", "ByZipNoPool", "Flips")
+                            </li>
+                            <li>
+                                @Html.ActionLink("ZipCode>WithPool", "ByZipWithPool", "Flips")
+                            </li>
+                            <li>
+                                @Html.ActionLink("SubDivision>NoPool", "BySubDivisionNoPool", "Flips")
+                            </li>
+                            <li>
+                                @Html.ActionLink("SubDivision>WithPool", "BySubDivisionWithPool", "Flips")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Common SubDivision>NoPool", "ByCommonSubDivisionNoPool", "Flips")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Common SubDivision>WithPool", "ByCommonSubDivisionWithPool", "Flips")
+                            </li>
+                                -->
+                        </ul>
+                    </li>
+
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Active<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                @Html.ActionLink("All", "Index", "Active")
+                            </li>
+                            <!--
+                            <li>
+                                @Html.ActionLink("ZipCode>NoPool", "ByZipNoPool", "Active")
+                            </li>
+                            <li>
+                                @Html.ActionLink("ZipCode>WithPool", "ByZipWithPool", "Active")
+                            </li>
+                            <li>
+                                @Html.ActionLink("SubDivision>NoPool", "BySubDivisionNoPool", "Active")
+                            </li>
+                            <li>
+                                @Html.ActionLink("SubDivision>WithPool", "BySubDivisionWithPool", "Active")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Common SubDivision>NoPool", "ByCommonSubDivisionNoPool", "Active")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Common SubDivision>WithPool", "ByCommonSubDivisionWithPool", "Active")
+                            </li>
+                                -->
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Maps<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            <li>@Html.ActionLink("My City Maps", "ViewMaps", "Maps")</li>
+                            <li>@Html.ActionLink("Map an Address", "MapAddress", "Maps")</li>
+                            <li>@Html.ActionLink("Map1", "GoogleMap", "Maps")</li>
+                            <li>@Html.ActionLink("Map2", "GoogleMap2", "Maps")</li>
+                            <li>@Html.ActionLink("Map3", "GoogleMap3", "Maps")</li>
+                            <li>@Html.ActionLink("Map4", "GoogleMap4", "Maps")</li>
+                            <li>@Html.ActionLink("Map5", "GoogleMap5", "Maps")</li>
+                            <li>@Html.ActionLink("Map6", "GoogleMap6", "Maps")</li>
+                        </ul>
+                    </li>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - House Flipper</p>
+        </footer>
+    </div>
+
+    @*<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDMg0szYattzgj4r_yYBIGEfFtbUFKN6gE"></script>*@
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyDMg0szYattzgj4r_yYBIGEfFtbUFKN6gE"></script>
+    @*<script type="text/javascript">
+
+        $(document).ready(function () {
+          initialize();
+        });
+        function initialize() {
+          var mapOptions = {
+            center: new google.maps.LatLng(6.9167, 79.8473),
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+          // create a marker
+          var latlng = new google.maps.LatLng(6.9167, 79.8473);
+          var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: 'My Place'
+          });
+        }
+         </script>*@
+
 
 </body>
 </html>
