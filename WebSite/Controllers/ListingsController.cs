@@ -354,6 +354,21 @@ namespace HouseFlipper.WebSite.Controllers
             return View(mlsRow);
         }
 
+        // GET: Listings/Map/5
+        public ActionResult Map(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Listing mlsRow = db.Listings.Find(id);
+            if (mlsRow == null)
+            {
+                return HttpNotFound();
+            }
+            return View(mlsRow);
+        }
+
         // POST: Listings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

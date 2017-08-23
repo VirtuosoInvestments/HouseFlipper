@@ -191,6 +191,7 @@
                     @Html.DisplayFor(modelItem => item.CloseDate)
                 </td>
                 <td style="white-space:nowrap">
+                    @Html.ActionLink("Map", "Map", new { id = item.Id }) |
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
