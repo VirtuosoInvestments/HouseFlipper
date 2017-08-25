@@ -360,6 +360,9 @@ namespace HouseFlipper.WebSite.Controllers
         public ActionResult Map(int? id)
         {
             IEnumerable<Listing> properties = null;
+            GeoLocationController geoLocCtrl = new GeoLocationController();
+            var markers = new List<Marker>();
+            var latLongUpdated = false;
             if (id == null)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -367,22 +370,25 @@ namespace HouseFlipper.WebSite.Controllers
                 if (properties == null || properties.Count() == 0)
                 {
                     var all = (IPagedList<Listing>)TempData["pagelist"];
-                    if(all==null)
+                    if (all == null)
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }
 
                     TempData["pagelist"] = all;
 
-                    var perPage = all.PageCount;
+                    /*var pageSize = all.PageSize;
                     var page = all.PageNumber;
 
-                    properties = all.Skip(page * perPage).Take(perPage);
+                    properties = all.Skip(page * pageSize).Take(pageSize);*/
+                    properties = all;
                 }
                 if (properties == null || properties.Count() == 0)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }     
+                }
+
+                               
             }
             else
             {
@@ -391,58 +397,65 @@ namespace HouseFlipper.WebSite.Controllers
                 {
                     return HttpNotFound();
                 }
+
                 properties = new List<Listing>() { row };
             }
 
-            bool latLongUpdated = false;
-            GeoLocationController geoLocCtrl = new GeoLocationController();
-            var markers = new List<Marker>();
             foreach (var row in properties)
             {
-                var fullAddress = row.Address + ", " + row.City + ", FL " + " " + row.PostalCode;
-                
-                if (!row.Latitude.HasValue)
-                //if(row.Latitude==0 && row.Longitude==0)
+                if (AddMarker(row, markers, geoLocCtrl))
                 {
-                    var loc = geoLocCtrl.GetLatLong(fullAddress);
-                    if (loc != null)
-                    {
-                        latLongUpdated = true;
-                        row.Latitude = loc.Latitude;
-                        row.Longitude = loc.Longitude;
-
-                        db.Listings.Attach(row);
-                        var entry = db.Entry(row);
-                        entry.Property(e => e.Latitude).IsModified = true;
-                        entry.Property(e => e.Longitude).IsModified = true;
-                        // other changed properties
-                    }
+                    latLongUpdated = true;
                 }
-
-                if(row.Latitude == null || row.Longitude == null)
-                {
-                    //TODO: I don't know what to do here? Do I print a status error message in a table to the right/below map
-                    //      indicating which properties could not be displayed on the map?
-                    continue;
-                }
-                markers.Add(
-                new Marker()
-                {
-                    title = fullAddress,
-                    lat = row.Latitude.ToString(),
-                    lng = row.Longitude.ToString(),
-                    description = fullAddress//,
-                    //icon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
-                }
-            );
             }
 
             if (latLongUpdated)
             {
                 db.SaveChanges();
             }
-            
+
             return View(markers);
+        }
+
+        private bool AddMarker(Listing row, List<Marker> markers, GeoLocationController geoLocCtrl)
+        {
+            var fullAddress = row.Address + ", " + row.City + ", FL " + " " + row.PostalCode;
+            var latLongUpdated = false;
+            if (!row.Latitude.HasValue)
+            //if(row.Latitude==0 && row.Longitude==0)
+            {
+                var loc = geoLocCtrl.GetLatLong(fullAddress);
+                if (loc != null)
+                {
+                    latLongUpdated = true;
+                    row.Latitude = loc.Latitude;
+                    row.Longitude = loc.Longitude;
+
+                    db.Listings.Attach(row);
+                    var entry = db.Entry(row);
+                    entry.Property(e => e.Latitude).IsModified = true;
+                    entry.Property(e => e.Longitude).IsModified = true;
+                    // other changed properties
+                }
+            }
+
+            if (row.Latitude == null || row.Longitude == null)
+            {
+                //TODO: I don't know what to do here? Do I print a status error message in a table to the right/below map
+                //      indicating which properties could not be displayed on the map?
+                return false;
+            }
+            markers.Add(
+            new Marker()
+            {
+                title = fullAddress,
+                lat = row.Latitude.ToString(),
+                lng = row.Longitude.ToString(),
+                description = fullAddress//,
+                                         //icon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+            });
+
+            return latLongUpdated;
         }
 
         // POST: Listings/Edit/5
