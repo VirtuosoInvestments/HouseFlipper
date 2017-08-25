@@ -419,6 +419,12 @@ namespace HouseFlipper.WebSite.Controllers
                     }
                 }
 
+                if(row.Latitude == null || row.Longitude == null)
+                {
+                    //TODO: I don't know what to do here? Do I print a status error message in a table to the right/below map
+                    //      indicating which properties could not be displayed on the map?
+                    continue;
+                }
                 markers.Add(
                 new Marker()
                 {
