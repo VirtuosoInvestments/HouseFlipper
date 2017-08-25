@@ -14,7 +14,7 @@ using Google.Maps.Geocoding;
 using HouseFlipper.DataAccess;
 
 namespace HouseFlipper.WebSite.Controllers
-{    
+{
     public class ListingsController : Controller
     {
         private MlsContext db = new MlsContext();
@@ -43,7 +43,7 @@ namespace HouseFlipper.WebSite.Controllers
         public List<Listing> GetActive()
         {
             var listings = from l in db.Listings
-                           //where l.StatusValue() == MlsStatus.Active
+                               //where l.StatusValue() == MlsStatus.Active
                            where l.Status.ToLower().Trim() == "act"
                            select l;
             return listings.ToList();
@@ -114,9 +114,9 @@ namespace HouseFlipper.WebSite.Controllers
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
 
 
-                                
+
             sortOrder = String.IsNullOrEmpty(sortOrder) ? "MLNumber" : sortOrder;
-            ViewBag.CurrentSort = sortOrder;    
+            ViewBag.CurrentSort = sortOrder;
 
             IPagedList<Listing> pageList = null;
 
@@ -134,11 +134,11 @@ namespace HouseFlipper.WebSite.Controllers
                         pageList = listings.OrderBy
                                     (m => m.MLNumber).ToPagedList(pageIndex, pageSize);
                     }
-                            
+
                     break;
                 case "Status":
                     SetSortDirection(sortOrder, CurrentSort, sortDirection, page);
-                    if (ViewBag.SortDirection == SortDirection.Descending)                    
+                    if (ViewBag.SortDirection == SortDirection.Descending)
                     {
                         pageList = listings.OrderByDescending
                                 (m => m.Status).ToPagedList(pageIndex, pageSize);
@@ -216,29 +216,29 @@ namespace HouseFlipper.WebSite.Controllers
                     }
                     break;
 
-                // Add sorting statements for other columns
+                    // Add sorting statements for other columns
 
-                //case "Default":
-                //    products = listings.OrderBy
-                //            (m => m.MLNumber).ToPagedList(pageIndex, pageSize);
-                //    sortDirection = SortDirection.Ascending;
-                //    break;
+                    //case "Default":
+                    //    products = listings.OrderBy
+                    //            (m => m.MLNumber).ToPagedList(pageIndex, pageSize);
+                    //    sortDirection = SortDirection.Ascending;
+                    //    break;
 
-                //default:
-                //    SetSortDirection(sortOrder, CurrentSort, sortDirection, page);
-                //    if (ViewBag.SortDirection == SortDirection.Descending)
-                //    {
-                //        products = listings.ToList().OrderByDescending
-                //                (m => GetPropertyValue(m,sortOrder)).ToPagedList(pageIndex, pageSize);
-                //        ViewBag.SortDirection = SortDirection.Descending;
-                //    }
-                //    else
-                //    {
-                //        products = listings.ToList().OrderBy
-                //                (m => GetPropertyValue(m, sortOrder)).ToPagedList(pageIndex, pageSize);
-                //        ViewBag.SortDirection = SortDirection.Ascending;
-                //    }
-                //    break;
+                    //default:
+                    //    SetSortDirection(sortOrder, CurrentSort, sortDirection, page);
+                    //    if (ViewBag.SortDirection == SortDirection.Descending)
+                    //    {
+                    //        products = listings.ToList().OrderByDescending
+                    //                (m => GetPropertyValue(m,sortOrder)).ToPagedList(pageIndex, pageSize);
+                    //        ViewBag.SortDirection = SortDirection.Descending;
+                    //    }
+                    //    else
+                    //    {
+                    //        products = listings.ToList().OrderBy
+                    //                (m => GetPropertyValue(m, sortOrder)).ToPagedList(pageIndex, pageSize);
+                    //        ViewBag.SortDirection = SortDirection.Ascending;
+                    //    }
+                    //    break;
             }
             return View(pageList);
         }
@@ -265,22 +265,22 @@ namespace HouseFlipper.WebSite.Controllers
 
         private string GetPropertyValue(Listing m, string sortOrder)
         {
-            var special = new List<string>() {"CurrentPrice","SqFtHeated"};
-            object val=null;
+            var special = new List<string>() { "CurrentPrice", "SqFtHeated" };
+            object val = null;
             if (special.Contains(sortOrder))
             {
                 sortOrder += "Value";
                 var mth = m.GetType().GetMethod(sortOrder, BindingFlags.Instance | BindingFlags.Public);
-                val = mth.Invoke(m,null);
+                val = mth.Invoke(m, null);
             }
             else
             {
                 var prop = m.GetType().GetProperty(sortOrder, BindingFlags.Instance | BindingFlags.Public);
                 val = prop.GetValue(m);
             }
-            
+
             string valStr = null;
-            if(val!=null)
+            if (val != null)
             {
                 valStr = val.ToString();
             }
@@ -354,6 +354,51 @@ namespace HouseFlipper.WebSite.Controllers
             return View(mlsRow);
         }
 
+        // GET: Listings/Map/5
+        public ActionResult Map(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Listing row = db.Listings.Find(id);
+            if (row == null)
+            {
+                return HttpNotFound();
+            }
+            var fullAddress = row.Address + ", " + row.City + ", FL " + " " + row.PostalCode;
+            GeoLocationController geoLocCtrl = new GeoLocationController();
+            bool latLongUpdated = false;
+            if (!row.Latitude.HasValue)
+            //if(row.Latitude==0 && row.Longitude==0)
+            {
+                var loc = geoLocCtrl.GetLatLong(fullAddress);
+                if (loc != null)
+                {
+                    latLongUpdated = true;
+                    row.Latitude = loc.Latitude;
+                    row.Longitude = loc.Longitude;
+                }
+            }
+
+            if (latLongUpdated)
+            {
+                db.SaveChanges();
+            }
+
+            var markers = new List<Marker>() {
+                new Marker()
+                {
+                    title = fullAddress,
+                    lat = row.Latitude.ToString(),
+                    lng = row.Longitude.ToString(),
+                    description = fullAddress//,
+                    //icon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+                }                
+            };
+            return View(markers);
+        }
+
         // POST: Listings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -394,7 +439,7 @@ namespace HouseFlipper.WebSite.Controllers
             db.Listings.Remove(mlsRow);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }        
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -407,14 +452,14 @@ namespace HouseFlipper.WebSite.Controllers
 
         internal List<Listing> Search(FlippedHouse flippedHouse)
         {
-            var list =  
+            var list =
             (from el in db.Listings
-            where flippedHouse.Address.ToLower().Trim() == el.Address.ToLower().Trim() &&
-                  flippedHouse.City.ToLower().Trim() == el.City.ToLower().Trim() &&
-                  flippedHouse.PostalCode.ToLower().Trim() == el.PostalCode.ToLower().Trim() &&
-                  el.Status.ToLower() == "sld"
-            select el)/*.OrderBy(x=>x.CloseDate)*/.ToList();
+             where flippedHouse.Address.ToLower().Trim() == el.Address.ToLower().Trim() &&
+                   flippedHouse.City.ToLower().Trim() == el.City.ToLower().Trim() &&
+                   flippedHouse.PostalCode.ToLower().Trim() == el.PostalCode.ToLower().Trim() &&
+                   el.Status.ToLower() == "sld"
+             select el)/*.OrderBy(x=>x.CloseDate)*/.ToList();
             return list;
-        }        
+        }
     }
 }

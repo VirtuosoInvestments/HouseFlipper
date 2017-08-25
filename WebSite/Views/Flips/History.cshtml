@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HouseFlipper.DataAccess.Models.MlsRow>
+﻿@model IEnumerable<HouseFlipper.DataAccess.DB.Listing>
 
 @{
     ViewBag.Title = "History";
@@ -200,7 +200,7 @@
             @Html.DisplayFor(modelItem => item.OfficePrimaryBoardID)
         </td>*@
         <td>
-            @Html.ActionLink("Details", "Details", "Listings", new { id=item.ID }, null)
+            @Html.ActionLink("Details", "Details", "Listings", new { id=item.Id }, null)
         </td>
     </tr>
 }
