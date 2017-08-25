@@ -240,6 +240,8 @@ namespace HouseFlipper.WebSite.Controllers
                     //    }
                     //    break;
             }
+            ViewBag.PageList = pageList;
+            TempData["pagelist"] = pageList;
             return View(pageList);
         }
 
@@ -357,36 +359,67 @@ namespace HouseFlipper.WebSite.Controllers
         // GET: Listings/Map/5
         public ActionResult Map(int? id)
         {
+            IEnumerable<Listing> properties = null;
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Listing row = db.Listings.Find(id);
-            if (row == null)
-            {
-                return HttpNotFound();
-            }
-            var fullAddress = row.Address + ", " + row.City + ", FL " + " " + row.PostalCode;
-            GeoLocationController geoLocCtrl = new GeoLocationController();
-            bool latLongUpdated = false;
-            if (!row.Latitude.HasValue)
-            //if(row.Latitude==0 && row.Longitude==0)
-            {
-                var loc = geoLocCtrl.GetLatLong(fullAddress);
-                if (loc != null)
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                properties = ViewBag.PageList;
+                if (properties == null || properties.Count() == 0)
                 {
-                    latLongUpdated = true;
-                    row.Latitude = loc.Latitude;
-                    row.Longitude = loc.Longitude;
+                    var all = (IPagedList<Listing>)TempData["pagelist"];
+                    if(all==null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+
+                    TempData["pagelist"] = all;
+
+                    var perPage = all.PageCount;
+                    var page = all.PageNumber;
+
+                    properties = all.Skip(page * perPage).Take(perPage);
                 }
+                if (properties == null || properties.Count() == 0)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }     
             }
-
-            if (latLongUpdated)
+            else
             {
-                db.SaveChanges();
+                Listing row = db.Listings.Find(id);
+                if (row == null)
+                {
+                    return HttpNotFound();
+                }
+                properties = new List<Listing>() { row };
             }
 
-            var markers = new List<Marker>() {
+            bool latLongUpdated = false;
+            GeoLocationController geoLocCtrl = new GeoLocationController();
+            var markers = new List<Marker>();
+            foreach (var row in properties)
+            {
+                var fullAddress = row.Address + ", " + row.City + ", FL " + " " + row.PostalCode;
+                
+                if (!row.Latitude.HasValue)
+                //if(row.Latitude==0 && row.Longitude==0)
+                {
+                    var loc = geoLocCtrl.GetLatLong(fullAddress);
+                    if (loc != null)
+                    {
+                        latLongUpdated = true;
+                        row.Latitude = loc.Latitude;
+                        row.Longitude = loc.Longitude;
+
+                        db.Listings.Attach(row);
+                        var entry = db.Entry(row);
+                        entry.Property(e => e.Latitude).IsModified = true;
+                        entry.Property(e => e.Longitude).IsModified = true;
+                        // other changed properties
+                    }
+                }
+
+                markers.Add(
                 new Marker()
                 {
                     title = fullAddress,
@@ -394,8 +427,15 @@ namespace HouseFlipper.WebSite.Controllers
                     lng = row.Longitude.ToString(),
                     description = fullAddress//,
                     //icon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
-                }                
-            };
+                }
+            );
+            }
+
+            if (latLongUpdated)
+            {
+                db.SaveChanges();
+            }
+            
             return View(markers);
         }
 
