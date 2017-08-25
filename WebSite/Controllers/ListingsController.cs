@@ -366,8 +366,18 @@ namespace HouseFlipper.WebSite.Controllers
                 properties = ViewBag.PageList;
                 if (properties == null || properties.Count() == 0)
                 {
-                    properties = (IEnumerable<Listing>)TempData["pagelist"];
-                    TempData["pagelist"] = properties;
+                    var all = (IPagedList<Listing>)TempData["pagelist"];
+                    if(all==null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+
+                    TempData["pagelist"] = all;
+
+                    var perPage = all.PageCount;
+                    var page = all.PageNumber;
+
+                    properties = all.Skip(page * perPage).Take(perPage);
                 }
                 if (properties == null || properties.Count() == 0)
                 {
@@ -400,6 +410,12 @@ namespace HouseFlipper.WebSite.Controllers
                         latLongUpdated = true;
                         row.Latitude = loc.Latitude;
                         row.Longitude = loc.Longitude;
+
+                        db.Listings.Attach(row);
+                        var entry = db.Entry(row);
+                        entry.Property(e => e.Latitude).IsModified = true;
+                        entry.Property(e => e.Longitude).IsModified = true;
+                        // other changed properties
                     }
                 }
 
