@@ -417,6 +417,7 @@ namespace HouseFlipper.WebSite.Controllers
             return View(markers);
         }
 
+        // https://stackoverflow.com/questions/7095574/google-maps-api-3-custom-marker-color-for-default-dot-marker
         private bool AddMarker(Listing row, List<Marker> markers, GeoLocationController geoLocCtrl)
         {
             var fullAddress = row.Address + ", " + row.City + ", FL " + " " + row.PostalCode;
@@ -445,14 +446,26 @@ namespace HouseFlipper.WebSite.Controllers
                 //      indicating which properties could not be displayed on the map?
                 return false;
             }
+
+            string color = "red";
+            switch (row.StatusValue())
+            {
+                case MlsStatus.Active:
+                    color = "yellow";
+                    break;
+                case MlsStatus.Sold:
+                    color = "red";
+                    break;                    
+            }
+            string icon = string.Format("http://maps.google.com/mapfiles/ms/icons/{0}-dot.png", color);
             markers.Add(
             new Marker()
             {
                 title = fullAddress,
                 lat = row.Latitude.ToString(),
                 lng = row.Longitude.ToString(),
-                description = fullAddress//,
-                                         //icon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+                description = fullAddress,
+                icon = icon
             });
 
             return latLongUpdated;
