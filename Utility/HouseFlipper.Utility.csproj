@@ -72,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessObjects\HouseFlipper.BusinessObjects.csproj">
+      <Project>{72560c76-219a-4137-9f5e-1c112ab114ea}</Project>
+      <Name>HouseFlipper.BusinessObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\HouseFlipper.DataAccess.csproj">
       <Project>{718b99f4-02a9-4359-a150-eab48af7edd5}</Project>
       <Name>HouseFlipper.DataAccess</Name>

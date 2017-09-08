@@ -1,4 +1,5 @@
-﻿using HouseFlipper.DataAccess.Csv;
+﻿using HouseFlipper.BusinessObjects.Aggregators;
+using HouseFlipper.DataAccess.Csv;
 using HouseFlipper.DataAccess.DB;
 using HouseFlipper.DataAccess.Models;
 using HouseFlipper.Utility.Commands;
@@ -17,6 +18,8 @@ namespace HouseFlipper.Utility
     public class Program
     {
         private static MlsContext db = new MlsContext();
+
+        public static object FlipAggregator2 { get; private set; }
 
         public static void Main(string[] args)
         {
@@ -38,6 +41,13 @@ namespace HouseFlipper.Utility
                     {
                         case "import":
                             new ImportCommand().Execute(args);
+                            var dataSet = new Listings();
+                            var dbContext = new MlsContext();
+                            foreach(var l in dbContext.Listings)
+                            {
+                                dataSet.Add(l);
+                            }
+                            new FlipAggregator2().Execute(dataSet);
                             break;
                         case "clear":
                             new ClearCommand().Execute(args);

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HouseFlipper.BusinessObjects</RootNamespace>
     <AssemblyName>HouseFlipper.BusinessObjects</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,7 @@
     <Compile Include="Aggregators\ActiveAggregator.cs" />
     <Compile Include="Aggregators\Aggregator.cs" />
     <Compile Include="Aggregators\FlipAggregator.cs" />
+    <Compile Include="Aggregators\FlipAggregator2.cs" />
     <Compile Include="Aggregators\PropertyListingsMap.cs" />
     <Compile Include="Aggregators\SoldAggregator.cs" />
     <Compile Include="Aggregators\SubdivisionTable.cs" />
