@@ -18,7 +18,7 @@ namespace HouseFlipper.Utility
     {
         private static MlsContext db = new MlsContext();
 
-        public static void Main(string[] args)
+        public static void Execute(string[] args)
         {
             //string dataFolder = 
             //@"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\data";
