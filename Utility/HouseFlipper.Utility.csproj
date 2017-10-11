@@ -56,14 +56,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\ClearCommand.cs" />
-    <Compile Include="Commands\CountCommand.cs" />
-    <Compile Include="Commands\DeleteCommand.cs" />
-    <Compile Include="Commands\ImportCommand.cs" />
-    <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\ProcessCommand.cs" />
-    <Compile Include="Commands\SetupSiteCommand.cs" />
-    <Compile Include="Commands\SetupTestSiteCommand.cs" />
+    <Compile Include="Objects\Commands\ClearCommand.cs" />
+    <Compile Include="Objects\Commands\CommandFactory.cs" />
+    <Compile Include="Objects\Commands\CountCommand.cs" />
+    <Compile Include="Objects\Commands\DeleteCommand.cs" />
+    <Compile Include="Objects\Commands\ImportCommand.cs" />
+    <Compile Include="Objects\Commands\ICommand.cs" />
+    <Compile Include="Objects\Commands\ProcessCommand.cs" />
+    <Compile Include="Objects\Commands\SetupSiteCommand.cs" />
+    <Compile Include="Objects\Commands\SetupTestSiteCommand.cs" />
     <Compile Include="MainProgram.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

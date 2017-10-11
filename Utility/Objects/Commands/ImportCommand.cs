@@ -4,10 +4,28 @@ using HouseFlipper.DataAccess.DB;
 using System.IO;
 using System;
 
-namespace HouseFlipper.Utility.Commands
+namespace HouseFlipper.Utility.Objects.Commands
 {
     public class ImportCommand : ICommand
     {
+        public string Description
+        {
+            get { return "Imports csv format listing data into database"; }
+        }
+
+        public string Example
+        {
+            get { return string.Empty; }
+        }
+
+        public string Format
+        {
+            get
+            {
+                return "[parallel | bulk] <dataFolder>" ;
+            }
+        }
+
         public void Execute(params string[] args)
         {
             var parallel = false;

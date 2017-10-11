@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseFlipper.Utility.Commands
+namespace HouseFlipper.Utility.Objects.Commands
 {
     public class ProcessCommand
     {

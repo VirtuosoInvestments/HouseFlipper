@@ -4,10 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseFlipper.Utility.Commands
+namespace HouseFlipper.Utility.Objects.Commands
 {
     public class SetupTestSiteCommand : SetupSiteCommand
     {
+        public override string Description
+        {
+            get { return "Sets up House Flipper test website"; }
+        }
+
+        public override string Format
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
+
         private static int port = 8020;
         private static string siteName = "HouseFlipperTest";
         private static string siteDir = @"C:\Users\ralph.joachim\Documents\Visual Studio 2015\Projects\HouseFlipper\WebSite";

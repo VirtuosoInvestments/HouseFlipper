@@ -9,22 +9,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseFlipper.Utility.Commands
-{
-    public class CountData
-    {
-        public CountData()
-        {
-            TotalCount = 0;
-            SoldCount = 0;
-            ActiveCount = 0;
-        }
-        public int TotalCount { get; set; }
-        public int SoldCount { get; set; }
-        public int ActiveCount { get; set; }
-    }
+namespace HouseFlipper.Utility.Objects.Commands
+{    
     public class CountCommand : ICommand
     {
+        public string Description
+        {
+            get { return "Counts the number of times each property appears as sold or active within CSV files"; }
+        }
+
+        public string Example
+        {
+            get { return string.Empty; }
+        }
+
+        public string Format
+        {
+            get
+            {
+                return "<csvDataFolder>";
+            }
+        }
+
         public void Execute(params string[] args)
         {
             var dataFolder = args[0];
@@ -76,5 +82,18 @@ namespace HouseFlipper.Utility.Commands
 
             return data;
         }
+    }
+
+    public class CountData
+    {
+        public CountData()
+        {
+            TotalCount = 0;
+            SoldCount = 0;
+            ActiveCount = 0;
+        }
+        public int TotalCount { get; set; }
+        public int SoldCount { get; set; }
+        public int ActiveCount { get; set; }
     }
 }
