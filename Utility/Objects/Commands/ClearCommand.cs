@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace HouseFlipper.Utility.Objects.Commands
 {
-    public class ClearCommand : ICommand
+    public class ClearCommand : Command
     {
-        public string Description
+        public override string Description
         {
             get { return "Clears database of all data"; }
         }
 
-        public string Example
+        public override string Example
         {
             get { return string.Empty; }
         }
 
-        public string Format
+        public override string Format
         {
             get
             {
@@ -27,11 +27,22 @@ namespace HouseFlipper.Utility.Objects.Commands
             }
         }
 
-        public void Execute(params string[] args)
+        public override void Execute(params string[] args)
         {
-            using (var context = new MlsContext())
+            Console.WriteLine("Are you sure you want to clear the database of all data? [y|n, default:n]");
+            var key = Console.ReadKey().KeyChar.ToString().ToLower();
+            Console.WriteLine();
+            if (key == "y")
             {
-                context.Database.ExecuteSqlCommand("TRUNCATE TABLE Listings");
+                using (var context = new MlsContext())
+                {
+                    context.Database.ExecuteSqlCommand("TRUNCATE TABLE Listings");
+                }
+                Console.WriteLine("Database cleared of all data");
+            }
+            else
+            {
+                Console.WriteLine("Clear command not executed");
             }
         }
     }

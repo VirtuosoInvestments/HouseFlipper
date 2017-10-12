@@ -9,8 +9,10 @@ namespace HouseFlipper.Utility.Objects.Commands
     public interface ICommand
     {
         string Format { get; }
+        List<Parameter> Parameters { get; }
         string Description { get; }
         string Example { get; }
         void Execute(string[] args);
+        void Usage();
     }
 }

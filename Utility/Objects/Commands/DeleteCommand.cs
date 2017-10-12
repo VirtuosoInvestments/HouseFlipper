@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace HouseFlipper.Utility.Objects.Commands
 {
-    public class DeleteCommand : ICommand
+    public class DeleteCommand : Command
     {
-        public string Description
+        public override string Description
         {
             get { return "Deletes the House Flipper database"; }
         }
 
-        public string Example
+        public override string Example
         {
             get { return string.Empty; }
         }
 
-        public string Format
+        public override string Format
         {
             get
             {
@@ -27,7 +27,7 @@ namespace HouseFlipper.Utility.Objects.Commands
             }
         }
 
-        public void Execute(params string[] args)
+        public override void Execute(params string[] args)
         {
             if(Database.Exists("MlsContext"))
             {

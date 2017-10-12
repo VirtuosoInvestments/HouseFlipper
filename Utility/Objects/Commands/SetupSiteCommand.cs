@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace HouseFlipper.Utility.Objects.Commands
 {
-    public class SetupSiteCommand : ICommand
+    public class SetupSiteCommand : Command
     {
-        public virtual string Description
+        public override string Description
         {
             get { return "Sets up House Flipper website"; }
         }
 
-        public string Example
+        public override string Example
         {
             get { return string.Empty; }
         }
 
-        public virtual string Format
+        public override string Format
         {
             get
             {
@@ -26,7 +26,7 @@ namespace HouseFlipper.Utility.Objects.Commands
             }
         }
 
-        public virtual void Execute(params string[] args)
+        public override void Execute(params string[] args)
         {
             int port;
             string siteName, siteDir;

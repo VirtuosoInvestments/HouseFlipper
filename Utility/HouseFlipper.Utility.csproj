@@ -57,11 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Objects\Commands\ClearCommand.cs" />
+    <Compile Include="Objects\Commands\Command.cs" />
     <Compile Include="Objects\Commands\CommandFactory.cs" />
     <Compile Include="Objects\Commands\CountCommand.cs" />
     <Compile Include="Objects\Commands\DeleteCommand.cs" />
     <Compile Include="Objects\Commands\ImportCommand.cs" />
     <Compile Include="Objects\Commands\ICommand.cs" />
+    <Compile Include="Objects\Commands\Parameter.cs" />
     <Compile Include="Objects\Commands\ProcessCommand.cs" />
     <Compile Include="Objects\Commands\SetupSiteCommand.cs" />
     <Compile Include="Objects\Commands\SetupTestSiteCommand.cs" />

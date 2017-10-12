@@ -11,19 +11,19 @@ using System.Threading.Tasks;
 
 namespace HouseFlipper.Utility.Objects.Commands
 {    
-    public class CountCommand : ICommand
+    public class CountCommand : Command
     {
-        public string Description
+        public override string Description
         {
             get { return "Counts the number of times each property appears as sold or active within CSV files"; }
         }
 
-        public string Example
+        public override string Example
         {
             get { return string.Empty; }
         }
 
-        public string Format
+        public override string Format
         {
             get
             {
@@ -31,7 +31,7 @@ namespace HouseFlipper.Utility.Objects.Commands
             }
         }
 
-        public void Execute(params string[] args)
+        public override void Execute(params string[] args)
         {
             var dataFolder = args[0];
             var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);

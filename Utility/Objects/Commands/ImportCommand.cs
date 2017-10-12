@@ -3,62 +3,57 @@ using HouseFlipper.DataAccess.Csv;
 using HouseFlipper.DataAccess.DB;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 namespace HouseFlipper.Utility.Objects.Commands
 {
-    public class ImportCommand : ICommand
+    public class ImportCommand : Command
     {
-        public string Description
+        public override string Description
         {
             get { return "Imports csv format listing data into database"; }
         }
 
-        public string Example
+        public override string Example
         {
             get { return string.Empty; }
         }
 
-        public string Format
+        public override string Format
         {
             get
             {
-                return "[parallel | bulk] <dataFolder>" ;
+                return "<dataFolder>";
             }
         }
 
-        public void Execute(params string[] args)
+        public override List<Parameter> Parameters
         {
-            var parallel = false;
-            var bulk = false;
-            var dataFolder = string.Empty;
-            if(args==null || args.Length==0)
+            get
             {
-                throw new ArgumentNullException("args");
+                return new List<Parameter>() { new Parameter("dataFolder", "Top-level directory containing listing data in csv format") };
             }
-            foreach (var a in args)
+        }
+
+        public override void Execute(params string[] args)
+        {            
+            if (args == null || args.Length != 1)
             {
-                var tmp = a.ToString().ToLower().Trim();
-                if (tmp == "parallel")
-                {
-                    parallel = true;
-                }
-                else if(tmp=="bulk")
-                {
-                    bulk = true;
-                }
-                else
-                {
-                    dataFolder = a;
-                }
+                Usage();
+                return;
             }
 
-            if(string.IsNullOrWhiteSpace(dataFolder))
+            var dataFolder = args[0];
+            var parallel = true;
+            var bulk = true;
+
+            if (string.IsNullOrWhiteSpace(dataFolder))
             {
                 throw new ArgumentException("Data folder path not specified");
             }
 
-            var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);            
-            new Importer(reader, parallel).Run(bulk);            
+            var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);
+            new Importer(reader, parallel).Run(bulk);
         }
     }    
 }

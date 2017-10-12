@@ -13,7 +13,7 @@ namespace HouseFlipper.Utility.Objects.Commands
         {
             foreach (var t in typeof(CommandFactory).Assembly.GetTypes())
             {
-                if (!t.IsInterface && t.GetInterface("ICommand") != null)
+                if (!t.IsInterface && t.GetInterface("ICommand") != null && !t.IsAbstract)
                 {
                     var className = t.Name.ToLower();
                     var end = className.IndexOf("command");
