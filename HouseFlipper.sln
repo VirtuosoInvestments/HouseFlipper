@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.HouseFlipper.End2End",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.HouseFlipper.Framework", "Tests\Framework\Test.HouseFlipper.Framework.csproj", "{F3520401-E34A-4E69-89F0-612172CA5669}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseFlipper.Common", "Common\HouseFlipper.Common.csproj", "{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -144,6 +146,16 @@ Global
 		{F3520401-E34A-4E69-89F0-612172CA5669}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3520401-E34A-4E69-89F0-612172CA5669}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{F3520401-E34A-4E69-89F0-612172CA5669}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{BBEEAA2B-BD89-4330-935E-6B4D12C6A75D}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseFlipper.Utility.Objects.Pipeline
+namespace HouseFlipper.Common.Pipeline
 {
-    public interface IPipe
+    public interface IPipeOperation
     {
-        void Next(IPipe pipe);
+        void Execute(object data);
     }
 }

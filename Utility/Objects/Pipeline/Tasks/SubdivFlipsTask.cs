@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseFlipper.Utility.Objects.Pipeline
+namespace HouseFlipper.Utility.Objects.Pipeline.Tasks
 {
-    public interface IPipeOperation
+    public class SubdivFlipsTask : ParallelTask
     {
-        void Execute(object data);
     }
 }

@@ -4,6 +4,7 @@ using HouseFlipper.DataAccess.DB;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using HouseFlipper.Utility.Objects.Pipeline;
 
 namespace HouseFlipper.Utility.Objects.Commands
 {
@@ -53,7 +54,19 @@ namespace HouseFlipper.Utility.Objects.Commands
             }
 
             var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);
-            new Importer(reader, parallel).Run(bulk);
+
+            var p1 = new Pipe<Stage>();
+            p1.Add(new Pipeline.Stages.Convert());
+            p1.Add(new Pipeline.Stages.RemoveDupes());
+
+            var p2 = new Pipe<ParallelTask>();
+            p2.Add(new Pipeline.Tasks.ZipFlipsTask());
+            p2.Add(new Pipeline.Tasks.SubdivFlipsTask());
+            p2.Add(new Pipeline.Tasks.CountyFlipsTask());
+
+            p1.Next(p2);
+
+            new ImporterV2(reader, p1).Run();
         }
     }    
 }

@@ -62,6 +62,7 @@
     <Compile Include="DB\PropertyListing.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Importer.cs" />
+    <Compile Include="ImporterV2.cs" />
     <Compile Include="Models\Flip.cs" />
     <Compile Include="Models\FlippedCharacteristics.cs" />
     <Compile Include="Models\FlippedHouse.cs" />
@@ -91,6 +92,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\HouseFlipper.Common.csproj">
+      <Project>{bbeeaa2b-bd89-4330-935e-6b4d12c6a75d}</Project>
+      <Name>HouseFlipper.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

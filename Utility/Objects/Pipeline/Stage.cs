@@ -1,4 +1,5 @@
-﻿using HouseFlipper.Utility.Objects.Responsibility;
+﻿using HouseFlipper.Common.Pipeline;
+using HouseFlipper.Utility.Objects.Responsibility;
 using System;
 using System.Collections.Generic;
 using System.Linq;

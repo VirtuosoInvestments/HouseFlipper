@@ -68,10 +68,11 @@
     <Compile Include="Objects\Commands\SetupSiteCommand.cs" />
     <Compile Include="Objects\Commands\SetupTestSiteCommand.cs" />
     <Compile Include="MainProgram.cs" />
-    <Compile Include="Objects\Pipeline\IPipe.cs" />
-    <Compile Include="Objects\Pipeline\IPipeOperation.cs" />
     <Compile Include="Objects\Pipeline\ParallelTask.cs" />
     <Compile Include="Objects\Pipeline\Stages\Convert.cs" />
+    <Compile Include="Objects\Pipeline\Tasks\CountyFlipsTask.cs" />
+    <Compile Include="Objects\Pipeline\Tasks\SubdivFlipsTask.cs" />
+    <Compile Include="Objects\Pipeline\Tasks\ZipFlipsTask.cs" />
     <Compile Include="Objects\Responsibility\Chain.cs" />
     <Compile Include="Objects\Responsibility\IChain.cs" />
     <Compile Include="Objects\Pipeline\Pipe.cs" />
@@ -86,6 +87,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\HouseFlipper.Common.csproj">
+      <Project>{bbeeaa2b-bd89-4330-935e-6b4d12c6a75d}</Project>
+      <Name>HouseFlipper.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\HouseFlipper.DataAccess.csproj">
       <Project>{718b99f4-02a9-4359-a150-eab48af7edd5}</Project>
       <Name>HouseFlipper.DataAccess</Name>
