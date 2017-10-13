@@ -68,6 +68,15 @@
     <Compile Include="Objects\Commands\SetupSiteCommand.cs" />
     <Compile Include="Objects\Commands\SetupTestSiteCommand.cs" />
     <Compile Include="MainProgram.cs" />
+    <Compile Include="Objects\Pipeline\IPipe.cs" />
+    <Compile Include="Objects\Pipeline\IPipeOperation.cs" />
+    <Compile Include="Objects\Pipeline\ParallelTask.cs" />
+    <Compile Include="Objects\Pipeline\Stages\Convert.cs" />
+    <Compile Include="Objects\Responsibility\Chain.cs" />
+    <Compile Include="Objects\Responsibility\IChain.cs" />
+    <Compile Include="Objects\Pipeline\Pipe.cs" />
+    <Compile Include="Objects\Pipeline\Stage.cs" />
+    <Compile Include="Objects\Pipeline\Stages\RemoveDupes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup\WebSiteSetup.cs" />
