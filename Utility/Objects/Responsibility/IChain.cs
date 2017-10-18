@@ -10,7 +10,7 @@ namespace HouseFlipper.Utility.Objects.Responsibility
     {
         void Link(IChain next);
         void Unlink();
-        void Pass(object data);
+        void Process(object data);
         object Output { get; }
     }
 }

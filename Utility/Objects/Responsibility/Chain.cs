@@ -8,6 +8,7 @@ namespace HouseFlipper.Utility.Objects.Responsibility
 {
     public abstract class Chain : IChain
     {
+        private IChain next;
         public object Output
         {
             get
@@ -18,17 +19,25 @@ namespace HouseFlipper.Utility.Objects.Responsibility
 
         public void Link(IChain next)
         {
-            throw new NotImplementedException();
+            this.next = next;
         }
 
-        public void Pass(object data)
+        public virtual void Process(object data)
         {
             throw new NotImplementedException();
         }
 
         public void Unlink()
         {
-            throw new NotImplementedException();
+            this.next = null;
+        }
+
+        internal void Pass(object data)
+        {
+            if(next!=null)
+            {
+                next.Process(data);
+            }
         }
     }
 }

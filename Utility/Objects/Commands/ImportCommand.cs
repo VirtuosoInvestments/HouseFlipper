@@ -45,8 +45,8 @@ namespace HouseFlipper.Utility.Objects.Commands
             }
 
             var dataFolder = args[0];
-            var parallel = true;
-            var bulk = true;
+            //var parallel = true;
+            //var bulk = true;
 
             if (string.IsNullOrWhiteSpace(dataFolder))
             {
@@ -56,8 +56,10 @@ namespace HouseFlipper.Utility.Objects.Commands
             var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);
 
             var p1 = new Pipe<Stage>();
-            p1.Add(new Pipeline.Stages.Convert());
-            p1.Add(new Pipeline.Stages.RemoveDupes());
+            var chain = new Pipeline.Stages.ConvertData();
+            chain.Link(new Pipeline.Stages.CheckDuplicate());
+            chain.Link(new Pipeline.Stages.CreateListing());
+            p1.Add(chain);
 
             var p2 = new Pipe<ParallelTask>();
             p2.Add(new Pipeline.Tasks.ZipFlipsTask());

@@ -12,7 +12,7 @@ namespace HouseFlipper.Utility.Objects.Pipeline
     {
         public void Execute(object data)
         {
-            throw new NotImplementedException();
+            this.Process(data);
         }
     }
 }

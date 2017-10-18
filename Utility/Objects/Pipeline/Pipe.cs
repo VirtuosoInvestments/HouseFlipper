@@ -9,19 +9,24 @@ namespace HouseFlipper.Utility.Objects.Pipeline
 {
     public class Pipe<T> : IPipe where T : IPipeOperation
     {
+        private List<IPipeOperation> operations = new List<IPipeOperation>();
+        private IPipe next;
         public void Enter(object data)
         {
-            throw new NotImplementedException();
+            Parallel.ForEach(operations, (op) => 
+            {
+                op.Execute(data);
+            });
         }
 
         public void Add(T operation)
         {
-            throw new NotImplementedException();
+            this.operations.Add(operation);
         }
 
         public void Next(IPipe pipe)
         {
-            throw new NotImplementedException();
+            this.next = pipe;
         }
     }
 }

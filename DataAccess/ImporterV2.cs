@@ -28,24 +28,30 @@ namespace HouseFlipper.DataAccess
 
             var timer = new Stopwatch();
             timer.Start();
-            string[] colNames = null;
+            //string[] colNames = null;
             var rowNum = 0;
 
             reader.ReadBulk(
                         (file, list) =>
                         {
-                            BulkProcess(file, ref colNames, list, ref rowNum);
+                            BulkProcess(
+                                file, 
+                                //ref colNames, 
+                                list, 
+                                ref rowNum);
                         });
         }
 
         private void BulkProcess(
                         string file,
-                        ref string[] colNames,
+                        //ref string[] colNames,
                         List<MlsRow> list,
                         ref int rowNum)
         {
             //lock (_locker)
             //{
+
+            string[] colNames = null;
             using (var context = new MlsContext())
             {
                 foreach (var mlsRow in list)
@@ -66,8 +72,16 @@ namespace HouseFlipper.DataAccess
                     }
                     */
 
-                    //Task.Run(() => pipe.Enter(mlsRow));
-                    pipe.Enter(mlsRow);
+                    var values = MlsTokenizer.Split(mlsRow.Text);
+                    if (mlsRow.IsHeader)
+                    {
+                        colNames = values;
+                    }
+                    else
+                    {
+                        //Task.Run(() => pipe.Enter(mlsRow));
+                        pipe.Enter(new object[] { colNames, values, file });
+                    }
                 }
                 //context.SaveChanges();
             }
