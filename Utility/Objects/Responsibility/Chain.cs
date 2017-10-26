@@ -25,10 +25,7 @@ namespace HouseFlipper.Utility.Objects.Responsibility
             return this.next;
         }
 
-        public virtual void Process(object data)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Process(object data);
 
         public void Unlink()
         {
