@@ -72,6 +72,8 @@ namespace HouseFlipper.DataAccess
                     }
                     */
 
+                    Interlocked.Increment(ref rowNum);
+                    Console.WriteLine("{0}: {1}", rowNum, mlsRow.Text);
                     var values = MlsTokenizer.Split(mlsRow.Text);
                     if (mlsRow.IsHeader)
                     {

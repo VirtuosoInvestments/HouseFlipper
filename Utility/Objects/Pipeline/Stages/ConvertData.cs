@@ -57,6 +57,17 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
 
         private StringDictionary ToDictionary(string[] colNames, string[] values)
         {
+            if(colNames==null || values==null)
+            {
+                throw new InvalidOperationException("Error: colnames nor values can be null");
+            }
+
+
+            if(colNames.Length!=values.Length)
+            {
+                throw new InvalidOperationException("Error: colNames and values must be equal in length");
+            }
+
             var data = new StringDictionary();
             for (var j = 0; j < values.Length; j++)
             {

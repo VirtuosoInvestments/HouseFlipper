@@ -15,8 +15,21 @@ namespace HouseFlipper.Utility.Objects.Pipeline
         {
             Parallel.ForEach(operations, (op) => 
             {
-                op.Execute(data);
+                try
+                {
+                    op.Execute(data);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    throw;
+                }
             });
+
+            if(this.next!=null)
+            {
+                this.next.Enter(this.Output);
+            }
         }
 
         public void Add(T operation)
