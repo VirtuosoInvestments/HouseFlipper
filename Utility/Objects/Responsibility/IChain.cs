@@ -8,9 +8,10 @@ namespace HouseFlipper.Utility.Objects.Responsibility
 {
     public interface IChain
     {
-        void Link(IChain next);
+        IChain Link(IChain next);
         void Unlink();
         void Process(object data);
         object Output { get; }
+        event Action<object> Exit;
     }
 }

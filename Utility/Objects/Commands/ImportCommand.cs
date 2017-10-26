@@ -57,9 +57,11 @@ namespace HouseFlipper.Utility.Objects.Commands
 
             var p1 = new Pipe<Stage>();
             var chain = new Pipeline.Stages.ConvertData();
-            chain.Link(new Pipeline.Stages.CheckDuplicate());
-            chain.Link(new Pipeline.Stages.CreateListing());
+            var last =
+            chain.Link(new Pipeline.Stages.CheckDuplicate())
+                 .Link(new Pipeline.Stages.CreateListing());
             p1.Add(chain);
+            last.Exit += p1.HandleExit;
 
             var p2 = new Pipe<ParallelTask>();
             p2.Add(new Pipeline.Tasks.ZipFlipsTask());

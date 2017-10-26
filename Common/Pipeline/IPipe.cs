@@ -9,6 +9,7 @@ namespace HouseFlipper.Common.Pipeline
     public interface IPipe
     {
         void Enter(object data);
-        void Next(IPipe pipe);        
+        void Next(IPipe pipe);
+        void HandleExit(object data);
     }
 }

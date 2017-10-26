@@ -17,9 +17,12 @@ namespace HouseFlipper.Utility.Objects.Responsibility
             }
         }
 
-        public void Link(IChain next)
+        public event Action<object> Exit;
+
+        public IChain Link(IChain next)
         {
             this.next = next;
+            return this.next;
         }
 
         public virtual void Process(object data)
@@ -37,6 +40,13 @@ namespace HouseFlipper.Utility.Objects.Responsibility
             if(next!=null)
             {
                 next.Process(data);
+            }
+            else
+            {
+                if(this.Exit!=null)
+                {
+                    this.Exit.BeginInvoke(data, null, null);
+                }
             }
         }
     }
