@@ -14,7 +14,7 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
             if (data is StringDictionary)
             {
                 var dict = data as StringDictionary;
-                var id = dict["MLSNumber"];
+                var id = dict["ml number"];
 
                 //Check some global first if there is a collision
                 //   then Check against db context for a collision

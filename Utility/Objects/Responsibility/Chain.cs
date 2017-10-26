@@ -32,10 +32,13 @@ namespace HouseFlipper.Utility.Objects.Responsibility
             }
             else
             {
-                if(this.Exit!=null)
+                Task.Run(() =>
                 {
-                    this.Exit.BeginInvoke(data, null, null);
-                }
+                    if (this.Exit != null)
+                    {
+                        this.Exit(data);
+                    }
+                });
             }
         }
     }

@@ -196,7 +196,7 @@ namespace HouseFlipper.DataAccess.Csv
             }//);
         }
 
-        public virtual void ReadBulk(Action<string, List<MlsRow>> callback)
+        public virtual void ReadFiles(Action<string, List<MlsRow>> processContents)
         {
             Parallel.ForEach(files, (file) =>
             {
@@ -204,23 +204,29 @@ namespace HouseFlipper.DataAccess.Csv
                 var list = new List<MlsRow>();
                 using (var sr = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.ReadWrite)))
                 {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        if (string.IsNullOrWhiteSpace(line))
-                        {
-                            continue;
-                        }
-                        ///callback(file, new MlsRow(line, newFile));
-                        list.Add(new MlsRow(line, newFile));
-                        newFile = false;
-                    }
+                    newFile = ReadLines(newFile, list, sr);
                 }
                 if (list != null && list.Count > 0)
                 {
-                    callback/*.BeginInvoke*/(file, list/*,null,null*/);
+                    processContents(file, list);
                 }
             });
+        }
+
+        private static bool ReadLines(bool newFile, List<MlsRow> list, StreamReader sr)
+        {
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                list.Add(new MlsRow(line, newFile));
+                newFile = false;
+            }
+
+            return newFile;
         }
     }    
 }

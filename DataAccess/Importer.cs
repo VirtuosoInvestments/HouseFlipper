@@ -53,7 +53,7 @@ namespace HouseFlipper.DataAccess
             {
                 if (bulk)
                 {                    
-                    _reader.ReadBulk(
+                    _reader.ReadFiles(
                         (file, list) =>
                         {
                             BulkProcess(file, ref colNames, list, ref rowNum);                                                
