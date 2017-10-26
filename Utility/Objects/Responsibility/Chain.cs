@@ -9,14 +9,6 @@ namespace HouseFlipper.Utility.Objects.Responsibility
     public abstract class Chain : IChain
     {
         private IChain next;
-        public object Output
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public event Action<object> Exit;
 
         public IChain Link(IChain next)

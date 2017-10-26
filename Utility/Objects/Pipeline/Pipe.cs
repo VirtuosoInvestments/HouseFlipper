@@ -11,6 +11,13 @@ namespace HouseFlipper.Utility.Objects.Pipeline
     {
         private List<IPipeOperation> parallelOperations = new List<IPipeOperation>();
         private IPipe next;
+
+        public object Output
+        {
+            get;
+            private set;
+        }
+
         public void Enter(object data)
         {
             Parallel.ForEach(parallelOperations, (op) =>
@@ -42,6 +49,10 @@ namespace HouseFlipper.Utility.Objects.Pipeline
             if(this.next!=null)
             {
                 this.next.Enter(data);
+            }
+            else
+            {
+                this.Output = data;
             }
         }
     }

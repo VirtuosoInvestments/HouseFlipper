@@ -11,7 +11,6 @@ namespace HouseFlipper.Utility.Objects.Responsibility
         IChain Link(IChain next);
         void Unlink();
         void Process(object data);
-        object Output { get; }
         event Action<object> Exit;
     }
 }

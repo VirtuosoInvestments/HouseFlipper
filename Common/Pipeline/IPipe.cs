@@ -11,5 +11,6 @@ namespace HouseFlipper.Common.Pipeline
         void Enter(object data);
         void Next(IPipe pipe);
         void HandleExit(object data);
+        object Output { get; }
     }
 }
