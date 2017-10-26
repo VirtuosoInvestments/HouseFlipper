@@ -23,6 +23,10 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
                 {
                     this.Pass(dict);
                 }
+                else
+                {
+                    Console.WriteLine("Duplicate found: " + id);
+                }
             }
             else
             {

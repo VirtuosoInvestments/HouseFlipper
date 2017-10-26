@@ -26,19 +26,16 @@ namespace HouseFlipper.Utility.Objects.Responsibility
 
         internal void Pass(object data)
         {
-            if(next!=null)
+            if (next != null)
             {
                 next.Process(data);
             }
             else
             {
-                Task.Run(() =>
+                if (this.Exit != null)
                 {
-                    if (this.Exit != null)
-                    {
-                        this.Exit(data);
-                    }
-                });
+                    this.Exit(data);
+                }
             }
         }
     }

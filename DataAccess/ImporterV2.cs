@@ -68,7 +68,6 @@ namespace HouseFlipper.DataAccess
                     {
                         try
                         {
-                            //Interlocked.Increment(ref currentTasks);
                             pipe.Enter(new object[] { colNames, values, file });
                         }
                         finally
