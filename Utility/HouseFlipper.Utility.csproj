@@ -70,6 +70,7 @@
     <Compile Include="Objects\Commands\SetupTestSiteCommand.cs" />
     <Compile Include="MainProgram.cs" />
     <Compile Include="Objects\Pipeline\ParallelTask.cs" />
+    <Compile Include="Objects\Pipeline\Stages\CheckFlip.cs" />
     <Compile Include="Objects\Pipeline\Stages\ConvertData.cs" />
     <Compile Include="Objects\Pipeline\Stages\CreateListing.cs" />
     <Compile Include="Objects\Pipeline\Tasks\CountyFlipsTask.cs" />

@@ -55,22 +55,30 @@ namespace HouseFlipper.Utility.Objects.Commands
 
             var reader = new MlsReader(dataFolder, "*.csv", SearchOption.AllDirectories);
 
-            var p1 = new Pipe<Stage>();
-            var chain = new Pipeline.Stages.ConvertData();
-            var last =
-            chain.Link(new Pipeline.Stages.CheckDuplicate())
-                 .Link(new Pipeline.Stages.CreateListing());
-            p1.Add(chain);
-            last.Exit += p1.HandleExit;
+            try
+            {
+                var p1 = new Pipe<Stage>();
+                var chain = new Pipeline.Stages.ConvertData();
+                var last =
+                chain.Link(new Pipeline.Stages.CheckDuplicate())
+                     .Link(new Pipeline.Stages.CreateListing())
+                     .Link(new Pipeline.Stages.CheckFlip());
+                p1.Add(chain);
+                last.Exit += p1.HandleExit;
 
-            var p2 = new Pipe<ParallelTask>();
-            p2.Add(new Pipeline.Tasks.ZipFlipsTask());
-            p2.Add(new Pipeline.Tasks.SubdivFlipsTask());
-            p2.Add(new Pipeline.Tasks.CountyFlipsTask());
+                var p2 = new Pipe<ParallelTask>();
+                p2.Add(new Pipeline.Tasks.ZipFlipsTask());
+                p2.Add(new Pipeline.Tasks.SubdivFlipsTask());
+                p2.Add(new Pipeline.Tasks.CountyFlipsTask());
 
-            p1.Next(p2);
+                p1.Next(p2);
 
-            new ImporterV2(reader, p1).Run();
+                new ImporterV2(reader, p1).Run();
+            }
+            finally
+            {
+                Globals.Database.SaveChanges();
+            }
         }
     }    
 }
