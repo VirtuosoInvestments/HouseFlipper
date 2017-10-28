@@ -26,7 +26,10 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
         private Listing NewListing(StringDictionary data)
         {
             var record = new Listing(data);
-            Globals.Database.Listings.Add(record);
+            lock (Globals.Database)
+            {
+                Globals.Database.Listings.Add(record);
+            }
             return record;
         }
     }

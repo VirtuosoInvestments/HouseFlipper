@@ -33,11 +33,11 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
                         });
 
                     this.Pass(listing);
-                }
-                else
-                {
-                    throw new InvalidCastException("Error: data is expected to be Listing");
-                }
+                }                
+            }
+            else
+            {
+                throw new InvalidCastException("Error: data is expected to be Listing");
             }
         }
     }
