@@ -62,7 +62,8 @@ namespace HouseFlipper.Utility.Objects.Commands
                 var last =
                 chain.Link(new Pipeline.Stages.CheckDuplicate())
                      .Link(new Pipeline.Stages.CreateListing())
-                     .Link(new Pipeline.Stages.CheckFlip());
+                     .Link(new Pipeline.Stages.CheckFlip(TimeSpan.FromDays(365)))
+                     .Link(new Pipeline.Stages.AddFlip());
                 p1.Add(chain);
                 last.Exit += p1.HandleExit;
 
@@ -70,6 +71,7 @@ namespace HouseFlipper.Utility.Objects.Commands
                 p2.Add(new Pipeline.Tasks.ZipFlipsTask());
                 p2.Add(new Pipeline.Tasks.SubdivFlipsTask());
                 p2.Add(new Pipeline.Tasks.CountyFlipsTask());
+                p2.Add(new Pipeline.Tasks.CommonSubdivTask());
 
                 p1.Next(p2);
 

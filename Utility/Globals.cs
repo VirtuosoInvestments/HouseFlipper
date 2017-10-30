@@ -1,4 +1,5 @@
 ﻿using HouseFlipper.DataAccess.DB;
+using HouseFlipper.DataAccess.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -13,9 +14,17 @@ namespace HouseFlipper.Utility
         public static readonly MlsContext Database = new MlsContext();
         public static ConcurrentDictionary<string, int> Listings = new ConcurrentDictionary<string, int>();
 
-        public static HashSet<string> Sold = new HashSet<string>();
+        public static ConcurrentDictionary<string, List<Listing>> Sold = new ConcurrentDictionary<string, List<Listing>>();
 
-        public static ConcurrentDictionary<string, List<string>> Flips = new ConcurrentDictionary<string, List<string>>();
+        public static ConcurrentDictionary<string, List<Flip>> Flips = new ConcurrentDictionary<string, List<Flip>>();
+
+        public static ConcurrentDictionary<string, List<string>> ZipFlips = new ConcurrentDictionary<string, List<string>>();
+
+        public static ConcurrentDictionary<string, List<string>> SubdivFlips = new ConcurrentDictionary<string, List<string>>();
+
+        public static ConcurrentDictionary<string, List<string>> CountyFlips = new ConcurrentDictionary<string, List<string>>();
+
+        public static ConcurrentDictionary<string, List<string>> CommSubdivFlips = new ConcurrentDictionary<string, List<string>>();
 
         public static bool TryAdd<T>(this HashSet<T> hashSet, T value)
         {

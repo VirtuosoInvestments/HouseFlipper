@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Globals.cs" />
+    <Compile Include="Objects\Pipeline\Tasks\CommonSubdivTask.cs" />
     <Compile Include="Objects\Commands\ClearCommand.cs" />
     <Compile Include="Objects\Commands\Command.cs" />
     <Compile Include="Objects\Commands\CommandFactory.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Objects\Commands\SetupTestSiteCommand.cs" />
     <Compile Include="MainProgram.cs" />
     <Compile Include="Objects\Pipeline\ParallelTask.cs" />
+    <Compile Include="Objects\Pipeline\Stages\AddFlip.cs" />
     <Compile Include="Objects\Pipeline\Stages\CheckFlip.cs" />
     <Compile Include="Objects\Pipeline\Stages\ConvertData.cs" />
     <Compile Include="Objects\Pipeline\Stages\CreateListing.cs" />
