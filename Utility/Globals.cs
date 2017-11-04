@@ -12,8 +12,11 @@ namespace HouseFlipper.Utility
     public static class Globals
     {
         public static readonly MlsContext Database = new MlsContext();
+
+        //key: mlsnumber
         public static ConcurrentDictionary<string, int> Listings = new ConcurrentDictionary<string, int>();
 
+        //key: propertyid
         public static ConcurrentDictionary<string, List<Listing>> Sold = new ConcurrentDictionary<string, List<Listing>>();
 
         public static ConcurrentDictionary<string, List<Flip>> Flips = new ConcurrentDictionary<string, List<Flip>>();

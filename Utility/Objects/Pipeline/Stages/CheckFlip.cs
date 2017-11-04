@@ -33,7 +33,7 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
                     Tuple<Listing, Listing> inBetween = null;
                     Globals.Sold.AddOrUpdate(
                         propertyId,
-                        new List<Listing>() { listing },
+                        (x)=>new List<Listing>() { listing },
                         (k, currentList) =>
                         {
                             inBetween = BinarySearchAdd(currentList, listing);
