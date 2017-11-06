@@ -1,5 +1,6 @@
 ﻿using HouseFlipper.DataAccess.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,26 +14,59 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
         {
             if (data is List<Flip>)
             {
+                var oldFlips = new List<Flip>();
                 var flips = data as List<Flip>;
-                foreach(var flip in flips)
+                foreach(var newFlip in flips)
                 {
-                    var propertyId = flip.PropertyId;
-                    Globals.Flips.AddOrUpdate(
+                    var propertyId = newFlip.PropertyId;
+                    /*Globals.Flips.AddOrUpdate(
                         propertyId,
                         (x) => new List<Flip>() { flip },
                         (k, currentList) =>
                         {
                             Update(currentList, flip);
                             return currentList;
-                        });
+                        });*/
+
+                    Globals.PropertyFlips.AddOrUpdate(
+                            propertyId,
+                            (x) =>
+                            {
+                                var flipHash = new Dictionary<DateTime, Flip>();
+                                flipHash.Add(newFlip.Before.CloseDateValue().Value, newFlip);
+                                return flipHash;
+                            },
+                            (k, currentFlipHash) =>
+                            {
+                                var date = newFlip.Before.CloseDateValue().Value;
+                                if(currentFlipHash.ContainsKey(date))
+                                {
+                                    var prevFlip = currentFlipHash[date];
+                                    if(newFlip.After.CloseDateValue()<prevFlip.After.CloseDateValue())
+                                    {
+                                        currentFlipHash[date] = newFlip;
+                                        oldFlips.Add(prevFlip);
+                                    }
+                                    else
+                                    {
+                                        throw new InvalidOperationException("Error: New flip end date is >= to current flip with same start date!");
+                                    }
+                                }
+                                else
+                                {
+                                    currentFlipHash.Add(newFlip.Before.CloseDateValue().Value, newFlip);
+                                }
+                                return currentFlipHash;
+                            });                    
                 }
+                this.Pass(new Tuple<List<Flip>,List<Flip>>(flips,oldFlips));
             }
             else
             {
                 throw new InvalidCastException("Error: data is expected to be List<Flip>");
             }
         }
-
+        /*
         private void Update(List<Flip> currentList, Flip newFlip)
         {
             //TODO: Replace with interval tree implemenation Insert/Update
@@ -121,5 +155,6 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
             }
             currentList.RemoveAt(i);
         }
+        */
     }
 }

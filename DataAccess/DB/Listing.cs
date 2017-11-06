@@ -60,6 +60,11 @@ namespace HouseFlipper.DataAccess.DB
             }*/
         }
 
+        public double GetValue(string propName)
+        {
+            throw new NotImplementedException();
+        }
+
         public Listing() { }
 
         public object this[string key]
