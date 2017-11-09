@@ -10,7 +10,7 @@ namespace HouseFlipper.DataAccess.DB
     [Table("Listings")]
     public class Listing : IComparable
     {
-        private Dictionary<string, PropertyInfo> reflection { get; set; }
+        private Dictionary<string, PropertyInfo> reflectionProperties { get; set; }
 
         public Listing(StringDictionary data)
         {
@@ -20,11 +20,11 @@ namespace HouseFlipper.DataAccess.DB
         private void Reflect(StringDictionary data)
         {
             this.data = data;
-            this.reflection = new Dictionary<string, PropertyInfo>();
+            this.reflectionProperties = new Dictionary<string, PropertyInfo>();
             foreach (var p in typeof(Listing).GetProperties())
             {
                 var thisName = p.Name.ToLower();
-                reflection.Add(thisName, p);
+                reflectionProperties.Add(thisName, p);
             }
 
             foreach (string k in data.Keys)
@@ -33,9 +33,9 @@ namespace HouseFlipper.DataAccess.DB
                 if (name == "#") { continue; }
                 var propName = name.Replace(" ", string.Empty).Replace("/", string.Empty);
 
-                if (reflection.ContainsKey(propName))
+                if (reflectionProperties.ContainsKey(propName))
                 {
-                    var p = reflection[propName];
+                    var p = reflectionProperties[propName];
                     p.SetMethod.Invoke(this, new object[] { data[k] });
                 }
                 else
@@ -60,9 +60,30 @@ namespace HouseFlipper.DataAccess.DB
             }*/
         }
 
-        public double GetValue(string propName)
+        private static Lazy<Dictionary<string, MethodInfo>> reflectionMethods
+            = new Lazy<Dictionary<string, MethodInfo>>(
+                ()=>
+                {
+                    var table = new Dictionary<string, MethodInfo>();
+                    foreach (var method in typeof(Listing).GetMethods())
+                    {
+                        var thisName = method.Name.ToLower();
+                        table.Add(thisName, method);
+                    }
+                    return table;
+                });
+        public object InvokeMethod(string methodName)
         {
-            throw new NotImplementedException();
+            var key = methodName.ToLower().Trim();
+            if(reflectionMethods.Value.ContainsKey(key))
+            {
+                var method = reflectionMethods.Value[key];
+                return method.Invoke(this,null);
+            }
+            else
+            {
+                throw new InvalidOperationException("Error: Couldn't find Listing method '" + methodName + "'");
+            }
         }
 
         public Listing() { }
@@ -71,7 +92,7 @@ namespace HouseFlipper.DataAccess.DB
         {
             get
             {
-                return this.reflection[key.ToLower().Trim()].GetMethod.Invoke(this, null);
+                return this.reflectionProperties[key.ToLower().Trim()].GetMethod.Invoke(this, null);
             }
         }
 

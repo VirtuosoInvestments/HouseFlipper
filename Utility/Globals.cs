@@ -1,6 +1,7 @@
 ﻿using HouseFlipper.DataAccess.DB;
 using HouseFlipper.DataAccess.Models;
 using HouseFlipper.Utility.Objects;
+using HouseFlipper.Utility.Objects.Statistics;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

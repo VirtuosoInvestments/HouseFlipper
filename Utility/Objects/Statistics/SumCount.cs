@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseFlipper.Utility.Objects
+namespace HouseFlipper.Utility.Objects.Statistics
 {
     public class SumCount
     {        

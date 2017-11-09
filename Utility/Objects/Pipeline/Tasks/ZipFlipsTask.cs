@@ -21,6 +21,19 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Tasks
                 {
                     //property names of listing we want to keep track
                     //of averages of
+                    "CurrentPrice",
+                    "Beds",
+                    "FullBaths",
+                    "HalfBaths",
+                    "SqFtHeated",
+                    "YearBuilt",
+                    "Pool",
+                    "Taxes",
+                    "CDOM",
+                    "ADOM",
+                    "LPSqFt",
+                    "SPSqFt",
+                    "SPLP"
                 };
 
                 foreach (var oldFlip in oldFlips)
@@ -30,7 +43,7 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Tasks
                         zip,
                         (x)=>
                         {
-                            return null;
+                            throw new NotImplementedException();
                         },
                         (k, currentProperties)=>
                         {                            
@@ -39,15 +52,11 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Tasks
                                 var prop = currentProperties[propName];
                                 var beforeCount = prop.Item1;
                                 var afterCount = prop.Item2;
-                                //before: property list (to subtract values for)
-                                beforeCount.Subtract(oldFlip.Before.GetValue(propName));
-                                beforeCount.Subtract(oldFlip.After.GetValue(propName));
-
-                                //after: property list (to subtract values for)
-                                
+                                var methodName = propName + "Value";
+                                beforeCount.Subtract((double)oldFlip.Before.InvokeMethod(methodName));
+                                afterCount.Subtract((double)oldFlip.After.InvokeMethod(methodName));                                
                             }
-                            throw new NotImplementedException();
-                            //return currentProperties;
+                            return currentProperties;
                         }
                     );
                 }
@@ -69,15 +78,10 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Tasks
                                 var prop = currentProperties[propName];
                                 var beforeCount = prop.Item1;
                                 var afterCount = prop.Item2;
-                                //before: property list (to add values for)
-                                beforeCount.Add(newFlip.Before.GetValue(propName));
-                                beforeCount.Add(newFlip.After.GetValue(propName));
-
-                                //after: property list (to add values for)
-                                
+                                beforeCount.Add((double)newFlip.Before.InvokeMethod(propName));
+                                afterCount.Add((double)newFlip.After.InvokeMethod(propName));                                
                             }
-                            throw new NotImplementedException();
-                            //return currentProperties;
+                            return currentProperties;
                         }
                     );
                 }
