@@ -78,7 +78,8 @@ namespace HouseFlipper.DataAccess.DB
             if(reflectionMethods.Value.ContainsKey(key))
             {
                 var method = reflectionMethods.Value[key];
-                return method.Invoke(this,null);
+                var val = method.Invoke(this,null);
+                return val;
             }
             else
             {

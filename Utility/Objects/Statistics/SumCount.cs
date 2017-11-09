@@ -13,6 +13,12 @@ namespace HouseFlipper.Utility.Objects.Statistics
             this.Sum = sum;
             this.Count = count;
         }
+
+        public SumCount()
+            : this(0,0)
+        {
+        }
+
         public Double Sum { get; set; }
         public int Count { get; set; }
         public double Average()
