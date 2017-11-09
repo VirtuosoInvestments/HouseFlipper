@@ -17,30 +17,12 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Tasks
                 var flipData = data as Tuple<List<Flip>, List<Flip>>;
                 var flips = flipData.Item1;
                 var oldFlips = flipData.Item2;
-
-                var propNameList = new List<string>()
-                {
-                    //property names of listing we want to keep track
-                    //of averages of
-                    "CurrentPrice",
-                    "Beds",
-                    "FullBaths",
-                    "HalfBaths",
-                    "SqFtHeated",
-                    "YearBuilt",
-                    "Pool",
-                    "Taxes",
-                    "CDOM",
-                    "ADOM",
-                    "LPSqFt",
-                    "SPSqFt",
-                    "SPLP"
-                };
+                var propNameList = Globals.FlipProperties;
 
                 foreach (var oldFlip in oldFlips)
                 {
                     var zip = oldFlip.Before.PostalCode;
-                    Globals.ZipFlips.AddOrUpdate(
+                    Globals.ZipFlipTotals.AddOrUpdate(
                         zip,
                         (x)=>
                         {
@@ -60,13 +42,25 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Tasks
                             return currentProperties;
                         }
                     );
+
+                    Globals.ZipFlips.AddOrUpdate(
+                        zip,
+                        (x) =>
+                        {
+                            throw new NotImplementedException();
+                        },
+                        (k, currentProperties) =>
+                        {
+                            currentProperties.Remove(oldFlip.PropertyId);
+                            return currentProperties;
+                        });
                 }
 
 
                 foreach (var newFlip in flips)
                 {
                     var zip = newFlip.Before.PostalCode;
-                    Globals.ZipFlips.AddOrUpdate(
+                    Globals.ZipFlipTotals.AddOrUpdate(
                         zip,
                         (x) =>
                         {
@@ -96,6 +90,19 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Tasks
                                 beforeCount.Add((double)newFlip.Before.InvokeMethod(methodName));
                                 afterCount.Add((double)newFlip.After.InvokeMethod(methodName));                                
                             }
+                            return currentProperties;
+                        }
+                    );
+
+                    Globals.ZipFlips.AddOrUpdate(
+                        zip,
+                        (x) =>
+                        {
+                            return new HashSet<string>() { newFlip.PropertyId };
+                        },
+                        (k, currentProperties) =>
+                        {
+                            currentProperties.Add(newFlip.PropertyId);
                             return currentProperties;
                         }
                     );

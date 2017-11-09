@@ -27,13 +27,18 @@ namespace HouseFlipper.Utility
         //key: zip code
         //second key: listing.propertyname
         //value: before sum/count, after sum/count
-        public static ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>> ZipFlips = new ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>>();
+        public static ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>> ZipFlipTotals = new ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>>();
 
-        public static ConcurrentDictionary<string, List<string>> SubdivFlips = new ConcurrentDictionary<string, List<string>>();
+        public static ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>> SubdivFlipTotals = new ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>>();
 
-        public static ConcurrentDictionary<string, List<string>> CountyFlips = new ConcurrentDictionary<string, List<string>>();
+        public static ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>> CountyFlipTotals = new ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>>();
 
-        public static ConcurrentDictionary<string, List<string>> CommSubdivFlips = new ConcurrentDictionary<string, List<string>>();
+        //key: zip
+        //value: property id
+        public static ConcurrentDictionary<string, HashSet<string>> ZipFlips = new ConcurrentDictionary<string, HashSet<string>>();
+        public static ConcurrentDictionary<string, HashSet<string>> SubdivFlips = new ConcurrentDictionary<string, HashSet<string>>();
+        public static ConcurrentDictionary<string, HashSet<string>> CountyFlips = new ConcurrentDictionary<string, HashSet<string>>();
+        public static ConcurrentDictionary<string, HashSet<string>> CommSubdivFlips = new ConcurrentDictionary<string, HashSet<string>>();
 
         public static bool TryAdd<T>(this HashSet<T> hashSet, T value)
         {
@@ -49,5 +54,24 @@ namespace HouseFlipper.Utility
             }
             return !exists;
         }
+
+        public static List<string> FlipProperties = new List<string>()
+                {
+                    //property names of listing we want to keep track
+                    //of averages of
+                    "CurrentPrice",
+                    "Beds",
+                    "FullBaths",
+                    "HalfBaths",
+                    "SqFtHeated",
+                    "YearBuilt",
+                    "Pool",
+                    "Taxes",
+                    "CDOM",
+                    "ADOM",
+                    "LPSqFt",
+                    "SPSqFt",
+                    "SPLP"
+                };
     }
 }
