@@ -1,4 +1,5 @@
-﻿using HouseFlipper.Common.Pipeline;
+﻿using HouseFlipper.Common;
+using HouseFlipper.Common.Pipeline;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +23,20 @@ namespace HouseFlipper.Utility.Objects.Pipeline
         {
             Parallel.ForEach(parallelOperations, (op) =>
             {
+                var opName = op.GetType().Name;
                 try
                 {
+                    Logger.Debug("{0}: Start", opName);
                     op.Execute(data);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                     throw;
+                }
+                finally
+                {
+                    Logger.Debug("{0}: End", opName);
                 }
             });
         }
