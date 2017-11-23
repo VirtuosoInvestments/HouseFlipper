@@ -1,6 +1,7 @@
 ﻿using HouseFlipper.DataAccess.DB;
 using HouseFlipper.DataAccess.Models;
 using HouseFlipper.Utility.Objects;
+using HouseFlipper.Utility.Objects.Index;
 using HouseFlipper.Utility.Objects.Statistics;
 using System;
 using System.Collections.Concurrent;
@@ -19,7 +20,8 @@ namespace HouseFlipper.Utility
         public static ConcurrentDictionary<string, int> Listings = new ConcurrentDictionary<string, int>();
 
         //key: propertyid
-        public static ConcurrentDictionary<string, List<Listing>> Sold = new ConcurrentDictionary<string, List<Listing>>();
+        //public static ConcurrentDictionary<string, List<Listing>> Sold = new ConcurrentDictionary<string, List<Listing>>();
+        public static SoldIndex Sold = new SoldIndex();
 
         //public static ConcurrentDictionary<string, List<Flip>> Flips = new ConcurrentDictionary<string, List<Flip>>();
         public static ConcurrentDictionary<string, Dictionary<DateTime, Flip>> PropertyFlips = new ConcurrentDictionary<string, Dictionary<DateTime, Flip>>();
