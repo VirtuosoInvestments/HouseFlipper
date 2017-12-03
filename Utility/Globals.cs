@@ -33,6 +33,12 @@ namespace HouseFlipper.Utility
 
         public static ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>> SubdivFlipTotals = new ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>>();
 
+        internal static void Initialize()
+        {
+            //throw new NotImplementedException();
+            // does nothing on purpose, because all the member variables get initialized by default
+        }
+
         public static ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>> CountyFlipTotals = new ConcurrentDictionary<string, Dictionary<string, Tuple<SumCount, SumCount>>>();
 
         //key: zip

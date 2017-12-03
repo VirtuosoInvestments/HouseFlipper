@@ -57,6 +57,7 @@ namespace HouseFlipper.Utility.Objects.Commands
 
             try
             {
+                Globals.Initialize();
                 var p1 = new Pipe<Stage>();
                 var chain = new Pipeline.Stages.ConvertData();
                 var last =
