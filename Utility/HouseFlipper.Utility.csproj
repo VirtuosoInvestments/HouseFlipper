@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Globals.cs" />
+    <Compile Include="Objects\Index\SortedListAddStrategy.cs" />
     <Compile Include="Objects\Index\SoldIndex.cs" />
     <Compile Include="Objects\Pipeline\Stages\CheckFlipV1.cs" />
     <Compile Include="Objects\Pipeline\Tasks\CommonSubdivTask.cs" />

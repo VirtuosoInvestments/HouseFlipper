@@ -26,11 +26,11 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
                     return;
                 }
 
-                if(Globals.Sold.ContainsKey(propertyId))
+                if(Globals.SoldV1.ContainsKey(propertyId))
                 {
 
                     Tuple<Listing, Listing> inBetween = null;
-                    Globals.Sold.AddOrUpdate(
+                    Globals.SoldV1.AddOrUpdate(
                         propertyId,
                         (x)=>new List<Listing>() { listing },
                         (k, currentList) =>
@@ -89,7 +89,7 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
                 }                
                 else
                 {
-                    Globals.Sold.TryAdd(propertyId, new List<Listing>() { listing });
+                    Globals.SoldV1.TryAdd(propertyId, new List<Listing>() { listing });
                 }
             }
             else

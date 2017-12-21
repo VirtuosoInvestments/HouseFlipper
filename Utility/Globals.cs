@@ -22,6 +22,7 @@ namespace HouseFlipper.Utility
         //key: propertyid
         //public static ConcurrentDictionary<string, List<Listing>> Sold = new ConcurrentDictionary<string, List<Listing>>();
         public static SoldIndex Sold = new SoldIndex();
+        public static ConcurrentDictionary<string, List<Listing>> SoldV1 = new ConcurrentDictionary<string, List<Listing>>();
 
         //public static ConcurrentDictionary<string, List<Flip>> Flips = new ConcurrentDictionary<string, List<Flip>>();
         public static ConcurrentDictionary<string, Dictionary<DateTime, Flip>> PropertyFlips = new ConcurrentDictionary<string, Dictionary<DateTime, Flip>>();

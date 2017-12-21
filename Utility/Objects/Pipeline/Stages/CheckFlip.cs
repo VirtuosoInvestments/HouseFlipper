@@ -26,7 +26,7 @@ namespace HouseFlipper.Utility.Objects.Pipeline.Stages
                     return;
                 }
 
-                var inBetween = Globals.Sold.ReadUpdate(propertyId, listing);
+                var inBetween = Globals.Sold.AddOrUpdate(propertyId, listing);
 
                 if (inBetween != null)
                 {
